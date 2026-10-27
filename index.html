@@ -102,7 +102,12 @@ nav.main a:hover{color:var(--text);background:var(--panel)}
 .motd .league{color:var(--dim);font-size:14px;margin:14px 0 6px}
 .teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;margin:14px 0 18px}
 .team{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-weight:700;min-width:0;overflow-wrap:anywhere}
-.crest{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;font-family:var(--display);font-weight:900;font-style:italic;font-size:18px;color:#0a0a0a}
+.crest{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;font-family:var(--display);font-weight:900;font-style:italic;font-size:18px;color:#0a0a0a;overflow:hidden;flex:none}
+.crest.has-logo,.lg.has-logo{background:#fff !important;box-shadow:0 0 0 2px rgba(178,221,16,.5)}
+.crest img,.lg img{width:82%;height:82%;object-fit:contain;display:block}
+.match{display:flex;flex-direction:column;gap:8px}
+.tm{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;line-height:1.25;min-width:0;overflow-wrap:anywhere}
+.lg{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;font-family:var(--display);font-weight:900;font-style:italic;font-size:12px;color:#0a0a0a;overflow:hidden;flex:none}
 .vs{font-family:var(--display);color:var(--dim);font-size:13px;text-align:center}
 .vs b{display:block;color:var(--text);font-size:22px}
 .odds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
@@ -442,6 +447,47 @@ const SITE = {
   let P = [];
   let view = 'actual', sport = 'Все';
 
+  // ---- team logos (TheSportsDB, cached in the visitor's browser) ----
+  const SPORT_EN = { 'Футбол':'Soccer', 'Хоккей':'Ice Hockey', 'Баскетбол':'Basketball' };
+  function logoAttrs(en, logo, sport){
+    if (logo) return `data-logo="${esc(logo)}"`;
+    if (en && SPORT_EN[sport]) return `data-en="${esc(en)}" data-sport="${esc(SPORT_EN[sport])}"`;
+    return '';
+  }
+  let LOGO_CACHE = {};
+  try { LOGO_CACHE = JSON.parse(localStorage.getItem('vipbet-logos-v1') || '{}'); } catch(e) {}
+  const saveLogos = () => { try { localStorage.setItem('vipbet-logos-v1', JSON.stringify(LOGO_CACHE)); } catch(e) {} };
+  const pending = {};
+  function lookupLogo(en, sport){
+    const key = sport + '|' + en;
+    if (key in LOGO_CACHE) return Promise.resolve(LOGO_CACHE[key]);
+    if (pending[key]) return pending[key];
+    pending[key] = fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=' + encodeURIComponent(en))
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        const teams = (d && d.teams) || [];
+        const t = teams.find(x => x.strSport === sport && x.strGender !== 'Female') || teams.find(x => x.strSport === sport);
+        const url = t && (t.strBadge || t.strTeamBadge) || null;
+        LOGO_CACHE[key] = url; saveLogos(); return url;
+      })
+      .catch(() => null);
+    return pending[key];
+  }
+  function setLogo(el, url){
+    if (!url) return;
+    const img = new Image();
+    img.alt = ''; img.decoding = 'async'; img.referrerPolicy = 'no-referrer';
+    img.onload = () => { el.textContent = ''; el.appendChild(img); el.classList.add('has-logo'); };
+    img.src = url;
+  }
+  function hydrateLogos(root){
+    root.querySelectorAll('[data-logo]').forEach(el => { setLogo(el, el.dataset.logo); el.removeAttribute('data-logo'); });
+    root.querySelectorAll('[data-en]').forEach(el => {
+      const en = el.dataset.en, sp = el.dataset.sport; el.removeAttribute('data-en');
+      lookupLogo(en, sp).then(u => setLogo(el, u));
+    });
+  }
+
   function renderStats(){
     const settled = P.filter(p => p.result && p.result !== 'pending');
     const wins = settled.filter(p => p.result === 'win').length, losses = settled.filter(p => p.result === 'loss').length;
@@ -465,11 +511,11 @@ const SITE = {
     const m = upcoming.find(p => p.featured) || upcoming[0];
     if (!m) { $('#motd').innerHTML = '<div class="empty">Новые прогнозы появятся утром.</div>'; return; }
     const k = m.odds1x2 || [];
-    const crest = n => `<div class="team"><div class="crest" style="background:${crestColor(n)}">${esc(initials(n))}</div><span>${esc(n)}</span></div>`;
+    const crest = (n, en, logo) => `<div class="team"><div class="crest" ${logoAttrs(en, logo, m.sport)} style="background:${crestColor(n)}">${esc(initials(n))}</div><span>${esc(n)}</span></div>`;
     $('#motd').innerHTML = `
       <span class="tag">★ Матч дня</span>
       <div class="league">${esc(m.sport)} · ${esc(m.league)} · ${relDay(m.date)}</div>
-      <div class="teams">${crest(m.home)}<div class="vs"><b class="tabnum">${esc(m.time)}</b>${SITE.timezoneLabel}</div>${crest(m.away)}</div>
+      <div class="teams">${crest(m.home, m.homeEn, m.homeLogo)}<div class="vs"><b class="tabnum">${esc(m.time)}</b>${SITE.timezoneLabel}</div>${crest(m.away, m.awayEn, m.awayLogo)}</div>
       ${k.length===3 ? `<div class="odds">${['П1','X','П2'].map((n,i)=>`<div class="odd"><small>${n}</small><b class="tabnum">${fmtK(k[i])}</b></div>`).join('')}</div>` : ''}
       <div class="verdict">Наш прогноз: <b>${esc(m.pick)}</b> за <b class="tabnum">${fmtK(m.odds)}</b><br>${esc(m.text)}</div>
       <div class="countdown" id="cd"></div>`;
@@ -479,6 +525,7 @@ const SITE = {
       const h = Math.floor(d/36e5), mi = Math.floor(d%36e5/6e4), s = Math.floor(d%6e4/1e3);
       el.innerHTML = `До начала: <span class="tabnum">${h} ч ${String(mi).padStart(2,'0')} мин ${String(s).padStart(2,'0')} с</span>`; };
     tick(); clearInterval(window.__cd); window.__cd = setInterval(tick, 1000);
+    hydrateLogos($('#motd'));
   }
 
   const chips = (arr, cur) => arr.map(([v,l]) => `<button class="chip" type="button" aria-pressed="${v===cur}" data-v="${esc(v)}">${esc(l)}</button>`).join('');
@@ -498,7 +545,7 @@ const SITE = {
       const [lbl, cls] = RESULT[p.result] || RESULT.pending;
       return `<article class="card">
         <div class="top"><span>${esc(p.sport)} · ${esc(p.league)}</span><span class="tabnum">${relDay(p.date)}, ${esc(p.time)}</span></div>
-        <h3>${esc(p.home)} — ${esc(p.away)}</h3>
+        <div class="match"><div class="tm"><i class="lg" ${logoAttrs(p.homeEn, p.homeLogo, p.sport)} style="background:${crestColor(p.home)}">${esc(initials(p.home))}</i>${esc(p.home)}</div><div class="tm"><i class="lg" ${logoAttrs(p.awayEn, p.awayLogo, p.sport)} style="background:${crestColor(p.away)}">${esc(initials(p.away))}</i>${esc(p.away)}</div></div>
         <div class="pickrow"><div class="pickbox"><small>Прогноз</small>${esc(p.pick)}</div><div class="pickbox k"><small>Кэф</small><b class="tabnum">${fmtK(p.odds)}</b></div><span class="status ${cls}">${lbl}</span></div>
         ${p.score ? `<div class="score-final">Счёт: ${esc(p.score)}</div>` : ''}
         <p>${esc(p.text)}</p>
@@ -506,6 +553,7 @@ const SITE = {
         <div class="foot"><span>${conf(p.confidence||2)}</span>${p.more ? `<button class="linkbtn" type="button" data-more>Подробнее ›</button>` : ''}</div>
       </article>`; }).join('')
       : `<div class="empty">${view==='actual' ? 'Новые прогнозы появляются каждое утро. Загляните позже или подпишитесь на Telegram-канал.' : 'Архив пополнится после первых сыгранных матчей.'}</div>`;
+    hydrateLogos($('#predGrid'));
   }
   $('#viewChips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) { view = b.dataset.v; sport = 'Все'; renderFeed(); } });
   $('#sportChips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) { sport = b.dataset.v; renderFeed(); } });
