@@ -1,6 +1,7 @@
 """Сообщает Яндексу (протокол IndexNow) о новых и изменённых страницах сайта.
 
 Использование: python3 scripts/indexnow.py <файл1.html> <файл2.html> ...
+               python3 scripts/indexnow.py --sitemap   (все страницы из sitemap.xml)
 Пути — относительно корня репозитория. Запускается сценарием build-pages.yml.
 """
 import json, os, sys, urllib.request
@@ -23,7 +24,12 @@ def main(paths):
     if not KEY:
         print("Нет indexnow_key в site_config.json")
         return
-    pages = sorted({to_url(p) for p in paths if p.endswith(".html") and os.path.exists(os.path.join(ROOT, p))})
+    if paths and paths[0] == "--sitemap":
+        import re
+        xml = open(os.path.join(ROOT, "sitemap.xml"), encoding="utf-8").read()
+        pages = sorted(set(re.findall(r"<loc>([^<]+)</loc>", xml)))
+    else:
+        pages = sorted({to_url(p) for p in paths if p.endswith(".html") and os.path.exists(os.path.join(ROOT, p))})
     if not pages:
         print("Новых страниц нет")
         return

@@ -70,4 +70,8 @@ jobs:
       - name: Сообщить Яндексу о новых страницах
         run: |
           sleep 90
-          python scripts/indexnow.py $(cat changed.txt) || true
+          if git log -1 --pretty=%B | grep -q '\[indexnow-all\]'; then
+            python scripts/indexnow.py --sitemap || true
+          else
+            python scripts/indexnow.py $(cat changed.txt) || true
+          fi
