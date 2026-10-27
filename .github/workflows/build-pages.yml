@@ -10,6 +10,7 @@ on:
       - data/logos*.json
       - data/articles.json
       - scripts/build_pages.py
+      - scripts/indexnow.py
       - scripts/site_config.json
       - .github/workflows/build-pages.yml
   workflow_dispatch:

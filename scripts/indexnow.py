@@ -32,11 +32,11 @@ def main(paths):
         try:
             req = urllib.request.Request(endpoint, data=body, headers={"Content-Type": "application/json; charset=utf-8"})
             with urllib.request.urlopen(req, timeout=30) as r:
-                print(endpoint, r.status, f"— отправлено страниц: {len(pages)}")
+                print(f"::notice title=IndexNow::{endpoint} ответил {r.status}, отправлено страниц: {len(pages)}")
         except urllib.error.HTTPError as e:
-            print(endpoint, "ошибка", e.code, e.read()[:200])
+            print(f"::warning title=IndexNow::{endpoint} ошибка {e.code}: {e.read()[:200]!r}")
         except Exception as e:
-            print(endpoint, "ошибка", e)
+            print(f"::warning title=IndexNow::{endpoint} ошибка: {e}")
 
 
 if __name__ == "__main__":
