@@ -7,6 +7,7 @@ on:
     paths:
       - data/predictions.json
       - data/logos*.json
+      - data/articles.json
       - scripts/build_pages.py
       - scripts/site_config.json
       - .github/workflows/build-pages.yml
@@ -36,7 +37,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A match archive.html privacy.html sitemap.xml robots.txt
+          git add -A match school archive.html privacy.html bonus.html school.html sitemap.xml robots.txt
           if git diff --cached --quiet; then echo "Без изменений"; exit 0; fi
           git commit -m "Страницы прогнозов и архив"
           for i in 1 2 3; do

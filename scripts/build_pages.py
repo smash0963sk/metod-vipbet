@@ -126,7 +126,7 @@ def page(title, desc, canonical, body, prefix, extra_head=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Manrope:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="{prefix}assets/style.css?v=3">
+<link rel="stylesheet" href="{prefix}assets/style.css?v=4">
 {extra_head}
 </head>
 <body>
@@ -140,7 +140,8 @@ def page(title, desc, canonical, body, prefix, extra_head=""):
       <a href="{prefix}index.html#news">Новости</a>
       <a href="{prefix}index.html#calc">Калькулятор</a>
       <a href="{prefix}archive.html">Архив</a>
-      <a href="{prefix}index.html#bonus">Бонус</a>
+      <a href="{prefix}school.html">Школа</a>
+      <a href="{prefix}bonus.html">Бонус</a>
     </nav>
     <a class="btn btn-tg" href="{e(CFG['telegram'])}" target="_blank" rel="noopener">Telegram</a>
   </div>
@@ -157,7 +158,7 @@ def page(title, desc, canonical, body, prefix, extra_head=""):
       </div>
       <div>
         <h4>Разделы</h4>
-        <ul><li><a href="{prefix}index.html#predictions">Прогнозы</a></li><li><a href="{prefix}index.html#express">Экспресс дня</a></li><li><a href="{prefix}archive.html">Архив прогнозов</a></li><li><a href="{prefix}index.html#calc">Калькулятор</a></li></ul>
+        <ul><li><a href="{prefix}index.html#predictions">Прогнозы</a></li><li><a href="{prefix}index.html#express">Экспресс дня</a></li><li><a href="{prefix}archive.html">Архив прогнозов</a></li><li><a href="{prefix}index.html#calc">Калькулятор</a></li><li><a href="{prefix}school.html">Школа беттинга</a></li><li><a href="{prefix}bonus.html">Промокод Мелбет</a></li></ul>
       </div>
       <div>
         <h4>Мы на связи</h4>
@@ -204,6 +205,61 @@ def arow(p, prefix):
             f'<span class="k tabnum">{fmt_k(p.get("odds"))}</span><span class="status {cls}">{lbl}</span></a>')
 
 
+def form_html(f):
+    if not f:
+        return '<p>Нет данных</p>'
+    m = {"В": ("fW", "Победа"), "Н": ("fD", "Ничья"), "П": ("fL", "Поражение")}
+    return '<div class="form">' + "".join(f'<i class="{m[c][0]}" title="{m[c][1]}">{c}</i>' for c in f if c in m) + "</div>"
+
+
+def tag_badges(p):
+    t = p.get("tags") or []
+    return ('<span class="badge">Ставка дня</span>' if "bet_of_day" in t else "") + ('<span class="badge lock">Верняк дня</span>' if "lock_of_day" in t else "")
+
+
+def stats_block(p):
+    st = p.get("stats") or {}
+    parts = []
+    prob = p.get("prob")
+    if prob:
+        try:
+            k = float(p.get("odds"))
+            book = 100 / k
+            parts.append(f'''<div class="valuebar">
+          <div class="sbox"><small>Наша оценка</small><b class="tabnum">{round(float(prob))}%</b></div>
+          <div class="sbox"><small>Оценка букмекера</small><b class="tabnum">{book:.0f}%</b></div>
+          <div class="sbox"><small>Выгодно от кэфа</small><b class="tabnum">{100 / float(prob):.2f}</b></div>
+        </div>''')
+        except (TypeError, ValueError, ZeroDivisionError):
+            pass
+    form = st.get("form") or {}
+    if form.get("home") or form.get("away"):
+        parts.append(f'''<div class="srow">
+          <div class="sbox"><small>Форма: {e(p["home"])}</small>{form_html(form.get("home"))}</div>
+          <div class="sbox"><small>Форма: {e(p["away"])}</small>{form_html(form.get("away"))}</div>
+        </div>''')
+    table = st.get("table") or {}
+    if table.get("home") or table.get("away"):
+        parts.append(f'''<div class="srow">
+          <div class="sbox"><small>Положение: {e(p["home"])}</small><p>{e(table.get("home") or "—")}</p></div>
+          <div class="sbox"><small>Положение: {e(p["away"])}</small><p>{e(table.get("away") or "—")}</p></div>
+        </div>''')
+    if st.get("h2h"):
+        parts.append(f'<div class="sbox"><small>Очные встречи</small><p>{e(st["h2h"])}</p></div>')
+    absent = st.get("absent") or {}
+    if absent.get("home") or absent.get("away"):
+        parts.append(f'''<div class="srow">
+          <div class="sbox"><small>Не сыграют: {e(p["home"])}</small><p>{e(absent.get("home") or "Потерь нет")}</p></div>
+          <div class="sbox"><small>Не сыграют: {e(p["away"])}</small><p>{e(absent.get("away") or "Потерь нет")}</p></div>
+        </div>''')
+    if st.get("note"):
+        parts.append(f'<div class="sbox"><small>Важно</small><p>{e(st["note"])}</p></div>')
+    if not parts:
+        return ""
+    legend = '<p class="fine">Форма — последние матчи, самый свежий справа. В — победа, Н — ничья, П — поражение.</p>' if form else ""
+    return '<div class="mstats"><h2>Статистика матча</h2>' + "".join(parts) + legend + "</div>"
+
+
 def match_page(p, all_p):
     title = f'{p["home"]} — {p["away"]}: прогноз и ставка на {short_date(p["date"])} | Metod VIPBET'
     desc = f'Прогноз на матч {p["home"]} — {p["away"]} ({p["league"]}) {human_date(p["date"])}: {p["pick"]} за {fmt_k(p.get("odds"))}. {p.get("text", "")}'[:300]
@@ -227,7 +283,7 @@ def match_page(p, all_p):
     body = f"""<section style="padding-block:36px 24px">
   <div class="wrap">
     <p class="crumbs"><a href="../index.html">Главная</a> › <a href="../index.html#predictions">Прогнозы</a> › {e(p['home'])} — {e(p['away'])}</p>
-    <div class="eyebrow">{e(p['sport'])} · {e(p['league'])}</div>
+    <div class="eyebrow">{tag_badges(p)}{e(p['sport'])} · {e(p['league'])}</div>
     <h1 class="page-h1">{e(p['home'])} — {e(p['away'])}: прогноз на {e(human_date(p['date']))}</h1>
     <p class="meta" style="color:var(--dim);margin:0 0 24px">Начало: {e(human_date(p['date']))}, {e(p['time'])} по Москве</p>
     <div class="mp">
@@ -240,6 +296,7 @@ def match_page(p, all_p):
         {odds}
         <div class="pickrow"><div class="pickbox"><small>Прогноз</small>{e(p['pick'])}</div><div class="pickbox k"><small>Кэф</small><b class="tabnum">{fmt_k(p.get('odds'))}</b></div><div class="pickbox"><small>Уверенность</small>{conf(p.get('confidence'))}</div><span class="status {cls}">{lbl}</span></div>
         {score}
+        {stats_block(p)}
         <h2>Разбор матча</h2>
         <p>{e(p.get('text', ''))}</p>
         {f"<p>{e(p['more'])}</p>" if p.get('more') else ''}
@@ -312,6 +369,102 @@ def privacy_page():
     return page("Политика конфиденциальности | Metod VIPBET", "Политика конфиденциальности сайта Metod VIPBET: какие данные обрабатываются и как.", BASE + "privacy.html", body, "")
 
 
+FAQ = [
+    ("Как получить бонус по промокоду VIPBET2026?", "Зарегистрируйтесь в Мелбет по нашей ссылке и укажите промокод VIPBET2026 в поле промокода при регистрации. После первого пополнения счёта бонус начисляется по правилам акции букмекера."),
+    ("Можно ли ввести промокод после регистрации?", "Как правило, приветственный промокод вводится только при регистрации нового игрового счёта. Если вы забыли его указать, уточните возможность в поддержке букмекера."),
+    ("Кто может получить бонус?", "Новые игроки старше 18 лет, которые впервые регистрируются у букмекера. Повторные регистрации и мультиаккаунты бонус не получают."),
+    ("Сколько составляет бонус?", "До 30 000 ₽. Точный размер зависит от суммы первого пополнения. Требования к отыгрышу, сроки и минимальный коэффициент указаны в правилах акции на сайте букмекера."),
+    ("Почему важно ставить у легального букмекера?", "Легальные букмекеры работают по лицензии ФНС России и подключены к ЕЦУПИС: выплаты защищены законом, а выигрыши можно спокойно вывести на карту. Нелегальные сайты могут заблокировать счёт или не выплатить выигрыш."),
+    ("Где брать прогнозы для ставок?", "На главной странице Metod VIPBET каждое утро появляются свежие прогнозы с разбором, Экспресс дня, Ставка дня и Верняк дня. Все результаты, включая проигрыши, мы показываем в архиве."),
+]
+
+
+def bonus_page():
+    steps = [
+        ("Перейдите по ссылке", "Нажмите кнопку «Зарегистрироваться в Мелбет» на этой странице."),
+        ("Заполните регистрацию", "Укажите телефон или почту и придумайте пароль. Регистрация доступна только с 18 лет."),
+        ("Введите промокод VIPBET2026", "В поле «Промокод» вставьте VIPBET2026 — скопировать его можно кнопкой на этой странице."),
+        ("Пополните счёт", "После первого депозита бонус до 30 000 ₽ начислится по правилам акции."),
+        ("Ставьте по прогнозам", "Используйте наши ежедневные прогнозы, Экспресс дня и калькулятор ставок."),
+    ]
+    ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}
+    head = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+    body = f"""<section style="padding-block:36px">
+  <div class="wrap">
+    <p class="crumbs"><a href="index.html">Главная</a> › Промокод Мелбет</p>
+    <div class="eyebrow">Бонус для новых игроков</div>
+    <h1 class="page-h1">Промокод Мелбет {e(CFG['promo'])} — бонус до 30 000 ₽</h1>
+    <p style="color:var(--dim);max-width:64ch;margin:0 0 28px">Зарегистрируйтесь в Мелбет с промокодом {e(CFG['promo'])} и получите приветственный бонус. Ниже — пошаговая инструкция и ответы на частые вопросы.</p>
+    <div class="mp">
+      <div>
+        <h2 style="font-size:22px;margin-bottom:14px">Как получить бонус</h2>
+        <ol class="steps-big">{''.join(f'<li><b>{e(t)}</b>{e(d)}</li>' for t, d in steps)}</ol>
+        <h2 style="font-size:22px;margin:32px 0 14px">Частые вопросы</h2>
+        <div class="faq prose">{''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in FAQ)}</div>
+      </div>
+      <aside>{promo_card()}</aside>
+    </div>
+  </div>
+</section>"""
+    return page(f"Промокод Мелбет {CFG['promo']} — бонус до 30 000 ₽ | Metod VIPBET",
+                f"Промокод Мелбет {CFG['promo']}: бонус до 30 000 ₽ новым игрокам. Пошаговая инструкция, как ввести промокод, и ответы на частые вопросы.",
+                BASE + "bonus.html", body, "", head)
+
+
+def article_html(a):
+    out = []
+    for kind, val in a.get("body", []):
+        if kind == "h2":
+            out.append(f"<h2>{e(val)}</h2>")
+        elif kind == "p":
+            out.append(f"<p>{e(val)}</p>")
+        elif kind == "ul":
+            out.append("<ul>" + "".join(f"<li>{e(x)}</li>" for x in val) + "</ul>")
+    return "".join(out)
+
+
+def school_pages(arts):
+    arts = sorted(arts, key=lambda a: a.get("date", ""), reverse=True)
+    cards = "".join(f'<a class="acard" href="school/{e(a["slug"])}.html"><small>Школа беттинга</small><h3>{e(a["title"])}</h3><p>{e(a.get("lead", ""))}</p></a>' for a in arts)
+    index = f"""<section style="padding-block:36px">
+  <div class="wrap">
+    <p class="crumbs"><a href="index.html">Главная</a> › Школа беттинга</p>
+    <div class="eyebrow">Обучение</div>
+    <h1 class="page-h1">Школа беттинга</h1>
+    <p style="color:var(--dim);max-width:62ch;margin:0 0 28px">Простые объяснения ставок на спорт: тоталы, форы, экспрессы и управление банком. Новые статьи появляются каждую неделю.</p>
+    <div class="acards">{cards or '<div class="empty">Статьи скоро появятся.</div>'}</div>
+  </div>
+</section>"""
+    pages = {"school.html": page("Школа беттинга — как делать ставки на спорт | Metod VIPBET",
+                                 "Обучение ставкам на спорт простыми словами: тотал, фора, экспресс, банкролл-менеджмент.",
+                                 BASE + "school.html", index, "")}
+    for a in arts:
+        others = "".join(f'<a class="acard" href="{e(o["slug"])}.html"><small>Читать</small><h3>{e(o["title"])}</h3></a>' for o in arts if o["slug"] != a["slug"])[:4000]
+        ld = {"@context": "https://schema.org", "@type": "Article", "headline": a["title"], "description": a.get("lead", ""),
+              "datePublished": a.get("date"), "author": {"@type": "Organization", "name": "Metod VIPBET"}, "inLanguage": "ru"}
+        head = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+        body = f"""<section style="padding-block:36px">
+  <div class="wrap">
+    <p class="crumbs"><a href="../index.html">Главная</a> › <a href="../school.html">Школа беттинга</a> › {e(a['title'])}</p>
+    <div class="mp">
+      <article class="prose">
+        <div class="eyebrow">Школа беттинга</div>
+        <h1 class="page-h1">{e(a['title'])}</h1>
+        <p style="font-size:18px;color:var(--text)">{e(a.get('lead', ''))}</p>
+        {article_html(a)}
+        <p class="fine" style="margin-top:24px">18+. Ставки на спорт связаны с риском потери денег. Делайте ставки только у легальных букмекеров РФ.</p>
+      </article>
+      <aside>{promo_card()}</aside>
+    </div>
+    {f'<h2 style="font-size:22px;margin:36px 0 14px">Ещё статьи</h2><div class="acards">{others}</div>' if others else ''}
+  </div>
+</section>"""
+        pages[f"school/{a['slug']}.html"] = page(f"{a['title']} | Школа беттинга Metod VIPBET", a.get("lead", "")[:300],
+                                                 f"{BASE}school/{a['slug']}.html", body, "../", head)
+    return pages
+
+
 def write(rel, text):
     path = os.path.join(ROOT, rel)
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -337,8 +490,21 @@ def main():
                 os.remove(os.path.join(mdir, f))
     write("archive.html", archive_page(preds))
     write("privacy.html", privacy_page())
+    write("bonus.html", bonus_page())
+    arts = [a for a in load("data/articles.json", {"articles": []}).get("articles", []) if a.get("slug") and a.get("title")]
+    sp = school_pages(arts)
+    for rel, text in sp.items():
+        write(rel, text)
+    sdir = os.path.join(ROOT, "school")
+    if os.path.isdir(sdir):
+        keep = {rel.split("/", 1)[1] for rel in sp if rel.startswith("school/")}
+        for f in os.listdir(sdir):
+            if f.endswith(".html") and f not in keep:
+                os.remove(os.path.join(sdir, f))
     today = datetime.now(MSK).strftime("%Y-%m-%d")
-    urls = [(BASE, today, "daily", "1.0"), (BASE + "archive.html", today, "daily", "0.8"), (BASE + "privacy.html", today, "yearly", "0.2")]
+    urls = [(BASE, today, "daily", "1.0"), (BASE + "archive.html", today, "daily", "0.8"), (BASE + "privacy.html", today, "yearly", "0.2"),
+            (BASE + "bonus.html", today, "weekly", "0.9"), (BASE + "school.html", today, "weekly", "0.6")]
+    urls += [(f"{BASE}school/{a['slug']}.html", min(a.get("date", today), today), "monthly", "0.6") for a in arts]
     urls += [(f"{BASE}match/{p['id']}.html", min(p["date"], today), "daily" if p.get("result") == "pending" else "monthly", "0.7") for p in sorted(preds, key=lambda x: x["date"], reverse=True)]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sm += "".join(f"  <url><loc>{e(u)}</loc><lastmod>{d}</lastmod><changefreq>{c}</changefreq><priority>{pr}</priority></url>\n" for u, d, c, pr in urls)
