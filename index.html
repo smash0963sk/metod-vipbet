@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metod VIPBET — прогнозы на спорт каждый день</title>
+<meta name="description" content="Metod VIPBET: ежедневные прогнозы на футбол, хоккей, теннис и баскетбол с разбором и честной статистикой. Промокод VIPBET2026 — бонус до 30 000 ₽ в Мелбет.">
+<meta name="theme-color" content="#0a0c14">
+<meta property="og:title" content="Metod VIPBET — прогнозы на спорт каждый день">
+<meta property="og:description" content="Ежедневные прогнозы с разбором и честной статистикой. Промокод VIPBET2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: VIP lounge scoreboard. Sticky header, hero split (promise + match of the day), full-width bands, sticky promo bar on phones. */
+:root{
+  --bg:#0a0c14;        /* lounge black */
+  --panel:#131726;
+  --panel2:#1a1f33;
+  --line:#272e47;
+  --text:#f1f3fa;
+  --dim:#959db5;
+  --gold:#f3c34a;      /* VIP gold */
+  --gold2:#ffdf8a;
+  --gold-ink:#1d1300;
+  --sky:#57c7ff;
+  --win:#34d399;
+  --loss:#f87171;
+  --wait:#fbbf24;
+  --display:'Unbounded','Arial Black',system-ui,sans-serif;
+  --body:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --r:16px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:64px}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;text-wrap:balance}
+h2{font-size:clamp(24px,3.2vw,36px);font-weight:800}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.sec-head{display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between;margin-bottom:28px}
+.sec-head p{margin:8px 0 0;color:var(--dim);max-width:62ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:800 15px var(--body);padding:13px 22px;border-radius:12px;border:1px solid transparent;text-decoration:none;cursor:pointer;transition:transform .15s,background .15s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible,.chip:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+.btn-gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:var(--gold-ink);box-shadow:0 8px 24px -10px rgba(243,195,74,.6)}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.btn-ghost:hover{background:var(--panel)}
+.btn-tg{background:#2aa3e0;color:#fff}
+.tabnum{font-variant-numeric:tabular-nums}
+
+header{position:sticky;top:0;z-index:20;background:rgba(10,12,20,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.hd{display:flex;align-items:center;gap:20px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:.02em;white-space:nowrap}
+.logo i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(180deg,var(--gold2),var(--gold));color:var(--gold-ink);font-style:normal;font-size:16px}
+.logo b{color:var(--gold)}
+nav.main{display:flex;gap:4px;margin-left:auto}
+nav.main a{text-decoration:none;color:var(--dim);font-weight:600;font-size:15px;padding:8px 12px;border-radius:10px}
+nav.main a:hover{color:var(--text);background:var(--panel)}
+.hd .btn{padding:10px 16px}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;width:44px;height:44px;font-size:20px;cursor:pointer}
+@media (max-width:960px){
+  nav.main{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--bg);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-left,0px)) 16px}
+  nav.main.open{display:flex}
+  .burger{display:block}
+  .hd .btn{display:none}
+}
+
+.hero{padding-block:56px 48px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(640px 320px at 12% 0%,rgba(243,195,74,.12),transparent 70%),radial-gradient(520px 300px at 92% 12%,rgba(87,199,255,.09),transparent 70%);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:center}
+@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+.hero h1{font-size:clamp(32px,5vw,56px);font-weight:800;margin:14px 0 18px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p.lead{color:var(--dim);font-size:18px;max-width:52ch;margin:0 0 26px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.updated{display:inline-flex;align-items:center;gap:8px;margin-top:22px;color:var(--dim);font-size:14px}
+.updated::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--win);box-shadow:0 0 0 4px rgba(52,211,153,.18)}
+
+.motd{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 30px 80px -40px rgba(243,195,74,.35)}
+.motd .tag{display:inline-flex;gap:8px;align-items:center;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);background:var(--gold);padding:6px 10px;border-radius:8px}
+.motd .league{color:var(--dim);font-size:14px;margin:14px 0 6px}
+.teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;margin:14px 0 18px}
+.team{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-weight:700;min-width:0;overflow-wrap:anywhere}
+.crest{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;font-family:var(--display);font-size:17px;color:#0a0c14}
+.vs{font-family:var(--display);color:var(--dim);font-size:13px;text-align:center}
+.vs b{display:block;color:var(--text);font-size:22px}
+.odds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.odd{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.odd small{display:block;color:var(--dim);font-size:12px;font-weight:700}
+.odd b{font-family:var(--display);font-size:18px}
+.verdict{margin-top:16px;padding:14px;border-radius:12px;background:rgba(243,195,74,.08);border:1px dashed rgba(243,195,74,.45);font-size:15px}
+.verdict b{color:var(--gold)}
+.countdown{display:flex;gap:8px;margin-top:14px;color:var(--dim);font-size:13px;align-items:center}
+.countdown span{font-family:var(--display);color:var(--text);font-size:15px}
+
+/* promo */
+.promo{background:linear-gradient(120deg,#1f1a0c,#141828 60%);border-block:1px solid var(--line)}
+.promo-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center}
+@media (max-width:900px){.promo-grid{grid-template-columns:minmax(0,1fr)}}
+.promo h2 em{font-style:normal;color:var(--gold)}
+.promo p{color:var(--dim);margin:12px 0 0;max-width:56ch}
+.code-card{background:var(--panel);border:1px solid rgba(243,195,74,.4);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:16px}
+.code-card small{color:var(--dim);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.code{display:flex;gap:10px;align-items:stretch}
+.code b{flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:clamp(20px,3vw,28px);letter-spacing:.06em;border:2px dashed var(--gold);border-radius:12px;color:var(--gold);padding:12px;min-width:0}
+.code button{font:800 14px var(--body);border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:0 16px;cursor:pointer}
+.bonus-sum{font-family:var(--display);font-size:clamp(28px,4vw,40px);color:var(--text)}
+.bonus-sum span{color:var(--gold)}
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 0;padding:0;list-style:none;counter-reset:s}
+@media (max-width:600px){.steps3{grid-template-columns:minmax(0,1fr)}}
+.steps3 li{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:14px;color:#cfd5e4}
+.steps3 li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--gold-ink);font-weight:800;margin-bottom:8px}
+.fine{color:var(--dim);font-size:12.5px;margin:0}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:700 14px var(--body);color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin-bottom:20px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card .top{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--dim)}
+.card h3{font-family:var(--body);font-size:18px;font-weight:800;line-height:1.3;overflow-wrap:anywhere}
+.pickrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pickbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-weight:800}
+.pickbox small{display:block;font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.pickbox.k b{font-family:var(--display);color:var(--gold)}
+.status{margin-left:auto;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+.st-pending{background:rgba(251,191,36,.14);color:var(--wait)}
+.st-win{background:rgba(52,211,153,.14);color:var(--win)}
+.st-loss{background:rgba(248,113,113,.14);color:var(--loss)}
+.st-return{background:rgba(149,157,181,.16);color:var(--dim)}
+.card p{margin:0;color:#c9cfde;font-size:15px}
+.card .more{display:none}
+.card.open .more{display:block}
+.card .foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:4px;font-size:13px;color:var(--dim)}
+.linkbtn{background:none;border:0;color:var(--sky);font:700 14px var(--body);cursor:pointer;padding:0}
+.conf{display:inline-flex;gap:3px;align-items:center}
+.conf i{width:8px;height:14px;border-radius:2px;background:var(--line)}
+.conf i.on{background:var(--gold)}
+.empty{grid-column:1/-1;padding:32px;text-align:center;color:var(--dim);border:1px dashed var(--line);border-radius:var(--r)}
+.score-final{font-family:var(--display);font-size:13px;color:var(--text)}
+
+.stats{background:var(--panel);border-block:1px solid var(--line)}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.tile small{color:var(--dim);font-weight:700;font-size:13px}
+.tile b{display:block;font-family:var(--display);font-size:clamp(24px,3vw,34px);margin-top:6px}
+.tile.good b{color:var(--win)}
+.tile.bad b{color:var(--loss)}
+.formline{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px;align-items:center;color:var(--dim);font-size:14px}
+.formline i{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12px;color:#0a0c14}
+.f-win{background:var(--win)}.f-loss{background:var(--loss)}.f-return{background:var(--dim)}
+
+.band{background:linear-gradient(110deg,#0f2233,#141828);border-block:1px solid var(--line)}
+.band .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
+@media (max-width:760px){.band .wrap{grid-template-columns:minmax(0,1fr)}}
+.band h2 em{font-style:normal;color:#5cc3f5}
+.band p{color:var(--dim);margin:10px 0 0;max-width:56ch}
+
+.method{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:m}
+@media (max-width:900px){.method{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.method{grid-template-columns:minmax(0,1fr)}}
+.mstep{border-top:3px solid var(--gold);padding-top:16px}
+.mstep::before{counter-increment:m;content:"0" counter(m);font-family:var(--display);color:var(--gold);font-size:14px}
+.mstep h3{font-family:var(--body);font-size:18px;font-weight:800;margin:8px 0}
+.mstep p{margin:0;color:var(--dim);font-size:15px}
+
+footer{border-top:1px solid var(--line);padding-block:40px calc(96px + env(safe-area-inset-bottom,0px));color:var(--dim);font-size:14px}
+.ft{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:24px}
+@media (max-width:760px){.ft{grid-template-columns:minmax(0,1fr)}}
+footer h4{color:var(--text);margin:0 0 10px;font-size:15px}
+footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--text)}
+.age{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:2px solid var(--loss);color:var(--loss);font-weight:800;margin-right:12px;flex:none}
+.disc{display:flex;align-items:flex-start;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.disc p{margin:0}
+
+/* sticky promo bar */
+.stick{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(19,23,38,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(243,195,74,.35);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:12px;transform:translateY(110%);transition:transform .25s}
+.stick.show{transform:none}
+.stick div{flex:1;min-width:0;font-size:13px;color:var(--dim);line-height:1.3}
+.stick div b{display:block;color:var(--text);font-size:14px}
+.stick div b span{color:var(--gold)}
+.stick .btn{padding:10px 16px}
+.stick div small{display:block;font-size:13px}
+@media (max-width:480px){.stick div small{display:none}.stick .btn{padding:10px 12px;font-size:14px}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--win);color:#04140b;font-weight:800;padding:10px 16px;border-radius:10px;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.stick{transition:none}}
+</style>
+</head>
+<body>
+
+<script>
+/* ============ НАСТРОЙКИ САЙТА ============ */
+const SITE = {
+  name: 'Metod VIPBET',
+  telegram: 'https://t.me/+vNw-mi1bFUExMWVi',
+  bookmaker: 'Мелбет',
+  regLink: 'https://clck.ru/3VkYym',
+  promo: 'VIPBET2026',
+  bonus: 'до 30 000 ₽',
+  timezoneLabel: 'МСК',
+  timezone: '+03:00',
+  dataUrl: 'data/predictions.json',
+};
+</script>
+
+<header>
+  <div class="wrap hd">
+    <a class="logo" href="#top"><i>M</i><span>Metod <b>VIPBET</b></span></a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false">☰</button>
+    <nav class="main" id="nav">
+      <a href="#predictions">Прогнозы</a>
+      <a href="#stats">Статистика</a>
+      <a href="#bonus">Бонус 30 000 ₽</a>
+      <a href="#method">Как мы прогнозируем</a>
+    </nav>
+    <a class="btn btn-tg tg-link" href="#" target="_blank" rel="noopener">Telegram</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Прогнозы на спорт каждый день</div>
+        <h1>Ставки по <em>методу</em>, а не по настроению</h1>
+        <p class="lead">Свежие прогнозы на футбол, хоккей, теннис и баскетбол каждое утро. Разбор формы, составов и коэффициентов — и честная статистика всех результатов.</p>
+        <div class="cta">
+          <a class="btn btn-gold" href="#predictions">Прогнозы на сегодня</a>
+          <a class="btn btn-ghost" href="#bonus">Бонус до 30 000 ₽</a>
+        </div>
+        <div class="updated" id="updated">Загружаем прогнозы…</div>
+      </div>
+      <div class="motd" id="motd"><div class="empty">Загружаем матч дня…</div></div>
+    </div>
+  </section>
+
+  <section id="predictions">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Прогнозы</div>
+          <h2>Прогнозы на спорт</h2>
+          <p>Каждый прогноз — с коэффициентом, уровнем уверенности и коротким разбором. После матча ставим результат: зашёл или нет.</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="viewChips" role="group" aria-label="Показать"></div>
+        <div class="chips" id="sportChips" role="group" aria-label="Вид спорта"></div>
+      </div>
+      <div class="grid" id="predGrid"></div>
+    </div>
+  </section>
+
+  <section class="promo" id="bonus">
+    <div class="wrap promo-grid">
+      <div>
+        <div class="eyebrow">Бонус для новых игроков</div>
+        <h2>Регистрируйся в Мелбет по промокоду <em>VIPBET2026</em></h2>
+        <p>Укажи промокод при регистрации и получи приветственный бонус. Делай ставки по нашим прогнозам у легального букмекера.</p>
+        <ol class="steps3">
+          <li>Нажми «Зарегистрироваться» и открой сайт Мелбет</li>
+          <li>При регистрации введи промокод <b>VIPBET2026</b></li>
+          <li>Пополни счёт и получи бонус по правилам акции</li>
+        </ol>
+      </div>
+      <div class="code-card">
+        <small>Бонус по промокоду</small>
+        <div class="bonus-sum">до <span>30 000 ₽</span></div>
+        <div class="code"><b id="promoCode">VIPBET2026</b><button type="button" class="copy-promo">Скопировать</button></div>
+        <a class="btn btn-gold reg-link" href="#" target="_blank" rel="noopener nofollow sponsored">Зарегистрироваться в Мелбет</a>
+        <p class="fine">18+. Условия и сроки акции, размер бонуса и требования к отыгрышу — на сайте букмекера. Ставки связаны с риском потери денег.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Честная статистика</div>
+          <h2>Результаты всех закрытых прогнозов</h2>
+          <p>Считается автоматически по каждому прогнозу на сайте, включая проигранные. ROI — при ставке 1 единица на каждый прогноз.</p>
+        </div>
+      </div>
+      <div class="tiles" id="tiles"></div>
+      <div class="formline" id="formline"></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div>
+        <h2>Прогнозы раньше всех — <em>в Telegram</em></h2>
+        <p>Публикуем разборы до того, как упадут коэффициенты. Лайв-идеи, экспрессы дня и итоги — только в канале.</p>
+      </div>
+      <a class="btn btn-tg tg-link" href="#" target="_blank" rel="noopener">Перейти в Telegram-канал</a>
+    </div>
+  </section>
+
+  <section id="method" class="stats">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Метод</div>
+          <h2>Как готовится каждый прогноз</h2>
+          <p>Прогнозы готовит ИИ-аналитик по единой методике и обновляет каждое утро. Затем результаты сверяются с итогами матчей.</p>
+        </div>
+      </div>
+      <div class="method">
+        <div class="mstep"><h3>Форма и статистика</h3><p>Последние матчи, голы, броски, домашние и выездные показатели.</p></div>
+        <div class="mstep"><h3>Составы и мотивация</h3><p>Травмы, дисквалификации, ротация, турнирное положение.</p></div>
+        <div class="mstep"><h3>Своя вероятность</h3><p>Оцениваем шанс исхода и сравниваем с коэффициентом букмекера.</p></div>
+        <div class="mstep"><h3>Только с перевесом</h3><p>Публикуем ставку, когда коэффициент выше справедливого.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <a class="logo" href="#top"><i>M</i><span>Metod <b>VIPBET</b></span></a>
+        <p>Информационный сайт с аналитикой спортивных событий. Мы не принимаем ставки и платежи. Прогнозы формируются с помощью ИИ.</p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <ul><li><a href="#predictions">Прогнозы</a></li><li><a href="#stats">Статистика</a></li><li><a href="#bonus">Бонус</a></li><li><a href="#method">Метод</a></li></ul>
+      </div>
+      <div>
+        <h4>Мы на связи</h4>
+        <ul><li><a class="tg-link" href="#" target="_blank" rel="noopener">Telegram-канал</a></li><li><a class="reg-link" href="#" target="_blank" rel="noopener nofollow sponsored">Регистрация в Мелбет</a></li></ul>
+      </div>
+    </div>
+    <div class="disc"><span class="age">18+</span><p>Прогнозы отражают оценку вероятностей и не гарантируют результат. Ставки на спорт связаны с риском потери денег — играйте ответственно и только на сумму, которую готовы потерять. © <span id="year"></span> Metod VIPBET</p></div>
+  </div>
+</footer>
+
+<div class="stick" id="stick" role="region" aria-label="Промокод">
+  <div><b>Промокод <span>VIPBET2026</span></b><small>бонус до 30 000 ₽ в Мелбет</small></div>
+  <button class="btn btn-ghost copy-promo" type="button">Копировать</button>
+  <a class="btn btn-gold reg-link" href="#" target="_blank" rel="noopener nofollow sponsored">Забрать</a>
+</div>
+<div class="toast" id="toast" role="status">Промокод скопирован</div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmtK = k => (k == null || isNaN(k)) ? '—' : Number(k).toFixed(2);
+  const MON = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  const dayLabel = iso => { const [y,m,d] = iso.split('-').map(Number); return d + ' ' + MON[m-1]; };
+  // "today" in Moscow time, so labels match the schedule
+  const mskNow = () => new Date(Date.now() + (3*60 + new Date().getTimezoneOffset()) * 6e4);
+  const iso = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const todayISO = () => iso(mskNow());
+  const relDay = s => { const d = Math.round((Date.parse(s) - Date.parse(todayISO()))/864e5);
+    return d === 0 ? 'Сегодня' : d === 1 ? 'Завтра' : d === -1 ? 'Вчера' : dayLabel(s); };
+  const COLORS = ['#f3c34a','#57c7ff','#ff8a3d','#c084fc','#34d399','#f472b6','#a3e635'];
+  const crestColor = n => COLORS[[...n].reduce((a,c)=>a+c.charCodeAt(0),0) % COLORS.length];
+  const initials = n => n.replace(/[^A-Za-zА-Яа-яЁё0-9 ]/g,'').split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  const RESULT = { pending:['Ожидается','st-pending'], win:['Зашёл','st-win'], loss:['Не зашёл','st-loss'], return:['Возврат','st-return'] };
+
+  // links
+  document.querySelectorAll('.tg-link').forEach(a => a.href = SITE.telegram);
+  document.querySelectorAll('.reg-link').forEach(a => a.href = SITE.regLink);
+  $('#year').textContent = new Date().getFullYear();
+
+  // promo copy
+  const toast = $('#toast');
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(SITE.promo); }
+    catch (e) { const r = document.createRange(); r.selectNodeContents($('#promoCode')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); try { document.execCommand('copy'); } catch (_) {} }
+    toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1600);
+  };
+  document.querySelectorAll('.copy-promo').forEach(b => b.addEventListener('click', copy));
+
+  // sticky promo bar after the hero
+  const stick = $('#stick');
+  const onScroll = () => stick.classList.toggle('show', scrollY > 500 && !(document.getElementById('bonus').getBoundingClientRect().top < innerHeight && document.getElementById('bonus').getBoundingClientRect().bottom > 0));
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // mobile nav
+  const burger = $('#burger'), nav = $('#nav');
+  burger.onclick = () => { const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); };
+  nav.querySelectorAll('a').forEach(a => a.onclick = () => { nav.classList.remove('open'); burger.setAttribute('aria-expanded', false); });
+
+  let P = [];
+  let view = 'actual', sport = 'Все';
+
+  function renderStats(){
+    const settled = P.filter(p => p.result && p.result !== 'pending');
+    const wins = settled.filter(p => p.result === 'win').length, losses = settled.filter(p => p.result === 'loss').length;
+    const decided = wins + losses;
+    const profit = settled.reduce((s,p) => s + (p.result==='win' ? p.odds-1 : p.result==='loss' ? -1 : 0), 0);
+    const roi = settled.length ? profit/settled.length*100 : 0;
+    const pct = decided ? Math.round(wins/decided*100) : 0;
+    const avgK = settled.length ? settled.reduce((s,p)=>s+Number(p.odds),0)/settled.length : 0;
+    $('#tiles').innerHTML = settled.length ? `
+      <div class="tile"><small>Закрыто прогнозов</small><b class="tabnum">${settled.length}</b></div>
+      <div class="tile"><small>Зашло / не зашло</small><b class="tabnum">${wins} / ${losses}</b></div>
+      <div class="tile ${pct>=50?'good':'bad'}"><small>Проходимость</small><b class="tabnum">${pct}%</b></div>
+      <div class="tile ${roi>=0?'good':'bad'}"><small>ROI · средний кэф ${avgK.toFixed(2)}</small><b class="tabnum">${roi>=0?'+':'−'}${Math.abs(roi).toFixed(1)}%</b></div>`
+      : `<div class="empty" style="grid-column:1/-1">Статистика появится после первых сыгранных матчей. Мы показываем все результаты, включая проигрыши.</div>`;
+    const recent = [...settled].sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)).slice(0,12);
+    $('#formline').innerHTML = recent.length ? 'Последние: ' + recent.map(p => `<i class="f-${p.result}" title="${esc(p.home)} — ${esc(p.away)}: ${RESULT[p.result][0]}">${p.result==='win'?'В':p.result==='loss'?'П':'='}</i>`).join('') : '';
+  }
+
+  function renderMotd(){
+    const upcoming = P.filter(p => p.result === 'pending').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+    const m = upcoming.find(p => p.featured) || upcoming[0];
+    if (!m) { $('#motd').innerHTML = '<div class="empty">Новые прогнозы появятся утром.</div>'; return; }
+    const k = m.odds1x2 || [];
+    const crest = n => `<div class="team"><div class="crest" style="background:${crestColor(n)}">${esc(initials(n))}</div><span>${esc(n)}</span></div>`;
+    $('#motd').innerHTML = `
+      <span class="tag">★ Матч дня</span>
+      <div class="league">${esc(m.sport)} · ${esc(m.league)} · ${relDay(m.date)}</div>
+      <div class="teams">${crest(m.home)}<div class="vs"><b class="tabnum">${esc(m.time)}</b>${SITE.timezoneLabel}</div>${crest(m.away)}</div>
+      ${k.length===3 ? `<div class="odds">${['П1','X','П2'].map((n,i)=>`<div class="odd"><small>${n}</small><b class="tabnum">${fmtK(k[i])}</b></div>`).join('')}</div>` : ''}
+      <div class="verdict">Наш прогноз: <b>${esc(m.pick)}</b> за <b class="tabnum">${fmtK(m.odds)}</b><br>${esc(m.text)}</div>
+      <div class="countdown" id="cd"></div>`;
+    const start = Date.parse(`${m.date}T${m.time}:00${SITE.timezone}`);
+    const tick = () => { const el = $('#cd'); if (!el || isNaN(start)) return; const d = start - Date.now();
+      if (d <= 0) { el.textContent = 'Матч начался'; return; }
+      const h = Math.floor(d/36e5), mi = Math.floor(d%36e5/6e4), s = Math.floor(d%6e4/1e3);
+      el.innerHTML = `До начала: <span class="tabnum">${h} ч ${String(mi).padStart(2,'0')} мин ${String(s).padStart(2,'0')} с</span>`; };
+    tick(); clearInterval(window.__cd); window.__cd = setInterval(tick, 1000);
+  }
+
+  const chips = (arr, cur) => arr.map(([v,l]) => `<button class="chip" type="button" aria-pressed="${v===cur}" data-v="${esc(v)}">${esc(l)}</button>`).join('');
+  const conf = n => `<span class="conf" title="Уверенность ${n} из 3">${[1,2,3].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</span>`;
+
+  function renderFeed(){
+    const pending = P.filter(p => p.result === 'pending');
+    $('#viewChips').innerHTML = chips([['actual',`Актуальные (${pending.length})`],['archive','Архив']], view);
+    const base = view === 'actual' ? pending : P.filter(p => p.result !== 'pending');
+    const sports = ['Все', ...new Set(base.map(p => p.sport))];
+    if (!sports.includes(sport)) sport = 'Все';
+    $('#sportChips').innerHTML = chips(sports.map(s=>[s,s]), sport);
+    const list = base.filter(p => sport==='Все' || p.sport===sport)
+      .sort((a,b) => view==='actual' ? (a.date+a.time).localeCompare(b.date+b.time) : (b.date+b.time).localeCompare(a.date+a.time))
+      .slice(0, view==='actual' ? 60 : 90);
+    $('#predGrid').innerHTML = list.length ? list.map(p => {
+      const [lbl, cls] = RESULT[p.result] || RESULT.pending;
+      return `<article class="card">
+        <div class="top"><span>${esc(p.sport)} · ${esc(p.league)}</span><span class="tabnum">${relDay(p.date)}, ${esc(p.time)}</span></div>
+        <h3>${esc(p.home)} — ${esc(p.away)}</h3>
+        <div class="pickrow"><div class="pickbox"><small>Прогноз</small>${esc(p.pick)}</div><div class="pickbox k"><small>Кэф</small><b class="tabnum">${fmtK(p.odds)}</b></div><span class="status ${cls}">${lbl}</span></div>
+        ${p.score ? `<div class="score-final">Счёт: ${esc(p.score)}</div>` : ''}
+        <p>${esc(p.text)}</p>
+        ${p.more ? `<p class="more">${esc(p.more)}</p>` : ''}
+        <div class="foot"><span>${conf(p.confidence||2)}</span>${p.more ? `<button class="linkbtn" type="button" data-more>Подробнее ›</button>` : ''}</div>
+      </article>`; }).join('')
+      : `<div class="empty">${view==='actual' ? 'Новые прогнозы появляются каждое утро. Загляните позже или подпишитесь на Telegram-канал.' : 'Архив пополнится после первых сыгранных матчей.'}</div>`;
+  }
+  $('#viewChips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) { view = b.dataset.v; sport = 'Все'; renderFeed(); } });
+  $('#sportChips').addEventListener('click', e => { const b = e.target.closest('.chip'); if (b) { sport = b.dataset.v; renderFeed(); } });
+  $('#predGrid').addEventListener('click', e => { const b = e.target.closest('[data-more]'); if (!b) return; const c = b.closest('.card'); b.textContent = c.classList.toggle('open') ? 'Свернуть' : 'Подробнее ›'; });
+
+  fetch(SITE.dataUrl + '?v=' + Date.now(), {cache:'no-store'})
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => {
+      P = (d.predictions || []).filter(p => p && p.home && p.away && p.date);
+      if (d.updated) { const u = new Date(d.updated); $('#updated').textContent = 'Обновлено ' + u.toLocaleString('ru-RU', {day:'numeric', month:'long', hour:'2-digit', minute:'2-digit', timeZone:'Europe/Moscow'}) + ' МСК'; }
+      renderMotd(); renderFeed(); renderStats();
+    })
+    .catch(() => {
+      $('#updated').textContent = 'Не удалось загрузить прогнозы. Обновите страницу.';
+      $('#motd').innerHTML = '<div class="empty">Прогнозы временно недоступны.</div>';
+      renderFeed(); renderStats();
+    });
+})();
+</script>
+</body>
+</html>
