@@ -223,7 +223,33 @@ footer a:hover{color:var(--text)}
 .stick .btn{padding:10px 16px}
 .stick div small{display:block;font-size:13px}
 @media (max-width:480px){.stick div small{display:none}.stick .btn{padding:10px 12px;font-size:14px}}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--win);color:#04140b;font-weight:800;padding:10px 16px;border-radius:10px;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+.btn-rnd{background:transparent;color:var(--gold);border:2px solid var(--gold)}
+.btn-rnd:hover{background:rgba(178,221,16,.12)}
+.btn-rnd .dice{display:inline-block;transition:transform .5s}
+.btn-rnd:hover .dice{transform:rotate(180deg)}
+dialog.rnd{width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:0;border:1px solid rgba(178,221,16,.45);border-radius:22px;background:linear-gradient(170deg,#161914,#0a0b09);color:var(--text);box-shadow:0 40px 120px -20px rgba(178,221,16,.35)}
+dialog.rnd::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(4px)}
+.rnd-in{padding:24px;display:flex;flex-direction:column;gap:14px}
+.rnd-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.rnd-top .tag{display:inline-flex;gap:8px;align-items:center;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);background:var(--gold);padding:6px 10px;border-radius:8px}
+.rnd-x{background:none;border:1px solid var(--line);color:var(--text);width:40px;height:40px;border-radius:10px;font-size:20px;cursor:pointer;flex:none}
+#rndBody{display:flex;flex-direction:column;gap:12px}
+.rnd-league{color:var(--dim);font-size:14px}
+.rnd .teams{margin:4px 0}
+.rnd-pick{display:flex;gap:10px;flex-wrap:wrap}
+.rnd-pick .pickbox{flex:1;min-width:140px}
+.rnd p{margin:0;color:#d3d8c8;font-size:15px}
+.rnd-note{font-size:13px;color:var(--wait);background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);border-radius:12px;padding:10px 12px}
+.rnd-legal{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.rnd-legal b{color:var(--text)}
+.rnd-legal .row{display:flex;gap:10px;flex-wrap:wrap}
+.rnd-legal .row .btn{flex:1}
+.rnd-promo{display:flex;align-items:center;justify-content:space-between;gap:10px;border:2px dashed var(--gold);border-radius:12px;padding:10px 12px}
+.rnd-promo span{font-family:var(--display);font-weight:900;font-style:italic;font-size:20px;color:var(--gold);letter-spacing:.04em}
+.rnd-promo button{font:800 13px var(--body);border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:8px 12px;cursor:pointer}
+.rnd-fine{font-size:12px;color:var(--dim);margin:0}
+@media (prefers-reduced-motion:reduce){.btn-rnd .dice{transition:none}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--win);color:#04140b;font-weight:800;padding:10px 16px;border-radius:10px;z-index:2147483647;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.stick{transition:none}}
 </style>
@@ -270,6 +296,7 @@ const SITE = {
         <p class="lead">Свежие прогнозы на футбол, хоккей, теннис и баскетбол каждое утро. Разбор формы, составов и коэффициентов — и честная статистика всех результатов.</p>
         <div class="cta">
           <a class="btn btn-gold" href="#predictions">Прогнозы на сегодня</a>
+          <button class="btn btn-rnd" type="button" data-random><span class="dice" aria-hidden="true">🎲</span> Рандомный прогноз</button>
           <a class="btn btn-ghost" href="#bonus">Бонус до 30 000 ₽</a>
         </div>
         <div class="updated" id="updated">Загружаем прогнозы…</div>
@@ -288,7 +315,7 @@ const SITE = {
         </div>
       </div>
       <div class="toolbar">
-        <div class="chips" id="viewChips" role="group" aria-label="Показать"></div>
+        <div class="chips"><div class="chips" id="viewChips" role="group" aria-label="Показать"></div><button class="chip" type="button" data-random style="border-color:var(--gold);color:var(--gold)">🎲 Рандомный прогноз</button></div>
         <div class="chips" id="sportChips" role="group" aria-label="Вид спорта"></div>
       </div>
       <div class="grid" id="predGrid"></div>
@@ -400,6 +427,21 @@ const SITE = {
   <button class="btn btn-ghost copy-promo" type="button">Копировать</button>
   <a class="btn btn-gold reg-link" href="#" target="_blank" rel="noopener nofollow sponsored">Забрать</a>
 </div>
+<dialog class="rnd" id="rnd" aria-labelledby="rndTitle">
+  <div class="rnd-in">
+    <div class="rnd-top"><span class="tag" id="rndTitle">🎲 Рандомный прогноз</span><button class="rnd-x" type="button" data-close aria-label="Закрыть">×</button></div>
+    <div id="rndBody"></div>
+    <div class="rnd-legal">
+      <p><b>Ставьте только у легальных букмекеров РФ</b> с лицензией ФНС и подключением к ЕЦУПИС. Нелегальные конторы не гарантируют выплат.</p>
+      <div class="rnd-promo"><span>VIPBET2026</span><button type="button" class="copy-promo">Скопировать промокод</button></div>
+      <div class="row">
+        <a class="btn btn-gold reg-link" href="#" target="_blank" rel="noopener nofollow sponsored">Регистрация в Мелбет · бонус до 30 000 ₽</a>
+      </div>
+      <div class="row"><button class="btn btn-rnd" type="button" id="rndAgain"><span class="dice" aria-hidden="true">🎲</span> Другой прогноз</button></div>
+      <p class="rnd-fine">18+. Прогноз — оценка вероятности, а не гарантия результата. Условия бонуса — на сайте букмекера.</p>
+    </div>
+  </div>
+</dialog>
 <div class="toast" id="toast" role="status">Промокод скопирован</div>
 
 <script>
@@ -507,6 +549,44 @@ const SITE = {
       lookupLogo(en, sp).then(u => setLogo(el, u));
     });
   }
+
+  // ---- random pick ----
+  const dlg = $('#rnd');
+  let lastRnd = null;
+  function pickRandom(){
+    const now = Date.now(), today = todayISO();
+    const open = P.filter(p => p.result === 'pending' && Date.parse(`${p.date}T${p.time}:00${SITE.timezone}`) > now - 30*6e4);
+    const todays = open.filter(p => p.date === today);
+    const pool = todays.length ? todays : open.filter(p => p.date === (open.map(x=>x.date).sort()[0]));
+    if (!pool.length) return { p: null, todayEmpty: true };
+    let choice = pool[Math.floor(Math.random()*pool.length)];
+    if (pool.length > 1 && lastRnd && choice.id === lastRnd) choice = pool[(pool.indexOf(choice)+1) % pool.length];
+    lastRnd = choice.id;
+    return { p: choice, todayEmpty: !todays.length };
+  }
+  function showRandom(){
+    const { p, todayEmpty } = pickRandom();
+    const body = $('#rndBody');
+    if (!p) {
+      body.innerHTML = '<p>Свежих прогнозов пока нет — новые появляются каждое утро. Загляните позже или подпишитесь на Telegram-канал.</p>';
+    } else {
+      const team = (n, en, logo) => `<div class="team"><div class="crest" ${logoAttrs(en, logo, p.sport, n)} style="background:${crestColor(n)}">${esc(initials(n))}</div><span>${esc(n)}</span></div>`;
+      body.innerHTML = `
+        ${todayEmpty ? `<div class="rnd-note">На сегодня открытых прогнозов нет — показываем ближайший матч (${relDay(p.date).toLowerCase()}).</div>` : ''}
+        <div class="rnd-league">${esc(p.sport)} · ${esc(p.league)} · ${relDay(p.date)}, ${esc(p.time)} ${SITE.timezoneLabel}</div>
+        <div class="teams">${team(p.home, p.homeEn, p.homeLogo)}<div class="vs"><b class="tabnum">${esc(p.time)}</b>${SITE.timezoneLabel}</div>${team(p.away, p.awayEn, p.awayLogo)}</div>
+        <div class="rnd-pick"><div class="pickbox"><small>Прогноз</small>${esc(p.pick)}</div><div class="pickbox k"><small>Кэф</small><b class="tabnum">${fmtK(p.odds)}</b></div><div class="pickbox"><small>Уверенность</small>${conf(p.confidence||2)}</div></div>
+        <p>${esc(p.text)}</p>
+        ${p.more ? `<p>${esc(p.more)}</p>` : ''}`;
+      hydrateLogos(body);
+    }
+    $('#rndAgain').hidden = !p;
+    if (!dlg.open) { try { dlg.showModal(); } catch(e) { dlg.setAttribute('open',''); } }
+  }
+  document.querySelectorAll('[data-random]').forEach(b => b.addEventListener('click', showRandom));
+  $('#rndAgain').addEventListener('click', showRandom);
+  dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 
   function renderStats(){
     const settled = P.filter(p => p.result && p.result !== 'pending');
