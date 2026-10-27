@@ -28,7 +28,7 @@ ALIASES = {
     "Динамо М": ["Dynamo Moscow", "Dinamo Moscow", "Динамо Москва", "Динамо"],
     "Динамо Мн": ["Dinamo Minsk", "Динамо Минск"],
     "Куньлунь Ред Стар": ["Kunlun Red Star", "Куньлунь"],
-    "Шанхайские Драконы": ["Shanghai Dragons", "Шанхай"],
+    "Драконы": ["Shanghai Dragons", "Шанхайские Драконы", "Драконы Шанхай", "Шанхай"],
     "Лада": ["Lada Togliatti", "Lada"],
     "Локомотив": ["Lokomotiv Yaroslavl", "Lokomotiv"],
     "Металлург Мг": ["Metallurg Magnitogorsk", "Металлург", "Металлург Магнитогорск"],
