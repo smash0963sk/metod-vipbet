@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://smash0963sk.github.io/metod-vipbet/sitemap.xml
