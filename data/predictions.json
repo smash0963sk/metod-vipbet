@@ -22,8 +22,8 @@
       "more": "У Челси также травмированы Джеймс и Гиттенс, под вопросом Жоау Педру. У Ливерпуля нет Экитике и Фримпонга, но дома на Энфилде команда в лучшей форме сезона. Кубковый матч допускает ротацию с обеих сторон, поэтому уверенность низкая.",
       "result": "pending",
       "score": null,
-      "homeEn": "Liverpool",
-      "awayEn": "Chelsea"
+      "homeEn": "Liverpool FC",
+      "awayEn": "Chelsea FC"
     },
     {
       "id": "2026-10-28-milan-bologna",
@@ -46,7 +46,7 @@
       "result": "pending",
       "score": null,
       "homeEn": "AC Milan",
-      "awayEn": "Bologna"
+      "awayEn": "Bologna FC 1909"
     },
     {
       "id": "2026-10-28-spartak-rubin",
@@ -91,7 +91,7 @@
       "more": "Принципиальные матчи этих команд обычно идут осторожно, а в кубке цена ошибки выше. Обе команды в неровной форме: по три победы в пяти последних играх.",
       "result": "pending",
       "score": null,
-      "homeEn": "PAOK",
+      "homeEn": "PAOK Thessaloniki",
       "awayEn": "AEK Athens"
     },
     {
@@ -114,8 +114,8 @@
       "more": "Рейнджерс выиграли семь матчей подряд и надёжно играют в обороне. При тотале ровно 3 гола ставка возвращается.",
       "result": "pending",
       "score": null,
-      "homeEn": "Hearts",
-      "awayEn": "Rangers"
+      "homeEn": "Heart of Midlothian FC",
+      "awayEn": "Rangers FC"
     }
   ]
 }

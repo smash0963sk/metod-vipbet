@@ -449,8 +449,14 @@ const SITE = {
 
   // ---- team logos (TheSportsDB, cached in the visitor's browser) ----
   const SPORT_EN = { 'Футбол':'Soccer', 'Хоккей':'Ice Hockey', 'Баскетбол':'Basketball' };
+  let LOGO_INDEX = {};
+  const normTeam = n => String(n||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
+    .replace(/[^a-z0-9 ]+/g,' ').replace(/\b(fc|cf|afc|ac|sc|fk|sk|ssc|ss|us|as|cd|club|calcio|\d{4})\b/g,' ').replace(/\s+/g,' ').trim();
+  const localLogo = en => en ? (LOGO_INDEX[en] || LOGO_INDEX[normTeam(en)] || null) : null;
   function logoAttrs(en, logo, sport){
     if (logo) return `data-logo="${esc(logo)}"`;
+    const local = localLogo(en);
+    if (local) return `data-logo="${esc(local)}"`;
     if (en && SPORT_EN[sport]) return `data-en="${esc(en)}" data-sport="${esc(SPORT_EN[sport])}"`;
     return '';
   }
@@ -577,9 +583,12 @@ const SITE = {
     .then(d => { N = (d.news || []).filter(n => n && n.title && n.date); renderNews(); })
     .catch(() => { $('#newsGrid').innerHTML = '<div class="empty">Не удалось загрузить новости. Обновите страницу.</div>'; });
 
-  fetch(SITE.dataUrl + '?v=' + Date.now(), {cache:'no-store'})
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(d => {
+  const logosReady = fetch('data/logos.json')
+    .then(r => r.ok ? r.json() : {teams:{}})
+    .then(d => { for (const [name, t] of Object.entries(d.teams || {})) { LOGO_INDEX[name] = t.file; const k = normTeam(name); if (!(k in LOGO_INDEX)) LOGO_INDEX[k] = t.file; } })
+    .catch(() => {});
+  Promise.all([fetch(SITE.dataUrl + '?v=' + Date.now(), {cache:'no-store'}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }), logosReady])
+    .then(([d]) => {
       P = (d.predictions || []).filter(p => p && p.home && p.away && p.date);
       if (d.updated) { const u = new Date(d.updated); $('#updated').textContent = 'Обновлено ' + u.toLocaleString('ru-RU', {day:'numeric', month:'long', hour:'2-digit', minute:'2-digit', timeZone:'Europe/Moscow'}) + ' МСК'; }
       renderMotd(); renderFeed(); renderStats();

@@ -1,0 +1,2793 @@
+{
+ "source": "github.com/luukhopman/football-logos",
+ "teams": {
+  "1. FC Köln": {
+   "file": "assets/logos/1-fc-koln.png",
+   "country": "Germany"
+  },
+  "1.FC Heidenheim 1846": {
+   "file": "assets/logos/1-fc-heidenheim-1846.png",
+   "country": "Germany"
+  },
+  "1.FC Köln": {
+   "file": "assets/logos/1-fc-koln.png",
+   "country": "Germany"
+  },
+  "1.FC Slovacko": {
+   "file": "assets/logos/1-fc-slovacko.png",
+   "country": "Czech Republic"
+  },
+  "1.FC Union Berlin": {
+   "file": "assets/logos/1-fc-union-berlin.png",
+   "country": "Germany"
+  },
+  "1.FSV Mainz 05": {
+   "file": "assets/logos/1-fsv-mainz-05.png",
+   "country": "Germany"
+  },
+  "AC Ajaccio": {
+   "file": "assets/logos/ac-ajaccio.png",
+   "country": "France"
+  },
+  "AC Horsens": {
+   "file": "assets/logos/ac-horsens.png",
+   "country": "Denmark"
+  },
+  "AC Milan": {
+   "file": "assets/logos/ac-milan.png",
+   "country": "Italy"
+  },
+  "AC Monza": {
+   "file": "assets/logos/ac-monza.png",
+   "country": "Italy"
+  },
+  "AC Sparta Prague": {
+   "file": "assets/logos/ac-sparta-prague.png",
+   "country": "Czech Republic"
+  },
+  "ACF Fiorentina": {
+   "file": "assets/logos/acf-fiorentina.png",
+   "country": "Italy"
+  },
+  "ACSC FC Arges": {
+   "file": "assets/logos/acsc-fc-arges.png",
+   "country": "Romania"
+  },
+  "ACSM Politehnica Iasi": {
+   "file": "assets/logos/acsm-politehnica-iasi.png",
+   "country": "Romania"
+  },
+  "ADO Den Haag": {
+   "file": "assets/logos/ado-den-haag.png",
+   "country": "Netherlands"
+  },
+  "AE Kifisia": {
+   "file": "assets/logos/ae-kifisia.png",
+   "country": "Greece"
+  },
+  "AE Kifisias": {
+   "file": "assets/logos/ae-kifisias.png",
+   "country": "Greece"
+  },
+  "AE Larisa": {
+   "file": "assets/logos/ae-larisa.png",
+   "country": "Greece"
+  },
+  "AEK Athens": {
+   "file": "assets/logos/aek-athens.png",
+   "country": "Greece"
+  },
+  "AFC Bournemouth": {
+   "file": "assets/logos/afc-bournemouth.png",
+   "country": "England"
+  },
+  "AFC Unirea 04 Slobozia": {
+   "file": "assets/logos/afc-unirea-04-slobozia.png",
+   "country": "Romania"
+  },
+  "AFK Csikszereda Miercurea Ciuc": {
+   "file": "assets/logos/afk-csikszereda-miercurea-ciuc.png",
+   "country": "Romania"
+  },
+  "AIK": {
+   "file": "assets/logos/aik.png",
+   "country": "Sweden"
+  },
+  "AIK Solna": {
+   "file": "assets/logos/aik-solna.png",
+   "country": "Sweden"
+  },
+  "AJ Auxerre": {
+   "file": "assets/logos/aj-auxerre.png",
+   "country": "France"
+  },
+  "APO Levadiakos": {
+   "file": "assets/logos/apo-levadiakos.png",
+   "country": "Greece"
+  },
+  "AS Monaco": {
+   "file": "assets/logos/as-monaco.png",
+   "country": "France"
+  },
+  "AS Roma": {
+   "file": "assets/logos/as-roma.png",
+   "country": "Italy"
+  },
+  "AS Saint-Étienne": {
+   "file": "assets/logos/as-saint-etienne.png",
+   "country": "France"
+  },
+  "AZ Alkmaar": {
+   "file": "assets/logos/az-alkmaar.png",
+   "country": "Netherlands"
+  },
+  "Aalborg BK": {
+   "file": "assets/logos/aalborg-bk.png",
+   "country": "Denmark"
+  },
+  "Aalesunds FK": {
+   "file": "assets/logos/aalesunds-fk.png",
+   "country": "Norway"
+  },
+  "Aarhus GF": {
+   "file": "assets/logos/aarhus-gf.png",
+   "country": "Denmark"
+  },
+  "Aberdeen FC": {
+   "file": "assets/logos/aberdeen-fc.png",
+   "country": "Scotland"
+  },
+  "Académico Viseu FC": {
+   "file": "assets/logos/academico-viseu-fc.png",
+   "country": "Portugal"
+  },
+  "Adana Demirspor": {
+   "file": "assets/logos/adana-demirspor.png",
+   "country": "Türkiye"
+  },
+  "Ajax": {
+   "file": "assets/logos/ajax.png",
+   "country": "Netherlands"
+  },
+  "Ajax Amsterdam": {
+   "file": "assets/logos/ajax-amsterdam.png",
+   "country": "Netherlands"
+  },
+  "Akhmat Grozny": {
+   "file": "assets/logos/akhmat-grozny.png",
+   "country": "Russia"
+  },
+  "Akron Togliatti": {
+   "file": "assets/logos/akron-togliatti.png",
+   "country": "Russia"
+  },
+  "Akron Tolyatti": {
+   "file": "assets/logos/akron-tolyatti.png",
+   "country": "Russia"
+  },
+  "Alanyaspor": {
+   "file": "assets/logos/alanyaspor.png",
+   "country": "Türkiye"
+  },
+  "Alavés": {
+   "file": "assets/logos/alaves.png",
+   "country": "Spain"
+  },
+  "Almere City FC": {
+   "file": "assets/logos/almere-city-fc.png",
+   "country": "Netherlands"
+  },
+  "Altay SK": {
+   "file": "assets/logos/altay-sk.png",
+   "country": "Türkiye"
+  },
+  "Amed SK": {
+   "file": "assets/logos/amed-sk.png",
+   "country": "Türkiye"
+  },
+  "Angers SCO": {
+   "file": "assets/logos/angers-sco.png",
+   "country": "France"
+  },
+  "Antalyaspor": {
+   "file": "assets/logos/antalyaspor.png",
+   "country": "Türkiye"
+  },
+  "Apollon Smyrnis": {
+   "file": "assets/logos/apollon-smyrnis.png",
+   "country": "Greece"
+  },
+  "Arda Kardzhali": {
+   "file": "assets/logos/arda-kardzhali.png",
+   "country": "Bulgaria"
+  },
+  "Aris Saloniki": {
+   "file": "assets/logos/aris-saloniki.png",
+   "country": "Greece"
+  },
+  "Aris Thessaloniki": {
+   "file": "assets/logos/aris-thessaloniki.png",
+   "country": "Greece"
+  },
+  "Arka Gdynia": {
+   "file": "assets/logos/arka-gdynia.png",
+   "country": "Poland"
+  },
+  "Arminia Bielefeld": {
+   "file": "assets/logos/arminia-bielefeld.png",
+   "country": "Germany"
+  },
+  "Arouca": {
+   "file": "assets/logos/arouca.png",
+   "country": "Portugal"
+  },
+  "Arsenal": {
+   "file": "assets/logos/arsenal.png",
+   "country": "England"
+  },
+  "Arsenal FC": {
+   "file": "assets/logos/arsenal-fc.png",
+   "country": "England"
+  },
+  "Arsenal Tula": {
+   "file": "assets/logos/arsenal-tula.png",
+   "country": "Russia"
+  },
+  "Asteras Aktor": {
+   "file": "assets/logos/asteras-aktor.png",
+   "country": "Greece"
+  },
+  "Asteras Tripoli": {
+   "file": "assets/logos/asteras-tripoli.png",
+   "country": "Greece"
+  },
+  "Asteras Tripolis": {
+   "file": "assets/logos/asteras-tripolis.png",
+   "country": "Greece"
+  },
+  "Aston Villa": {
+   "file": "assets/logos/aston-villa.png",
+   "country": "England"
+  },
+  "Atalanta BC": {
+   "file": "assets/logos/atalanta-bc.png",
+   "country": "Italy"
+  },
+  "Athens Kallithea": {
+   "file": "assets/logos/athens-kallithea.png",
+   "country": "Greece"
+  },
+  "Athletic": {
+   "file": "assets/logos/athletic.png",
+   "country": "Spain"
+  },
+  "Athletic Bilbao": {
+   "file": "assets/logos/athletic-bilbao.png",
+   "country": "Spain"
+  },
+  "Atlético de Madrid": {
+   "file": "assets/logos/atletico-de-madrid.png",
+   "country": "Spain"
+  },
+  "Atromitos Athen": {
+   "file": "assets/logos/atromitos-athen.png",
+   "country": "Greece"
+  },
+  "Atromitos Athens": {
+   "file": "assets/logos/atromitos-athens.png",
+   "country": "Greece"
+  },
+  "Austria Vienna": {
+   "file": "assets/logos/austria-vienna.png",
+   "country": "Austria"
+  },
+  "Avs Futebol": {
+   "file": "assets/logos/avs-futebol.png",
+   "country": "Portugal"
+  },
+  "BK Häcken": {
+   "file": "assets/logos/bk-hacken.png",
+   "country": "Sweden"
+  },
+  "BSC Young Boys": {
+   "file": "assets/logos/bsc-young-boys.png",
+   "country": "Switzerland"
+  },
+  "Baltika Kaliningrad": {
+   "file": "assets/logos/baltika-kaliningrad.png",
+   "country": "Russia"
+  },
+  "Banik Ostrava": {
+   "file": "assets/logos/banik-ostrava.png",
+   "country": "Czech Republic"
+  },
+  "Barcelona": {
+   "file": "assets/logos/barcelona.png",
+   "country": "Spain"
+  },
+  "Basaksehir": {
+   "file": "assets/logos/basaksehir.png",
+   "country": "Türkiye"
+  },
+  "Basaksehir FK": {
+   "file": "assets/logos/basaksehir-fk.png",
+   "country": "Türkiye"
+  },
+  "Bayer 04 Leverkusen": {
+   "file": "assets/logos/bayer-04-leverkusen.png",
+   "country": "Germany"
+  },
+  "Bayern Munich": {
+   "file": "assets/logos/bayern-munich.png",
+   "country": "Germany"
+  },
+  "Beerschot V.A.": {
+   "file": "assets/logos/beerschot-v-a.png",
+   "country": "Belgium"
+  },
+  "Beerschot VA": {
+   "file": "assets/logos/beerschot-va.png",
+   "country": "Belgium"
+  },
+  "Beitar Jerusalem": {
+   "file": "assets/logos/beitar-jerusalem.png",
+   "country": "Israel"
+  },
+  "Belenenses SAD": {
+   "file": "assets/logos/belenenses-sad.png",
+   "country": "Portugal"
+  },
+  "Benfica": {
+   "file": "assets/logos/benfica.png",
+   "country": "Portugal"
+  },
+  "Beroe Stara Zagora": {
+   "file": "assets/logos/beroe-stara-zagora.png",
+   "country": "Bulgaria"
+  },
+  "Besiktas": {
+   "file": "assets/logos/besiktas.png",
+   "country": "Türkiye"
+  },
+  "Besiktas JK": {
+   "file": "assets/logos/besiktas-jk.png",
+   "country": "Türkiye"
+  },
+  "Boavista FC": {
+   "file": "assets/logos/boavista-fc.png",
+   "country": "Portugal"
+  },
+  "Bodrum FK": {
+   "file": "assets/logos/bodrum-fk.png",
+   "country": "Türkiye"
+  },
+  "Bohemians Prague 1905": {
+   "file": "assets/logos/bohemians-prague-1905.png",
+   "country": "Czech Republic"
+  },
+  "Bologna FC 1909": {
+   "file": "assets/logos/bologna-fc-1909.png",
+   "country": "Italy"
+  },
+  "Bor. M'gladbach": {
+   "file": "assets/logos/bor-m-gladbach.png",
+   "country": "Germany"
+  },
+  "Borussia Dortmund": {
+   "file": "assets/logos/borussia-dortmund.png",
+   "country": "Germany"
+  },
+  "Borussia Mönchengladbach": {
+   "file": "assets/logos/borussia-monchengladbach.png",
+   "country": "Germany"
+  },
+  "Botev Plovdiv": {
+   "file": "assets/logos/botev-plovdiv.png",
+   "country": "Bulgaria"
+  },
+  "Botev Vratsa": {
+   "file": "assets/logos/botev-vratsa.png",
+   "country": "Bulgaria"
+  },
+  "Brentford FC": {
+   "file": "assets/logos/brentford-fc.png",
+   "country": "England"
+  },
+  "Brighton": {
+   "file": "assets/logos/brighton.png",
+   "country": "England"
+  },
+  "Brighton & Hove Albion": {
+   "file": "assets/logos/brighton-hove-albion.png",
+   "country": "England"
+  },
+  "Bruk-Bet Termalica Nieciecza": {
+   "file": "assets/logos/bruk-bet-termalica-nieciecza.png",
+   "country": "Poland"
+  },
+  "Bryne FK": {
+   "file": "assets/logos/bryne-fk.png",
+   "country": "Norway"
+  },
+  "Bröndby IF": {
+   "file": "assets/logos/brondby-if.png",
+   "country": "Denmark"
+  },
+  "Bukovyna Chernivtsi": {
+   "file": "assets/logos/bukovyna-chernivtsi.png",
+   "country": "Ukraine"
+  },
+  "Burnley": {
+   "file": "assets/logos/burnley.png",
+   "country": "England"
+  },
+  "Burnley FC": {
+   "file": "assets/logos/burnley-fc.png",
+   "country": "England"
+  },
+  "CA Osasuna": {
+   "file": "assets/logos/ca-osasuna.png",
+   "country": "Spain"
+  },
+  "CD Leganés": {
+   "file": "assets/logos/cd-leganes.png",
+   "country": "Spain"
+  },
+  "CD Nacional": {
+   "file": "assets/logos/cd-nacional.png",
+   "country": "Portugal"
+  },
+  "CD Santa Clara": {
+   "file": "assets/logos/cd-santa-clara.png",
+   "country": "Portugal"
+  },
+  "CD Tondela": {
+   "file": "assets/logos/cd-tondela.png",
+   "country": "Portugal"
+  },
+  "CF Estrela Amadora": {
+   "file": "assets/logos/cf-estrela-amadora.png",
+   "country": "Portugal"
+  },
+  "CF Estrela Amadora SAD": {
+   "file": "assets/logos/cf-estrela-amadora-sad.png",
+   "country": "Portugal"
+  },
+  "CFR Cluj": {
+   "file": "assets/logos/cfr-cluj.png",
+   "country": "Romania"
+  },
+  "CS Marítimo": {
+   "file": "assets/logos/cs-maritimo.png",
+   "country": "Portugal"
+  },
+  "CS Universitatea Craiova": {
+   "file": "assets/logos/cs-universitatea-craiova.png",
+   "country": "Romania"
+  },
+  "CSKA 1948": {
+   "file": "assets/logos/cska-1948.png",
+   "country": "Bulgaria"
+  },
+  "CSKA Moscow": {
+   "file": "assets/logos/cska-moscow.png",
+   "country": "Russia"
+  },
+  "CSKA Sofia": {
+   "file": "assets/logos/cska-sofia.png",
+   "country": "Bulgaria"
+  },
+  "CSKA-Sofia": {
+   "file": "assets/logos/cska-sofia.png",
+   "country": "Bulgaria"
+  },
+  "Cagliari Calcio": {
+   "file": "assets/logos/cagliari-calcio.png",
+   "country": "Italy"
+  },
+  "Casa Pia AC": {
+   "file": "assets/logos/casa-pia-ac.png",
+   "country": "Portugal"
+  },
+  "Caykur Rizespor": {
+   "file": "assets/logos/caykur-rizespor.png",
+   "country": "Türkiye"
+  },
+  "Celta de Vigo": {
+   "file": "assets/logos/celta-de-vigo.png",
+   "country": "Spain"
+  },
+  "Celtic FC": {
+   "file": "assets/logos/celtic-fc.png",
+   "country": "Scotland"
+  },
+  "Cercle Brugge": {
+   "file": "assets/logos/cercle-brugge.png",
+   "country": "Belgium"
+  },
+  "Chelsea": {
+   "file": "assets/logos/chelsea.png",
+   "country": "England"
+  },
+  "Chelsea FC": {
+   "file": "assets/logos/chelsea-fc.png",
+   "country": "England"
+  },
+  "Cherno More Varna": {
+   "file": "assets/logos/cherno-more-varna.png",
+   "country": "Bulgaria"
+  },
+  "Chornomorets Odesa": {
+   "file": "assets/logos/chornomorets-odesa.png",
+   "country": "Ukraine"
+  },
+  "Chornomorets Odessa": {
+   "file": "assets/logos/chornomorets-odessa.png",
+   "country": "Ukraine"
+  },
+  "Clermont Foot 63": {
+   "file": "assets/logos/clermont-foot-63.png",
+   "country": "France"
+  },
+  "Club Brugge": {
+   "file": "assets/logos/club-brugge.png",
+   "country": "Belgium"
+  },
+  "Club Brugge KV": {
+   "file": "assets/logos/club-brugge-kv.png",
+   "country": "Belgium"
+  },
+  "Como 1907": {
+   "file": "assets/logos/como-1907.png",
+   "country": "Italy"
+  },
+  "Corum FK": {
+   "file": "assets/logos/corum-fk.png",
+   "country": "Türkiye"
+  },
+  "Corvinul Hunedoara": {
+   "file": "assets/logos/corvinul-hunedoara.png",
+   "country": "Romania"
+  },
+  "Coventry City": {
+   "file": "assets/logos/coventry-city.png",
+   "country": "England"
+  },
+  "Cracovia": {
+   "file": "assets/logos/cracovia.png",
+   "country": "Poland"
+  },
+  "Crystal Palace": {
+   "file": "assets/logos/crystal-palace.png",
+   "country": "England"
+  },
+  "Cukaricki": {
+   "file": "assets/logos/cukaricki.png",
+   "country": "Serbia"
+  },
+  "Cádiz CF": {
+   "file": "assets/logos/cadiz-cf.png",
+   "country": "Spain"
+  },
+  "Debreceni VSC": {
+   "file": "assets/logos/debreceni-vsc.png",
+   "country": "Hungary"
+  },
+  "Degerfors IF": {
+   "file": "assets/logos/degerfors-if.png",
+   "country": "Sweden"
+  },
+  "Deportivo A Coruña": {
+   "file": "assets/logos/deportivo-a-coruna.png",
+   "country": "Spain"
+  },
+  "Deportivo Alavés": {
+   "file": "assets/logos/deportivo-alaves.png",
+   "country": "Spain"
+  },
+  "Desna": {
+   "file": "assets/logos/desna.png",
+   "country": "Ukraine"
+  },
+  "Dinamo Makhachkala": {
+   "file": "assets/logos/dinamo-makhachkala.png",
+   "country": "Russia"
+  },
+  "Dinamo Zagreb": {
+   "file": "assets/logos/dinamo-zagreb.png",
+   "country": "Croatia"
+  },
+  "Diósgyőri VTK": {
+   "file": "assets/logos/diosgyori-vtk.png",
+   "country": "Hungary"
+  },
+  "Djurgårdens IF": {
+   "file": "assets/logos/djurgardens-if.png",
+   "country": "Sweden"
+  },
+  "Dobrudzha Dobrich": {
+   "file": "assets/logos/dobrudzha-dobrich.png",
+   "country": "Bulgaria"
+  },
+  "Dunav Ruse": {
+   "file": "assets/logos/dunav-ruse.png",
+   "country": "Bulgaria"
+  },
+  "Dundee FC": {
+   "file": "assets/logos/dundee-fc.png",
+   "country": "Scotland"
+  },
+  "Dundee United FC": {
+   "file": "assets/logos/dundee-united-fc.png",
+   "country": "Scotland"
+  },
+  "Dynamo Kyiv": {
+   "file": "assets/logos/dynamo-kyiv.png",
+   "country": "Ukraine"
+  },
+  "Dynamo Moscow": {
+   "file": "assets/logos/dynamo-moscow.png",
+   "country": "Russia"
+  },
+  "E. Frankfurt": {
+   "file": "assets/logos/e-frankfurt.png",
+   "country": "Germany"
+  },
+  "ESTAC Troyes": {
+   "file": "assets/logos/estac-troyes.png",
+   "country": "France"
+  },
+  "ETO FC Győr": {
+   "file": "assets/logos/eto-fc-gyor.png",
+   "country": "Hungary"
+  },
+  "Eintracht Frankfurt": {
+   "file": "assets/logos/eintracht-frankfurt.png",
+   "country": "Germany"
+  },
+  "Elche CF": {
+   "file": "assets/logos/elche-cf.png",
+   "country": "Spain"
+  },
+  "Epicentr Kamyanets-Podilskyi": {
+   "file": "assets/logos/epicentr-kamyanets-podilskyi.png",
+   "country": "Ukraine"
+  },
+  "Erzurumspor FK": {
+   "file": "assets/logos/erzurumspor-fk.png",
+   "country": "Türkiye"
+  },
+  "Espanyol": {
+   "file": "assets/logos/espanyol.png",
+   "country": "Spain"
+  },
+  "Estoril Praia": {
+   "file": "assets/logos/estoril-praia.png",
+   "country": "Portugal"
+  },
+  "Everton FC": {
+   "file": "assets/logos/everton-fc.png",
+   "country": "England"
+  },
+  "Excelsior Rotterdam": {
+   "file": "assets/logos/excelsior-rotterdam.png",
+   "country": "Netherlands"
+  },
+  "Eyüpspor": {
+   "file": "assets/logos/eyupspor.png",
+   "country": "Türkiye"
+  },
+  "FC Admira Wacker Mödling": {
+   "file": "assets/logos/fc-admira-wacker-modling.png",
+   "country": "Austria"
+  },
+  "FC Alverca": {
+   "file": "assets/logos/fc-alverca.png",
+   "country": "Portugal"
+  },
+  "FC Arouca": {
+   "file": "assets/logos/fc-arouca.png",
+   "country": "Portugal"
+  },
+  "FC Ashdod": {
+   "file": "assets/logos/fc-ashdod.png",
+   "country": "Israel"
+  },
+  "FC Augsburg": {
+   "file": "assets/logos/fc-augsburg.png",
+   "country": "Germany"
+  },
+  "FC Banik Ostrava": {
+   "file": "assets/logos/fc-banik-ostrava.png",
+   "country": "Czech Republic"
+  },
+  "FC Barcelona": {
+   "file": "assets/logos/fc-barcelona.png",
+   "country": "Spain"
+  },
+  "FC Basel": {
+   "file": "assets/logos/fc-basel.png",
+   "country": "Switzerland"
+  },
+  "FC Basel 1893": {
+   "file": "assets/logos/fc-basel-1893.png",
+   "country": "Switzerland"
+  },
+  "FC Bayern ": {
+   "file": "assets/logos/fc-bayern.png",
+   "country": "Germany"
+  },
+  "FC Blau-Weiss Linz": {
+   "file": "assets/logos/fc-blau-weiss-linz.png",
+   "country": "Austria"
+  },
+  "FC Bohemians Prague 1905": {
+   "file": "assets/logos/fc-bohemians-prague-1905.png",
+   "country": "Czech Republic"
+  },
+  "FC Botosani": {
+   "file": "assets/logos/fc-botosani.png",
+   "country": "Romania"
+  },
+  "FC Buzău": {
+   "file": "assets/logos/fc-buzau.png",
+   "country": "Romania"
+  },
+  "FC Copenhagen": {
+   "file": "assets/logos/fc-copenhagen.png",
+   "country": "Denmark"
+  },
+  "FC Dinamo 1948": {
+   "file": "assets/logos/fc-dinamo-1948.png",
+   "country": "Romania"
+  },
+  "FC Emmen": {
+   "file": "assets/logos/fc-emmen.png",
+   "country": "Netherlands"
+  },
+  "FC Empoli": {
+   "file": "assets/logos/fc-empoli.png",
+   "country": "Italy"
+  },
+  "FC Famalicão": {
+   "file": "assets/logos/fc-famalicao.png",
+   "country": "Portugal"
+  },
+  "FC Fredericia": {
+   "file": "assets/logos/fc-fredericia.png",
+   "country": "Denmark"
+  },
+  "FC Groningen": {
+   "file": "assets/logos/fc-groningen.png",
+   "country": "Netherlands"
+  },
+  "FC Hermannstadt": {
+   "file": "assets/logos/fc-hermannstadt.png",
+   "country": "Romania"
+  },
+  "FC Hradec Kralove": {
+   "file": "assets/logos/fc-hradec-kralove.png",
+   "country": "Czech Republic"
+  },
+  "FC Kharkiv": {
+   "file": "assets/logos/fc-kharkiv.png",
+   "country": "Ukraine"
+  },
+  "FC Khimki": {
+   "file": "assets/logos/fc-khimki.png",
+   "country": "Russia"
+  },
+  "FC Krasnodar": {
+   "file": "assets/logos/fc-krasnodar.png",
+   "country": "Russia"
+  },
+  "FC Kudrivka": {
+   "file": "assets/logos/fc-kudrivka.png",
+   "country": "Ukraine"
+  },
+  "FC Lausanne-Sport": {
+   "file": "assets/logos/fc-lausanne-sport.png",
+   "country": "Switzerland"
+  },
+  "FC Lorient": {
+   "file": "assets/logos/fc-lorient.png",
+   "country": "France"
+  },
+  "FC Lugano": {
+   "file": "assets/logos/fc-lugano.png",
+   "country": "Switzerland"
+  },
+  "FC Luzern": {
+   "file": "assets/logos/fc-luzern.png",
+   "country": "Switzerland"
+  },
+  "FC Metaloglobus Bucharest": {
+   "file": "assets/logos/fc-metaloglobus-bucharest.png",
+   "country": "Romania"
+  },
+  "FC Metz": {
+   "file": "assets/logos/fc-metz.png",
+   "country": "France"
+  },
+  "FC Midtjylland": {
+   "file": "assets/logos/fc-midtjylland.png",
+   "country": "Denmark"
+  },
+  "FC Nantes": {
+   "file": "assets/logos/fc-nantes.png",
+   "country": "France"
+  },
+  "FC Nordsjaelland": {
+   "file": "assets/logos/fc-nordsjaelland.png",
+   "country": "Denmark"
+  },
+  "FC Oleksandriya": {
+   "file": "assets/logos/fc-oleksandriya.png",
+   "country": "Ukraine"
+  },
+  "FC Orenburg": {
+   "file": "assets/logos/fc-orenburg.png",
+   "country": "Russia"
+  },
+  "FC Pari Nizhniy Novgorod": {
+   "file": "assets/logos/fc-pari-nizhniy-novgorod.png",
+   "country": "Russia"
+  },
+  "FC Paços de Ferreira": {
+   "file": "assets/logos/fc-pacos-de-ferreira.png",
+   "country": "Portugal"
+  },
+  "FC Porto": {
+   "file": "assets/logos/fc-porto.png",
+   "country": "Portugal"
+  },
+  "FC Rapid 1923": {
+   "file": "assets/logos/fc-rapid-1923.png",
+   "country": "Romania"
+  },
+  "FC Rostov": {
+   "file": "assets/logos/fc-rostov.png",
+   "country": "Russia"
+  },
+  "FC Schalke 04": {
+   "file": "assets/logos/fc-schalke-04.png",
+   "country": "Germany"
+  },
+  "FC Sion": {
+   "file": "assets/logos/fc-sion.png",
+   "country": "Switzerland"
+  },
+  "FC Slovan Liberec": {
+   "file": "assets/logos/fc-slovan-liberec.png",
+   "country": "Czech Republic"
+  },
+  "FC Sochi": {
+   "file": "assets/logos/fc-sochi.png",
+   "country": "Russia"
+  },
+  "FC St. Gallen": {
+   "file": "assets/logos/fc-st-gallen.png",
+   "country": "Switzerland"
+  },
+  "FC St. Gallen 1879": {
+   "file": "assets/logos/fc-st-gallen-1879.png",
+   "country": "Switzerland"
+  },
+  "FC St. Pauli": {
+   "file": "assets/logos/fc-st-pauli.png",
+   "country": "Germany"
+  },
+  "FC Stade-Lausanne-Ouchy": {
+   "file": "assets/logos/fc-stade-lausanne-ouchy.png",
+   "country": "Switzerland"
+  },
+  "FC Thun": {
+   "file": "assets/logos/fc-thun.png",
+   "country": "Switzerland"
+  },
+  "FC Toulouse": {
+   "file": "assets/logos/fc-toulouse.png",
+   "country": "France"
+  },
+  "FC Trinity Zlin": {
+   "file": "assets/logos/fc-trinity-zlin.png",
+   "country": "Czech Republic"
+  },
+  "FC Twente Enschede": {
+   "file": "assets/logos/fc-twente-enschede.png",
+   "country": "Netherlands"
+  },
+  "FC Universitatea Cluj": {
+   "file": "assets/logos/fc-universitatea-cluj.png",
+   "country": "Romania"
+  },
+  "FC Utrecht": {
+   "file": "assets/logos/fc-utrecht.png",
+   "country": "Netherlands"
+  },
+  "FC Vaduz": {
+   "file": "assets/logos/fc-vaduz.png",
+   "country": "Switzerland"
+  },
+  "FC Viktoria Plzen": {
+   "file": "assets/logos/fc-viktoria-plzen.png",
+   "country": "Czech Republic"
+  },
+  "FC Vizela": {
+   "file": "assets/logos/fc-vizela.png",
+   "country": "Portugal"
+  },
+  "FC Volendam": {
+   "file": "assets/logos/fc-volendam.png",
+   "country": "Netherlands"
+  },
+  "FC Voluntari": {
+   "file": "assets/logos/fc-voluntari.png",
+   "country": "Romania"
+  },
+  "FC Winterthur": {
+   "file": "assets/logos/fc-winterthur.png",
+   "country": "Switzerland"
+  },
+  "FC Zbrojovka Brno": {
+   "file": "assets/logos/fc-zbrojovka-brno.png",
+   "country": "Czech Republic"
+  },
+  "FC Zlin": {
+   "file": "assets/logos/fc-zlin.png",
+   "country": "Czech Republic"
+  },
+  "FC Zürich": {
+   "file": "assets/logos/fc-zurich.png",
+   "country": "Switzerland"
+  },
+  "FCSB": {
+   "file": "assets/logos/fcsb.png",
+   "country": "Romania"
+  },
+  "FCV Dender EH": {
+   "file": "assets/logos/fcv-dender-eh.png",
+   "country": "Belgium"
+  },
+  "FCV Farul Constanta": {
+   "file": "assets/logos/fcv-farul-constanta.png",
+   "country": "Romania"
+  },
+  "FK Bodø Glimt": {
+   "file": "assets/logos/fk-bod-glimt.png",
+   "country": "Norway"
+  },
+  "FK BodøGlimt": {
+   "file": "assets/logos/fk-bodglimt.png",
+   "country": "Norway"
+  },
+  "FK Csikszereda Miercurea Ciuc": {
+   "file": "assets/logos/fk-csikszereda-miercurea-ciuc.png",
+   "country": "Romania"
+  },
+  "FK Cukaricki": {
+   "file": "assets/logos/fk-cukaricki.png",
+   "country": "Serbia"
+  },
+  "FK Dukla Prague": {
+   "file": "assets/logos/fk-dukla-prague.png",
+   "country": "Czech Republic"
+  },
+  "FK Haugesund": {
+   "file": "assets/logos/fk-haugesund.png",
+   "country": "Norway"
+  },
+  "FK IMT Belgrad": {
+   "file": "assets/logos/fk-imt-belgrad.png",
+   "country": "Serbia"
+  },
+  "FK Jablonec": {
+   "file": "assets/logos/fk-jablonec.png",
+   "country": "Czech Republic"
+  },
+  "FK Javor-Matis Ivanjica": {
+   "file": "assets/logos/fk-javor-matis-ivanjica.png",
+   "country": "Serbia"
+  },
+  "FK Jedinstvo Ub": {
+   "file": "assets/logos/fk-jedinstvo-ub.png",
+   "country": "Serbia"
+  },
+  "FK Khimki": {
+   "file": "assets/logos/fk-khimki.png",
+   "country": "Russia"
+  },
+  "FK Kolubara Lazarevac": {
+   "file": "assets/logos/fk-kolubara-lazarevac.png",
+   "country": "Serbia"
+  },
+  "FK Krasnodar": {
+   "file": "assets/logos/fk-krasnodar.png",
+   "country": "Russia"
+  },
+  "FK Macva Sabac": {
+   "file": "assets/logos/fk-macva-sabac.png",
+   "country": "Serbia"
+  },
+  "FK Mariupol": {
+   "file": "assets/logos/fk-mariupol.png",
+   "country": "Ukraine"
+  },
+  "FK Minaj": {
+   "file": "assets/logos/fk-minaj.png",
+   "country": "Ukraine"
+  },
+  "FK Mlada Boleslav": {
+   "file": "assets/logos/fk-mlada-boleslav.png",
+   "country": "Czech Republic"
+  },
+  "FK Mladost Lucani": {
+   "file": "assets/logos/fk-mladost-lucani.png",
+   "country": "Serbia"
+  },
+  "FK Napredak Krusevac": {
+   "file": "assets/logos/fk-napredak-krusevac.png",
+   "country": "Serbia"
+  },
+  "FK Nizhny Novgorod": {
+   "file": "assets/logos/fk-nizhny-novgorod.png",
+   "country": "Russia"
+  },
+  "FK Novi Pazar": {
+   "file": "assets/logos/fk-novi-pazar.png",
+   "country": "Serbia"
+  },
+  "FK Obolon Kyiv": {
+   "file": "assets/logos/fk-obolon-kyiv.png",
+   "country": "Ukraine"
+  },
+  "FK Oleksandriya": {
+   "file": "assets/logos/fk-oleksandriya.png",
+   "country": "Ukraine"
+  },
+  "FK Orenburg": {
+   "file": "assets/logos/fk-orenburg.png",
+   "country": "Russia"
+  },
+  "FK Pardubice": {
+   "file": "assets/logos/fk-pardubice.png",
+   "country": "Czech Republic"
+  },
+  "FK Partizan Belgrade": {
+   "file": "assets/logos/fk-partizan-belgrade.png",
+   "country": "Serbia"
+  },
+  "FK Polissya Zhytomyr": {
+   "file": "assets/logos/fk-polissya-zhytomyr.png",
+   "country": "Ukraine"
+  },
+  "FK Proleter Novi Sad": {
+   "file": "assets/logos/fk-proleter-novi-sad.png",
+   "country": "Serbia"
+  },
+  "FK Radnicki 1923 Kragujevac": {
+   "file": "assets/logos/fk-radnicki-1923-kragujevac.png",
+   "country": "Serbia"
+  },
+  "FK Radnicki Nis": {
+   "file": "assets/logos/fk-radnicki-nis.png",
+   "country": "Serbia"
+  },
+  "FK Radnik Surdulica": {
+   "file": "assets/logos/fk-radnik-surdulica.png",
+   "country": "Serbia"
+  },
+  "FK Rostov": {
+   "file": "assets/logos/fk-rostov.png",
+   "country": "Russia"
+  },
+  "FK Spartak Subotica": {
+   "file": "assets/logos/fk-spartak-subotica.png",
+   "country": "Serbia"
+  },
+  "FK TSC Backa Topola": {
+   "file": "assets/logos/fk-tsc-backa-topola.png",
+   "country": "Serbia"
+  },
+  "FK Tekstilac Odzaci": {
+   "file": "assets/logos/fk-tekstilac-odzaci.png",
+   "country": "Serbia"
+  },
+  "FK Teplice": {
+   "file": "assets/logos/fk-teplice.png",
+   "country": "Czech Republic"
+  },
+  "FK Vojvodina Novi Sad": {
+   "file": "assets/logos/fk-vojvodina-novi-sad.png",
+   "country": "Serbia"
+  },
+  "FK Vozdovac": {
+   "file": "assets/logos/fk-vozdovac.png",
+   "country": "Serbia"
+  },
+  "FK Zeleznicar Pancevo": {
+   "file": "assets/logos/fk-zeleznicar-pancevo.png",
+   "country": "Serbia"
+  },
+  "FK Zemun": {
+   "file": "assets/logos/fk-zemun.png",
+   "country": "Serbia"
+  },
+  "FK Čukarički": {
+   "file": "assets/logos/fk-cukaricki.png",
+   "country": "Serbia"
+  },
+  "Fakel Voronezh": {
+   "file": "assets/logos/fakel-voronezh.png",
+   "country": "Russia"
+  },
+  "Falkirk FC": {
+   "file": "assets/logos/falkirk-fc.png",
+   "country": "Scotland"
+  },
+  "Fatih Karagümrük": {
+   "file": "assets/logos/fatih-karagumruk.png",
+   "country": "Türkiye"
+  },
+  "Fehérvár FC": {
+   "file": "assets/logos/fehervar-fc.png",
+   "country": "Hungary"
+  },
+  "Fenerbahce": {
+   "file": "assets/logos/fenerbahce.png",
+   "country": "Türkiye"
+  },
+  "Fenerbahce SK": {
+   "file": "assets/logos/fenerbahce-sk.png",
+   "country": "Türkiye"
+  },
+  "Ferencvárosi TC": {
+   "file": "assets/logos/ferencvarosi-tc.png",
+   "country": "Hungary"
+  },
+  "Feyenoord": {
+   "file": "assets/logos/feyenoord.png",
+   "country": "Netherlands"
+  },
+  "Feyenoord Rotterdam": {
+   "file": "assets/logos/feyenoord-rotterdam.png",
+   "country": "Netherlands"
+  },
+  "Fortuna Sittard": {
+   "file": "assets/logos/fortuna-sittard.png",
+   "country": "Netherlands"
+  },
+  "Fredrikstad FK": {
+   "file": "assets/logos/fredrikstad-fk.png",
+   "country": "Norway"
+  },
+  "Frosinone Calcio": {
+   "file": "assets/logos/frosinone-calcio.png",
+   "country": "Italy"
+  },
+  "Fulham FC": {
+   "file": "assets/logos/fulham-fc.png",
+   "country": "England"
+  },
+  "G. Bordeaux": {
+   "file": "assets/logos/g-bordeaux.png",
+   "country": "France"
+  },
+  "GAIS": {
+   "file": "assets/logos/gais.png",
+   "country": "Sweden"
+  },
+  "GD Chaves": {
+   "file": "assets/logos/gd-chaves.png",
+   "country": "Portugal"
+  },
+  "GD Estoril Praia": {
+   "file": "assets/logos/gd-estoril-praia.png",
+   "country": "Portugal"
+  },
+  "GIF Sundsvall": {
+   "file": "assets/logos/gif-sundsvall.png",
+   "country": "Sweden"
+  },
+  "GKS Katowice": {
+   "file": "assets/logos/gks-katowice.png",
+   "country": "Poland"
+  },
+  "GNK Dinamo Zagreb": {
+   "file": "assets/logos/gnk-dinamo-zagreb.png",
+   "country": "Croatia"
+  },
+  "Galatasaray": {
+   "file": "assets/logos/galatasaray.png",
+   "country": "Türkiye"
+  },
+  "Galatasaray A.S.": {
+   "file": "assets/logos/galatasaray-a-s.png",
+   "country": "Türkiye"
+  },
+  "Gaziantep FK": {
+   "file": "assets/logos/gaziantep-fk.png",
+   "country": "Türkiye"
+  },
+  "Genclerbirligi Ankara": {
+   "file": "assets/logos/genclerbirligi-ankara.png",
+   "country": "Türkiye"
+  },
+  "Genoa CFC": {
+   "file": "assets/logos/genoa-cfc.png",
+   "country": "Italy"
+  },
+  "Getafe CF": {
+   "file": "assets/logos/getafe-cf.png",
+   "country": "Spain"
+  },
+  "Gil Vicente FC": {
+   "file": "assets/logos/gil-vicente-fc.png",
+   "country": "Portugal"
+  },
+  "Giresunspor": {
+   "file": "assets/logos/giresunspor.png",
+   "country": "Türkiye"
+  },
+  "Girona FC": {
+   "file": "assets/logos/girona-fc.png",
+   "country": "Spain"
+  },
+  "Go Ahead Eagles": {
+   "file": "assets/logos/go-ahead-eagles.png",
+   "country": "Netherlands"
+  },
+  "Gornik Leczna": {
+   "file": "assets/logos/gornik-leczna.png",
+   "country": "Poland"
+  },
+  "Granada CF": {
+   "file": "assets/logos/granada-cf.png",
+   "country": "Spain"
+  },
+  "Grasshopper Club Zurich": {
+   "file": "assets/logos/grasshopper-club-zurich.png",
+   "country": "Switzerland"
+  },
+  "Grazer AK 1902": {
+   "file": "assets/logos/grazer-ak-1902.png",
+   "country": "Austria"
+  },
+  "Greuther Fürth": {
+   "file": "assets/logos/greuther-furth.png",
+   "country": "Germany"
+  },
+  "Górnik Zabrze": {
+   "file": "assets/logos/gornik-zabrze.png",
+   "country": "Poland"
+  },
+  "Göztepe": {
+   "file": "assets/logos/goztepe.png",
+   "country": "Türkiye"
+  },
+  "HNK Gorica": {
+   "file": "assets/logos/hnk-gorica.png",
+   "country": "Croatia"
+  },
+  "HNK Hajduk Split": {
+   "file": "assets/logos/hnk-hajduk-split.png",
+   "country": "Croatia"
+  },
+  "HNK Rijeka": {
+   "file": "assets/logos/hnk-rijeka.png",
+   "country": "Croatia"
+  },
+  "HNK Sibenik": {
+   "file": "assets/logos/hnk-sibenik.png",
+   "country": "Croatia"
+  },
+  "HNK Vukovar 1991": {
+   "file": "assets/logos/hnk-vukovar-1991.png",
+   "country": "Croatia"
+  },
+  "Hajduk Split": {
+   "file": "assets/logos/hajduk-split.png",
+   "country": "Croatia"
+  },
+  "Halmstads BK": {
+   "file": "assets/logos/halmstads-bk.png",
+   "country": "Sweden"
+  },
+  "Hamarkameratene": {
+   "file": "assets/logos/hamarkameratene.png",
+   "country": "Norway"
+  },
+  "Hamburger SV": {
+   "file": "assets/logos/hamburger-sv.png",
+   "country": "Germany"
+  },
+  "Hammarby IF": {
+   "file": "assets/logos/hammarby-if.png",
+   "country": "Sweden"
+  },
+  "Hapoel Beer Sheva": {
+   "file": "assets/logos/hapoel-beer-sheva.png",
+   "country": "Israel"
+  },
+  "Hapoel Haifa": {
+   "file": "assets/logos/hapoel-haifa.png",
+   "country": "Israel"
+  },
+  "Hapoel Jerusalem": {
+   "file": "assets/logos/hapoel-jerusalem.png",
+   "country": "Israel"
+  },
+  "Hapoel Petah Tikva": {
+   "file": "assets/logos/hapoel-petah-tikva.png",
+   "country": "Israel"
+  },
+  "Hapoel Ramat Gan": {
+   "file": "assets/logos/hapoel-ramat-gan.png",
+   "country": "Israel"
+  },
+  "Hapoel Tel Aviv": {
+   "file": "assets/logos/hapoel-tel-aviv.png",
+   "country": "Israel"
+  },
+  "Hatayspor": {
+   "file": "assets/logos/hatayspor.png",
+   "country": "Türkiye"
+  },
+  "Heart of Midl.": {
+   "file": "assets/logos/heart-of-midl.png",
+   "country": "Scotland"
+  },
+  "Heart of Midlothian FC": {
+   "file": "assets/logos/heart-of-midlothian-fc.png",
+   "country": "Scotland"
+  },
+  "Hebar Pazardzhik": {
+   "file": "assets/logos/hebar-pazardzhik.png",
+   "country": "Bulgaria"
+  },
+  "Heerenveen": {
+   "file": "assets/logos/heerenveen.png",
+   "country": "Netherlands"
+  },
+  "Hellas Verona": {
+   "file": "assets/logos/hellas-verona.png",
+   "country": "Italy"
+  },
+  "Helsingborgs IF": {
+   "file": "assets/logos/helsingborgs-if.png",
+   "country": "Sweden"
+  },
+  "Heracles Almelo": {
+   "file": "assets/logos/heracles-almelo.png",
+   "country": "Netherlands"
+  },
+  "Hertha BSC": {
+   "file": "assets/logos/hertha-bsc.png",
+   "country": "Germany"
+  },
+  "Hibernian FC": {
+   "file": "assets/logos/hibernian-fc.png",
+   "country": "Scotland"
+  },
+  "Holstein Kiel": {
+   "file": "assets/logos/holstein-kiel.png",
+   "country": "Germany"
+  },
+  "Hull City": {
+   "file": "assets/logos/hull-city.png",
+   "country": "England"
+  },
+  "Hvidovre IF": {
+   "file": "assets/logos/hvidovre-if.png",
+   "country": "Denmark"
+  },
+  "IF Brommapojkarna": {
+   "file": "assets/logos/if-brommapojkarna.png",
+   "country": "Sweden"
+  },
+  "IF Elfsborg": {
+   "file": "assets/logos/if-elfsborg.png",
+   "country": "Sweden"
+  },
+  "IFK Göteborg": {
+   "file": "assets/logos/ifk-goteborg.png",
+   "country": "Sweden"
+  },
+  "IFK Norrköping": {
+   "file": "assets/logos/ifk-norrkoping.png",
+   "country": "Sweden"
+  },
+  "IFK Värnamo": {
+   "file": "assets/logos/ifk-varnamo.png",
+   "country": "Sweden"
+  },
+  "IK Sirius": {
+   "file": "assets/logos/ik-sirius.png",
+   "country": "Sweden"
+  },
+  "IK Start": {
+   "file": "assets/logos/ik-start.png",
+   "country": "Norway"
+  },
+  "Ihud Bnei Sakhnin": {
+   "file": "assets/logos/ihud-bnei-sakhnin.png",
+   "country": "Israel"
+  },
+  "Ingulets Petrove": {
+   "file": "assets/logos/ingulets-petrove.png",
+   "country": "Ukraine"
+  },
+  "Inter Milan": {
+   "file": "assets/logos/inter-milan.png",
+   "country": "Italy"
+  },
+  "Ionikos Nikeas": {
+   "file": "assets/logos/ionikos-nikeas.png",
+   "country": "Greece"
+  },
+  "Ipswich Town": {
+   "file": "assets/logos/ipswich-town.png",
+   "country": "England"
+  },
+  "Iraklis Thessaloniki": {
+   "file": "assets/logos/iraklis-thessaloniki.png",
+   "country": "Greece"
+  },
+  "Ironi Kiryat Shmona": {
+   "file": "assets/logos/ironi-kiryat-shmona.png",
+   "country": "Israel"
+  },
+  "Ironi Tiberias": {
+   "file": "assets/logos/ironi-tiberias.png",
+   "country": "Israel"
+  },
+  "Istanbul Basaksehir FK": {
+   "file": "assets/logos/istanbul-basaksehir-fk.png",
+   "country": "Türkiye"
+  },
+  "Istanbulspor": {
+   "file": "assets/logos/istanbulspor.png",
+   "country": "Türkiye"
+  },
+  "Jagiellonia": {
+   "file": "assets/logos/jagiellonia.png",
+   "country": "Poland"
+  },
+  "Jagiellonia Bialystok": {
+   "file": "assets/logos/jagiellonia-bialystok.png",
+   "country": "Poland"
+  },
+  "Juventus": {
+   "file": "assets/logos/juventus.png",
+   "country": "Italy"
+  },
+  "Juventus FC": {
+   "file": "assets/logos/juventus-fc.png",
+   "country": "Italy"
+  },
+  "KAA Gent": {
+   "file": "assets/logos/kaa-gent.png",
+   "country": "Belgium"
+  },
+  "KAS Eupen": {
+   "file": "assets/logos/kas-eupen.png",
+   "country": "Belgium"
+  },
+  "KFUM-Kameratene Oslo": {
+   "file": "assets/logos/kfum-kameratene-oslo.png",
+   "country": "Norway"
+  },
+  "KRC Genk": {
+   "file": "assets/logos/krc-genk.png",
+   "country": "Belgium"
+  },
+  "KV Kortrijk": {
+   "file": "assets/logos/kv-kortrijk.png",
+   "country": "Belgium"
+  },
+  "KV Mechelen": {
+   "file": "assets/logos/kv-mechelen.png",
+   "country": "Belgium"
+  },
+  "KV Oostende": {
+   "file": "assets/logos/kv-oostende.png",
+   "country": "Belgium"
+  },
+  "KVC Westerlo": {
+   "file": "assets/logos/kvc-westerlo.png",
+   "country": "Belgium"
+  },
+  "Kalamata FC": {
+   "file": "assets/logos/kalamata-fc.png",
+   "country": "Greece"
+  },
+  "Kalmar FF": {
+   "file": "assets/logos/kalmar-ff.png",
+   "country": "Sweden"
+  },
+  "Karagümrük": {
+   "file": "assets/logos/karagumruk.png",
+   "country": "Türkiye"
+  },
+  "Karpaty Lviv": {
+   "file": "assets/logos/karpaty-lviv.png",
+   "country": "Ukraine"
+  },
+  "Kasimpasa": {
+   "file": "assets/logos/kasimpasa.png",
+   "country": "Türkiye"
+  },
+  "Kayserispor": {
+   "file": "assets/logos/kayserispor.png",
+   "country": "Türkiye"
+  },
+  "Kecskeméti TE": {
+   "file": "assets/logos/kecskemeti-te.png",
+   "country": "Hungary"
+  },
+  "Khimki": {
+   "file": "assets/logos/khimki.png",
+   "country": "Russia"
+  },
+  "Kilmarnock FC": {
+   "file": "assets/logos/kilmarnock-fc.png",
+   "country": "Scotland"
+  },
+  "Kocaelispor": {
+   "file": "assets/logos/kocaelispor.png",
+   "country": "Türkiye"
+  },
+  "Kolos Kovalivka": {
+   "file": "assets/logos/kolos-kovalivka.png",
+   "country": "Ukraine"
+  },
+  "Konyaspor": {
+   "file": "assets/logos/konyaspor.png",
+   "country": "Türkiye"
+  },
+  "Korona Kielce": {
+   "file": "assets/logos/korona-kielce.png",
+   "country": "Poland"
+  },
+  "Krasnodar": {
+   "file": "assets/logos/krasnodar.png",
+   "country": "Russia"
+  },
+  "Kristiansund BK": {
+   "file": "assets/logos/kristiansund-bk.png",
+   "country": "Norway"
+  },
+  "Krumovgrad": {
+   "file": "assets/logos/krumovgrad.png",
+   "country": "Bulgaria"
+  },
+  "Krylya Sovetov Samara": {
+   "file": "assets/logos/krylya-sovetov-samara.png",
+   "country": "Russia"
+  },
+  "Kryvbas Kryvyi Rig": {
+   "file": "assets/logos/kryvbas-kryvyi-rig.png",
+   "country": "Ukraine"
+  },
+  "LASK": {
+   "file": "assets/logos/lask.png",
+   "country": "Austria"
+  },
+  "LKS Lodz": {
+   "file": "assets/logos/lks-lodz.png",
+   "country": "Poland"
+  },
+  "LNZ Cherkasy": {
+   "file": "assets/logos/lnz-cherkasy.png",
+   "country": "Ukraine"
+  },
+  "LOSC Lille": {
+   "file": "assets/logos/losc-lille.png",
+   "country": "France"
+  },
+  "Lazio": {
+   "file": "assets/logos/lazio.png",
+   "country": "Italy"
+  },
+  "Le Havre AC": {
+   "file": "assets/logos/le-havre-ac.png",
+   "country": "France"
+  },
+  "Le Mans FC": {
+   "file": "assets/logos/le-mans-fc.png",
+   "country": "France"
+  },
+  "Lech Poznan": {
+   "file": "assets/logos/lech-poznan.png",
+   "country": "Poland"
+  },
+  "Lechia Gdansk": {
+   "file": "assets/logos/lechia-gdansk.png",
+   "country": "Poland"
+  },
+  "Leeds United": {
+   "file": "assets/logos/leeds-united.png",
+   "country": "England"
+  },
+  "Legia Warszawa": {
+   "file": "assets/logos/legia-warszawa.png",
+   "country": "Poland"
+  },
+  "Leicester City": {
+   "file": "assets/logos/leicester-city.png",
+   "country": "England"
+  },
+  "Levadiakos": {
+   "file": "assets/logos/levadiakos.png",
+   "country": "Greece"
+  },
+  "Levante UD": {
+   "file": "assets/logos/levante-ud.png",
+   "country": "Spain"
+  },
+  "Levski Sofia": {
+   "file": "assets/logos/levski-sofia.png",
+   "country": "Bulgaria"
+  },
+  "Lillestrøm SK": {
+   "file": "assets/logos/lillestrm-sk.png",
+   "country": "Norway"
+  },
+  "Liverpool FC": {
+   "file": "assets/logos/liverpool-fc.png",
+   "country": "England"
+  },
+  "Livingston FC": {
+   "file": "assets/logos/livingston-fc.png",
+   "country": "Scotland"
+  },
+  "Livyi Bereg Kyiv": {
+   "file": "assets/logos/livyi-bereg-kyiv.png",
+   "country": "Ukraine"
+  },
+  "Lokomotiv Moscow": {
+   "file": "assets/logos/lokomotiv-moscow.png",
+   "country": "Russia"
+  },
+  "Lokomotiv Plovdiv": {
+   "file": "assets/logos/lokomotiv-plovdiv.png",
+   "country": "Bulgaria"
+  },
+  "Lokomotiv Sofia": {
+   "file": "assets/logos/lokomotiv-sofia.png",
+   "country": "Bulgaria"
+  },
+  "Lommel SK": {
+   "file": "assets/logos/lommel-sk.png",
+   "country": "Belgium"
+  },
+  "Ludogorets Razgrad": {
+   "file": "assets/logos/ludogorets-razgrad.png",
+   "country": "Bulgaria"
+  },
+  "Luton Town": {
+   "file": "assets/logos/luton-town.png",
+   "country": "England"
+  },
+  "Lyngby BK": {
+   "file": "assets/logos/lyngby-bk.png",
+   "country": "Denmark"
+  },
+  "Lyngby Boldklub": {
+   "file": "assets/logos/lyngby-boldklub.png",
+   "country": "Denmark"
+  },
+  "MFK Karvina": {
+   "file": "assets/logos/mfk-karvina.png",
+   "country": "Czech Republic"
+  },
+  "MKE Ankaragücü": {
+   "file": "assets/logos/mke-ankaragucu.png",
+   "country": "Türkiye"
+  },
+  "MTK Budapest": {
+   "file": "assets/logos/mtk-budapest.png",
+   "country": "Hungary"
+  },
+  "Maccabi Bnei Reineh": {
+   "file": "assets/logos/maccabi-bnei-reineh.png",
+   "country": "Israel"
+  },
+  "Maccabi Haifa": {
+   "file": "assets/logos/maccabi-haifa.png",
+   "country": "Israel"
+  },
+  "Maccabi Netanya": {
+   "file": "assets/logos/maccabi-netanya.png",
+   "country": "Israel"
+  },
+  "Maccabi Petah Tikva": {
+   "file": "assets/logos/maccabi-petah-tikva.png",
+   "country": "Israel"
+  },
+  "Maccabi Tel Aviv": {
+   "file": "assets/logos/maccabi-tel-aviv.png",
+   "country": "Israel"
+  },
+  "Malmö FF": {
+   "file": "assets/logos/malmo-ff.png",
+   "country": "Sweden"
+  },
+  "Man City": {
+   "file": "assets/logos/man-city.png",
+   "country": "England"
+  },
+  "Manchester City": {
+   "file": "assets/logos/manchester-city.png",
+   "country": "England"
+  },
+  "Manchester United": {
+   "file": "assets/logos/manchester-united.png",
+   "country": "England"
+  },
+  "Marseille": {
+   "file": "assets/logos/marseille.png",
+   "country": "France"
+  },
+  "Marítimo": {
+   "file": "assets/logos/maritimo.png",
+   "country": "Portugal"
+  },
+  "Metalac": {
+   "file": "assets/logos/metalac.png",
+   "country": "Serbia"
+  },
+  "Metalist 1925": {
+   "file": "assets/logos/metalist-1925.png",
+   "country": "Ukraine"
+  },
+  "Metalist 1925 Kharkiv": {
+   "file": "assets/logos/metalist-1925-kharkiv.png",
+   "country": "Ukraine"
+  },
+  "Metalist Kharkiv": {
+   "file": "assets/logos/metalist-kharkiv.png",
+   "country": "Ukraine"
+  },
+  "Miedz Legnica": {
+   "file": "assets/logos/miedz-legnica.png",
+   "country": "Poland"
+  },
+  "Mjällby AIF": {
+   "file": "assets/logos/mjallby-aif.png",
+   "country": "Sweden"
+  },
+  "Mladost": {
+   "file": "assets/logos/mladost.png",
+   "country": "Serbia"
+  },
+  "Molde FK": {
+   "file": "assets/logos/molde-fk.png",
+   "country": "Norway"
+  },
+  "Montana": {
+   "file": "assets/logos/montana.png",
+   "country": "Bulgaria"
+  },
+  "Montpellier": {
+   "file": "assets/logos/montpellier.png",
+   "country": "France"
+  },
+  "Montpellier HSC": {
+   "file": "assets/logos/montpellier-hsc.png",
+   "country": "France"
+  },
+  "Moreirense FC": {
+   "file": "assets/logos/moreirense-fc.png",
+   "country": "Portugal"
+  },
+  "Motherwell FC": {
+   "file": "assets/logos/motherwell-fc.png",
+   "country": "Scotland"
+  },
+  "Motor Lublin": {
+   "file": "assets/logos/motor-lublin.png",
+   "country": "Poland"
+  },
+  "Málaga CF": {
+   "file": "assets/logos/malaga-cf.png",
+   "country": "Spain"
+  },
+  "NAC Breda": {
+   "file": "assets/logos/nac-breda.png",
+   "country": "Netherlands"
+  },
+  "NEC Nijmegen": {
+   "file": "assets/logos/nec-nijmegen.png",
+   "country": "Netherlands"
+  },
+  "NK Hrvatski Dragovoljac": {
+   "file": "assets/logos/nk-hrvatski-dragovoljac.png",
+   "country": "Croatia"
+  },
+  "NK Istra": {
+   "file": "assets/logos/nk-istra.png",
+   "country": "Croatia"
+  },
+  "NK Istra 1961": {
+   "file": "assets/logos/nk-istra-1961.png",
+   "country": "Croatia"
+  },
+  "NK Lokomotiva Zagreb": {
+   "file": "assets/logos/nk-lokomotiva-zagreb.png",
+   "country": "Croatia"
+  },
+  "NK Osijek": {
+   "file": "assets/logos/nk-osijek.png",
+   "country": "Croatia"
+  },
+  "NK Rudes": {
+   "file": "assets/logos/nk-rudes.png",
+   "country": "Croatia"
+  },
+  "NK Varazdin": {
+   "file": "assets/logos/nk-varazdin.png",
+   "country": "Croatia"
+  },
+  "NK Veres Rivne": {
+   "file": "assets/logos/nk-veres-rivne.png",
+   "country": "Ukraine"
+  },
+  "Newcastle United": {
+   "file": "assets/logos/newcastle-united.png",
+   "country": "England"
+  },
+  "Norwich": {
+   "file": "assets/logos/norwich.png",
+   "country": "England"
+  },
+  "Nottingham Forest": {
+   "file": "assets/logos/nottingham-forest.png",
+   "country": "England"
+  },
+  "Nyíregyháza Spartacus": {
+   "file": "assets/logos/nyiregyhaza-spartacus.png",
+   "country": "Hungary"
+  },
+  "OFI Crete": {
+   "file": "assets/logos/ofi-crete.png",
+   "country": "Greece"
+  },
+  "OFI Crete FC": {
+   "file": "assets/logos/ofi-crete-fc.png",
+   "country": "Greece"
+  },
+  "OFK Beograd": {
+   "file": "assets/logos/ofk-beograd.png",
+   "country": "Serbia"
+  },
+  "OGC Nice": {
+   "file": "assets/logos/ogc-nice.png",
+   "country": "France"
+  },
+  "OH Leuven": {
+   "file": "assets/logos/oh-leuven.png",
+   "country": "Belgium"
+  },
+  "Obolon Kyiv": {
+   "file": "assets/logos/obolon-kyiv.png",
+   "country": "Ukraine"
+  },
+  "Odds BK": {
+   "file": "assets/logos/odds-bk.png",
+   "country": "Norway"
+  },
+  "Odense BK": {
+   "file": "assets/logos/odense-bk.png",
+   "country": "Denmark"
+  },
+  "Odense Boldklub": {
+   "file": "assets/logos/odense-boldklub.png",
+   "country": "Denmark"
+  },
+  "Olympiacos": {
+   "file": "assets/logos/olympiacos.png",
+   "country": "Greece"
+  },
+  "Olympiacos Piraeus": {
+   "file": "assets/logos/olympiacos-piraeus.png",
+   "country": "Greece"
+  },
+  "Olympique Lyon": {
+   "file": "assets/logos/olympique-lyon.png",
+   "country": "France"
+  },
+  "Olympique Marseille": {
+   "file": "assets/logos/olympique-marseille.png",
+   "country": "France"
+  },
+  "Oud-Heverlee Leuven": {
+   "file": "assets/logos/oud-heverlee-leuven.png",
+   "country": "Belgium"
+  },
+  "PAOK Thessaloniki": {
+   "file": "assets/logos/paok-thessaloniki.png",
+   "country": "Greece"
+  },
+  "PAS Giannina": {
+   "file": "assets/logos/pas-giannina.png",
+   "country": "Greece"
+  },
+  "PAS Lamia 1964": {
+   "file": "assets/logos/pas-lamia-1964.png",
+   "country": "Greece"
+  },
+  "PEC Zwolle": {
+   "file": "assets/logos/pec-zwolle.png",
+   "country": "Netherlands"
+  },
+  "PFK Lviv": {
+   "file": "assets/logos/pfk-lviv.png",
+   "country": "Ukraine"
+  },
+  "PSV Eindhoven": {
+   "file": "assets/logos/psv-eindhoven.png",
+   "country": "Netherlands"
+  },
+  "Paksi FC": {
+   "file": "assets/logos/paksi-fc.png",
+   "country": "Hungary"
+  },
+  "Panathinaikos": {
+   "file": "assets/logos/panathinaikos.png",
+   "country": "Greece"
+  },
+  "Panathinaikos Athens": {
+   "file": "assets/logos/panathinaikos-athens.png",
+   "country": "Greece"
+  },
+  "Panathinaikos FC": {
+   "file": "assets/logos/panathinaikos-fc.png",
+   "country": "Greece"
+  },
+  "Panetolikos": {
+   "file": "assets/logos/panetolikos.png",
+   "country": "Greece"
+  },
+  "Panetolikos GFS": {
+   "file": "assets/logos/panetolikos-gfs.png",
+   "country": "Greece"
+  },
+  "Panserraikos": {
+   "file": "assets/logos/panserraikos.png",
+   "country": "Greece"
+  },
+  "Paris FC": {
+   "file": "assets/logos/paris-fc.png",
+   "country": "France"
+  },
+  "Paris SG": {
+   "file": "assets/logos/paris-sg.png",
+   "country": "France"
+  },
+  "Paris Saint-Germain": {
+   "file": "assets/logos/paris-saint-germain.png",
+   "country": "France"
+  },
+  "Parma Calcio 1913": {
+   "file": "assets/logos/parma-calcio-1913.png",
+   "country": "Italy"
+  },
+  "Pendikspor": {
+   "file": "assets/logos/pendikspor.png",
+   "country": "Türkiye"
+  },
+  "Petrolul Ploiesti": {
+   "file": "assets/logos/petrolul-ploiesti.png",
+   "country": "Romania"
+  },
+  "Piast Gliwice": {
+   "file": "assets/logos/piast-gliwice.png",
+   "country": "Poland"
+  },
+  "Pisa Sporting Club": {
+   "file": "assets/logos/pisa-sporting-club.png",
+   "country": "Italy"
+  },
+  "Pogon Szczecin": {
+   "file": "assets/logos/pogon-szczecin.png",
+   "country": "Poland"
+  },
+  "Polissya Zhytomyr": {
+   "file": "assets/logos/polissya-zhytomyr.png",
+   "country": "Ukraine"
+  },
+  "Portimonense": {
+   "file": "assets/logos/portimonense.png",
+   "country": "Portugal"
+  },
+  "Portimonense SC": {
+   "file": "assets/logos/portimonense-sc.png",
+   "country": "Portugal"
+  },
+  "Puskás Akadémia FC": {
+   "file": "assets/logos/puskas-akademia-fc.png",
+   "country": "Hungary"
+  },
+  "Puszcza Niepolomice": {
+   "file": "assets/logos/puszcza-niepolomice.png",
+   "country": "Poland"
+  },
+  "R Charleroi SC": {
+   "file": "assets/logos/r-charleroi-sc.png",
+   "country": "Belgium"
+  },
+  "RAAL La Louvière": {
+   "file": "assets/logos/raal-la-louviere.png",
+   "country": "Belgium"
+  },
+  "RB Leipzig": {
+   "file": "assets/logos/rb-leipzig.png",
+   "country": "Germany"
+  },
+  "RB Salzburg": {
+   "file": "assets/logos/rb-salzburg.png",
+   "country": "Austria"
+  },
+  "RC Lens": {
+   "file": "assets/logos/rc-lens.png",
+   "country": "France"
+  },
+  "RC Strasbourg Alsace": {
+   "file": "assets/logos/rc-strasbourg-alsace.png",
+   "country": "France"
+  },
+  "RCD Espanyol Barcelona": {
+   "file": "assets/logos/rcd-espanyol-barcelona.png",
+   "country": "Spain"
+  },
+  "RCD Mallorca": {
+   "file": "assets/logos/rcd-mallorca.png",
+   "country": "Spain"
+  },
+  "RFC Seraing": {
+   "file": "assets/logos/rfc-seraing.png",
+   "country": "Belgium"
+  },
+  "RKC Waalwijk": {
+   "file": "assets/logos/rkc-waalwijk.png",
+   "country": "Netherlands"
+  },
+  "RSC Anderlecht": {
+   "file": "assets/logos/rsc-anderlecht.png",
+   "country": "Belgium"
+  },
+  "RSC Charleroi": {
+   "file": "assets/logos/rsc-charleroi.png",
+   "country": "Belgium"
+  },
+  "RWD Molenbeek": {
+   "file": "assets/logos/rwd-molenbeek.png",
+   "country": "Belgium"
+  },
+  "Racing Santander": {
+   "file": "assets/logos/racing-santander.png",
+   "country": "Spain"
+  },
+  "Radnicki 1923": {
+   "file": "assets/logos/radnicki-1923.png",
+   "country": "Serbia"
+  },
+  "Radnik": {
+   "file": "assets/logos/radnik.png",
+   "country": "Serbia"
+  },
+  "Radomiak Radom": {
+   "file": "assets/logos/radomiak-radom.png",
+   "country": "Poland"
+  },
+  "Rakow Czestochowa": {
+   "file": "assets/logos/rakow-czestochowa.png",
+   "country": "Poland"
+  },
+  "Raków Częstochowa": {
+   "file": "assets/logos/rakow-czestochowa.png",
+   "country": "Poland"
+  },
+  "Randers FC": {
+   "file": "assets/logos/randers-fc.png",
+   "country": "Denmark"
+  },
+  "Rangers": {
+   "file": "assets/logos/rangers.png",
+   "country": "Scotland"
+  },
+  "Rangers FC": {
+   "file": "assets/logos/rangers-fc.png",
+   "country": "Scotland"
+  },
+  "Rapid Vienna": {
+   "file": "assets/logos/rapid-vienna.png",
+   "country": "Austria"
+  },
+  "Rayo Vallecano": {
+   "file": "assets/logos/rayo-vallecano.png",
+   "country": "Spain"
+  },
+  "Real Betis Balompié": {
+   "file": "assets/logos/real-betis-balompie.png",
+   "country": "Spain"
+  },
+  "Real Madrid": {
+   "file": "assets/logos/real-madrid.png",
+   "country": "Spain"
+  },
+  "Real Oviedo": {
+   "file": "assets/logos/real-oviedo.png",
+   "country": "Spain"
+  },
+  "Real Sociedad": {
+   "file": "assets/logos/real-sociedad.png",
+   "country": "Spain"
+  },
+  "Real Valladolid CF": {
+   "file": "assets/logos/real-valladolid-cf.png",
+   "country": "Spain"
+  },
+  "Red Bull Salzburg": {
+   "file": "assets/logos/red-bull-salzburg.png",
+   "country": "Austria"
+  },
+  "Red Star": {
+   "file": "assets/logos/red-star.png",
+   "country": "Serbia"
+  },
+  "Red Star Belgrade": {
+   "file": "assets/logos/red-star-belgrade.png",
+   "country": "Serbia"
+  },
+  "Rio Ave FC": {
+   "file": "assets/logos/rio-ave-fc.png",
+   "country": "Portugal"
+  },
+  "Rodina Moscow": {
+   "file": "assets/logos/rodina-moscow.png",
+   "country": "Russia"
+  },
+  "Rosenborg BK": {
+   "file": "assets/logos/rosenborg-bk.png",
+   "country": "Norway"
+  },
+  "Ross County FC": {
+   "file": "assets/logos/ross-county-fc.png",
+   "country": "Scotland"
+  },
+  "Royal Antwerp": {
+   "file": "assets/logos/royal-antwerp.png",
+   "country": "Belgium"
+  },
+  "Royal Antwerp FC": {
+   "file": "assets/logos/royal-antwerp-fc.png",
+   "country": "Belgium"
+  },
+  "Royal Charleroi SC": {
+   "file": "assets/logos/royal-charleroi-sc.png",
+   "country": "Belgium"
+  },
+  "Royale Union Saint Gilloise": {
+   "file": "assets/logos/royale-union-saint-gilloise.png",
+   "country": "Belgium"
+  },
+  "Rubin Kazan": {
+   "file": "assets/logos/rubin-kazan.png",
+   "country": "Russia"
+  },
+  "Ruch Chorzow": {
+   "file": "assets/logos/ruch-chorzow.png",
+   "country": "Poland"
+  },
+  "Rukh Lviv": {
+   "file": "assets/logos/rukh-lviv.png",
+   "country": "Ukraine"
+  },
+  "SC Austria Lustenau": {
+   "file": "assets/logos/sc-austria-lustenau.png",
+   "country": "Austria"
+  },
+  "SC Braga": {
+   "file": "assets/logos/sc-braga.png",
+   "country": "Portugal"
+  },
+  "SC Cambuur": {
+   "file": "assets/logos/sc-cambuur.png",
+   "country": "Netherlands"
+  },
+  "SC Cambuur Leeuwarden": {
+   "file": "assets/logos/sc-cambuur-leeuwarden.png",
+   "country": "Netherlands"
+  },
+  "SC Cambuur-Leeuwarden": {
+   "file": "assets/logos/sc-cambuur-leeuwarden.png",
+   "country": "Netherlands"
+  },
+  "SC Farense": {
+   "file": "assets/logos/sc-farense.png",
+   "country": "Portugal"
+  },
+  "SC Freiburg": {
+   "file": "assets/logos/sc-freiburg.png",
+   "country": "Germany"
+  },
+  "SC Heerenveen": {
+   "file": "assets/logos/sc-heerenveen.png",
+   "country": "Netherlands"
+  },
+  "SC Otelul Galati": {
+   "file": "assets/logos/sc-otelul-galati.png",
+   "country": "Romania"
+  },
+  "SC Paderborn 07": {
+   "file": "assets/logos/sc-paderborn-07.png",
+   "country": "Germany"
+  },
+  "SC Poltava": {
+   "file": "assets/logos/sc-poltava.png",
+   "country": "Ukraine"
+  },
+  "SC Telstar": {
+   "file": "assets/logos/sc-telstar.png",
+   "country": "Netherlands"
+  },
+  "SCO Angers": {
+   "file": "assets/logos/sco-angers.png",
+   "country": "France"
+  },
+  "SCR Altach": {
+   "file": "assets/logos/scr-altach.png",
+   "country": "Austria"
+  },
+  "SK Artis Brno": {
+   "file": "assets/logos/sk-artis-brno.png",
+   "country": "Czech Republic"
+  },
+  "SK Austria Klagenfurt": {
+   "file": "assets/logos/sk-austria-klagenfurt.png",
+   "country": "Austria"
+  },
+  "SK Beveren": {
+   "file": "assets/logos/sk-beveren.png",
+   "country": "Belgium"
+  },
+  "SK Brann": {
+   "file": "assets/logos/sk-brann.png",
+   "country": "Norway"
+  },
+  "SK Dnipro-1": {
+   "file": "assets/logos/sk-dnipro-1.png",
+   "country": "Ukraine"
+  },
+  "SK Dynamo Ceske Budejovice": {
+   "file": "assets/logos/sk-dynamo-ceske-budejovice.png",
+   "country": "Czech Republic"
+  },
+  "SK Sigma Olomouc": {
+   "file": "assets/logos/sk-sigma-olomouc.png",
+   "country": "Czech Republic"
+  },
+  "SK Slavia Prague": {
+   "file": "assets/logos/sk-slavia-prague.png",
+   "country": "Czech Republic"
+  },
+  "SK Sturm Graz": {
+   "file": "assets/logos/sk-sturm-graz.png",
+   "country": "Austria"
+  },
+  "SL Benfica": {
+   "file": "assets/logos/sl-benfica.png",
+   "country": "Portugal"
+  },
+  "SS Lazio": {
+   "file": "assets/logos/ss-lazio.png",
+   "country": "Italy"
+  },
+  "SSC Napoli": {
+   "file": "assets/logos/ssc-napoli.png",
+   "country": "Italy"
+  },
+  "SV 07 Elversberg": {
+   "file": "assets/logos/sv-07-elversberg.png",
+   "country": "Germany"
+  },
+  "SV Darmstadt 98": {
+   "file": "assets/logos/sv-darmstadt-98.png",
+   "country": "Germany"
+  },
+  "SV Ried": {
+   "file": "assets/logos/sv-ried.png",
+   "country": "Austria"
+  },
+  "SV Werder Bremen": {
+   "file": "assets/logos/sv-werder-bremen.png",
+   "country": "Germany"
+  },
+  "SV Zulte Waregem": {
+   "file": "assets/logos/sv-zulte-waregem.png",
+   "country": "Belgium"
+  },
+  "Sampdoria": {
+   "file": "assets/logos/sampdoria.png",
+   "country": "Italy"
+  },
+  "Samsunspor": {
+   "file": "assets/logos/samsunspor.png",
+   "country": "Türkiye"
+  },
+  "Sandefjord Fotball": {
+   "file": "assets/logos/sandefjord-fotball.png",
+   "country": "Norway"
+  },
+  "Santa Clara": {
+   "file": "assets/logos/santa-clara.png",
+   "country": "Portugal"
+  },
+  "Sarpsborg 08 FF": {
+   "file": "assets/logos/sarpsborg-08-ff.png",
+   "country": "Norway"
+  },
+  "Sassuolo": {
+   "file": "assets/logos/sassuolo.png",
+   "country": "Italy"
+  },
+  "Sepsi OSK Sf. Gheorghe": {
+   "file": "assets/logos/sepsi-osk-sf-gheorghe.png",
+   "country": "Romania"
+  },
+  "Septemvri Sofia": {
+   "file": "assets/logos/septemvri-sofia.png",
+   "country": "Bulgaria"
+  },
+  "Servette FC": {
+   "file": "assets/logos/servette-fc.png",
+   "country": "Switzerland"
+  },
+  "Sevilla FC": {
+   "file": "assets/logos/sevilla-fc.png",
+   "country": "Spain"
+  },
+  "Shakhtar D.": {
+   "file": "assets/logos/shakhtar-d.png",
+   "country": "Ukraine"
+  },
+  "Shakhtar Donetsk": {
+   "file": "assets/logos/shakhtar-donetsk.png",
+   "country": "Ukraine"
+  },
+  "Sheffield United": {
+   "file": "assets/logos/sheffield-united.png",
+   "country": "England"
+  },
+  "Silkeborg IF": {
+   "file": "assets/logos/silkeborg-if.png",
+   "country": "Denmark"
+  },
+  "Sint-Truidense VV": {
+   "file": "assets/logos/sint-truidense-vv.png",
+   "country": "Belgium"
+  },
+  "Sivasspor": {
+   "file": "assets/logos/sivasspor.png",
+   "country": "Türkiye"
+  },
+  "Slask Wroclaw": {
+   "file": "assets/logos/slask-wroclaw.png",
+   "country": "Poland"
+  },
+  "Slaven Belupo Koprivnica": {
+   "file": "assets/logos/slaven-belupo-koprivnica.png",
+   "country": "Croatia"
+  },
+  "Slavia Prague": {
+   "file": "assets/logos/slavia-prague.png",
+   "country": "Czech Republic"
+  },
+  "Slavia Sofia": {
+   "file": "assets/logos/slavia-sofia.png",
+   "country": "Bulgaria"
+  },
+  "Slovacko": {
+   "file": "assets/logos/slovacko.png",
+   "country": "Czech Republic"
+  },
+  "Slovan Liberec": {
+   "file": "assets/logos/slovan-liberec.png",
+   "country": "Czech Republic"
+  },
+  "Sochi": {
+   "file": "assets/logos/sochi.png",
+   "country": "Russia"
+  },
+  "Southampton": {
+   "file": "assets/logos/southampton.png",
+   "country": "England"
+  },
+  "Southampton FC": {
+   "file": "assets/logos/southampton-fc.png",
+   "country": "England"
+  },
+  "Sparta Rotterdam": {
+   "file": "assets/logos/sparta-rotterdam.png",
+   "country": "Netherlands"
+  },
+  "Spartak": {
+   "file": "assets/logos/spartak.png",
+   "country": "Serbia"
+  },
+  "Spartak Moscow": {
+   "file": "assets/logos/spartak-moscow.png",
+   "country": "Russia"
+  },
+  "Spartak Varna": {
+   "file": "assets/logos/spartak-varna.png",
+   "country": "Bulgaria"
+  },
+  "Spezia Calcio": {
+   "file": "assets/logos/spezia-calcio.png",
+   "country": "Italy"
+  },
+  "Sporting CP": {
+   "file": "assets/logos/sporting-cp.png",
+   "country": "Portugal"
+  },
+  "Spurs": {
+   "file": "assets/logos/spurs.png",
+   "country": "England"
+  },
+  "St. Johnstone": {
+   "file": "assets/logos/st-johnstone.png",
+   "country": "Scotland"
+  },
+  "St. Johnstone FC": {
+   "file": "assets/logos/st-johnstone-fc.png",
+   "country": "Scotland"
+  },
+  "St. Mirren": {
+   "file": "assets/logos/st-mirren.png",
+   "country": "Scotland"
+  },
+  "St. Mirren FC": {
+   "file": "assets/logos/st-mirren-fc.png",
+   "country": "Scotland"
+  },
+  "Stade Brestois 29": {
+   "file": "assets/logos/stade-brestois-29.png",
+   "country": "France"
+  },
+  "Stade Reims": {
+   "file": "assets/logos/stade-reims.png",
+   "country": "France"
+  },
+  "Stade Rennais": {
+   "file": "assets/logos/stade-rennais.png",
+   "country": "France"
+  },
+  "Stade Rennais FC": {
+   "file": "assets/logos/stade-rennais-fc.png",
+   "country": "France"
+  },
+  "Stal Mielec": {
+   "file": "assets/logos/stal-mielec.png",
+   "country": "Poland"
+  },
+  "Standard Liège": {
+   "file": "assets/logos/standard-liege.png",
+   "country": "Belgium"
+  },
+  "Strømsgodset IF": {
+   "file": "assets/logos/strmsgodset-if.png",
+   "country": "Norway"
+  },
+  "Sunderland AFC": {
+   "file": "assets/logos/sunderland-afc.png",
+   "country": "England"
+  },
+  "SönderjyskE": {
+   "file": "assets/logos/sonderjyske.png",
+   "country": "Denmark"
+  },
+  "Sönderjyske": {
+   "file": "assets/logos/sonderjyske.png",
+   "country": "Denmark"
+  },
+  "Sönderjyske Fodbold": {
+   "file": "assets/logos/sonderjyske-fodbold.png",
+   "country": "Denmark"
+  },
+  "TSG 1899 Hoffenheim": {
+   "file": "assets/logos/tsg-1899-hoffenheim.png",
+   "country": "Germany"
+  },
+  "TSV Hartberg": {
+   "file": "assets/logos/tsv-hartberg.png",
+   "country": "Austria"
+  },
+  "Termalica": {
+   "file": "assets/logos/termalica.png",
+   "country": "Poland"
+  },
+  "Torino FC": {
+   "file": "assets/logos/torino-fc.png",
+   "country": "Italy"
+  },
+  "Torpedo Moscow": {
+   "file": "assets/logos/torpedo-moscow.png",
+   "country": "Russia"
+  },
+  "Tottenham Hotspur": {
+   "file": "assets/logos/tottenham-hotspur.png",
+   "country": "England"
+  },
+  "Trabzonspor": {
+   "file": "assets/logos/trabzonspor.png",
+   "country": "Türkiye"
+  },
+  "Tromsø IL": {
+   "file": "assets/logos/troms-il.png",
+   "country": "Norway"
+  },
+  "Twente Enschede FC": {
+   "file": "assets/logos/twente-enschede-fc.png",
+   "country": "Netherlands"
+  },
+  "UC Sampdoria": {
+   "file": "assets/logos/uc-sampdoria.png",
+   "country": "Italy"
+  },
+  "UD Almería": {
+   "file": "assets/logos/ud-almeria.png",
+   "country": "Spain"
+  },
+  "UD Las Palmas": {
+   "file": "assets/logos/ud-las-palmas.png",
+   "country": "Spain"
+  },
+  "US Cremonese": {
+   "file": "assets/logos/us-cremonese.png",
+   "country": "Italy"
+  },
+  "US Lecce": {
+   "file": "assets/logos/us-lecce.png",
+   "country": "Italy"
+  },
+  "US Salernitana 1919": {
+   "file": "assets/logos/us-salernitana-1919.png",
+   "country": "Italy"
+  },
+  "US Sassuolo": {
+   "file": "assets/logos/us-sassuolo.png",
+   "country": "Italy"
+  },
+  "UTA Arad": {
+   "file": "assets/logos/uta-arad.png",
+   "country": "Romania"
+  },
+  "Udinese Calcio": {
+   "file": "assets/logos/udinese-calcio.png",
+   "country": "Italy"
+  },
+  "Ufa": {
+   "file": "assets/logos/ufa.png",
+   "country": "Russia"
+  },
+  "Union Saint-Gilloise": {
+   "file": "assets/logos/union-saint-gilloise.png",
+   "country": "Belgium"
+  },
+  "Universitatea Craiova": {
+   "file": "assets/logos/universitatea-craiova.png",
+   "country": "Romania"
+  },
+  "Ural Yekaterinburg": {
+   "file": "assets/logos/ural-yekaterinburg.png",
+   "country": "Russia"
+  },
+  "Valencia": {
+   "file": "assets/logos/valencia.png",
+   "country": "Spain"
+  },
+  "Valencia CF": {
+   "file": "assets/logos/valencia-cf.png",
+   "country": "Spain"
+  },
+  "Varbergs BoIS": {
+   "file": "assets/logos/varbergs-bois.png",
+   "country": "Sweden"
+  },
+  "Vejle BK": {
+   "file": "assets/logos/vejle-bk.png",
+   "country": "Denmark"
+  },
+  "Vejle Boldklub": {
+   "file": "assets/logos/vejle-boldklub.png",
+   "country": "Denmark"
+  },
+  "Venezia": {
+   "file": "assets/logos/venezia.png",
+   "country": "Italy"
+  },
+  "Venezia FC": {
+   "file": "assets/logos/venezia-fc.png",
+   "country": "Italy"
+  },
+  "Veres Rivne": {
+   "file": "assets/logos/veres-rivne.png",
+   "country": "Ukraine"
+  },
+  "VfB Stuttgart": {
+   "file": "assets/logos/vfb-stuttgart.png",
+   "country": "Germany"
+  },
+  "VfL Bochum": {
+   "file": "assets/logos/vfl-bochum.png",
+   "country": "Germany"
+  },
+  "VfL Wolfsburg": {
+   "file": "assets/logos/vfl-wolfsburg.png",
+   "country": "Germany"
+  },
+  "Viborg FF": {
+   "file": "assets/logos/viborg-ff.png",
+   "country": "Denmark"
+  },
+  "Viking FK": {
+   "file": "assets/logos/viking-fk.png",
+   "country": "Norway"
+  },
+  "Viktoria Plzen": {
+   "file": "assets/logos/viktoria-plzen.png",
+   "country": "Czech Republic"
+  },
+  "Villarreal CF": {
+   "file": "assets/logos/villarreal-cf.png",
+   "country": "Spain"
+  },
+  "Vit. Guimarães": {
+   "file": "assets/logos/vit-guimaraes.png",
+   "country": "Portugal"
+  },
+  "Vitesse": {
+   "file": "assets/logos/vitesse.png",
+   "country": "Netherlands"
+  },
+  "Vitesse Arnhem": {
+   "file": "assets/logos/vitesse-arnhem.png",
+   "country": "Netherlands"
+  },
+  "Vitória Guimarães SC": {
+   "file": "assets/logos/vitoria-guimaraes-sc.png",
+   "country": "Portugal"
+  },
+  "Volos NFC": {
+   "file": "assets/logos/volos-nfc.png",
+   "country": "Greece"
+  },
+  "Volos NPS": {
+   "file": "assets/logos/volos-nps.png",
+   "country": "Greece"
+  },
+  "Vorskla Poltava": {
+   "file": "assets/logos/vorskla-poltava.png",
+   "country": "Ukraine"
+  },
+  "Vozdovac": {
+   "file": "assets/logos/vozdovac.png",
+   "country": "Serbia"
+  },
+  "Västerås SK": {
+   "file": "assets/logos/vasteras-sk.png",
+   "country": "Sweden"
+  },
+  "Vålerenga Fotball Elite": {
+   "file": "assets/logos/valerenga-fotball-elite.png",
+   "country": "Norway"
+  },
+  "WSG Tirol": {
+   "file": "assets/logos/wsg-tirol.png",
+   "country": "Austria"
+  },
+  "Warta Poznan": {
+   "file": "assets/logos/warta-poznan.png",
+   "country": "Poland"
+  },
+  "Watford FC": {
+   "file": "assets/logos/watford-fc.png",
+   "country": "England"
+  },
+  "West Ham": {
+   "file": "assets/logos/west-ham.png",
+   "country": "England"
+  },
+  "West Ham United": {
+   "file": "assets/logos/west-ham-united.png",
+   "country": "England"
+  },
+  "Widzew Lodz": {
+   "file": "assets/logos/widzew-lodz.png",
+   "country": "Poland"
+  },
+  "Wieczysta Krakow": {
+   "file": "assets/logos/wieczysta-krakow.png",
+   "country": "Poland"
+  },
+  "Willem II": {
+   "file": "assets/logos/willem-ii.png",
+   "country": "Netherlands"
+  },
+  "Willem II Tilburg": {
+   "file": "assets/logos/willem-ii-tilburg.png",
+   "country": "Netherlands"
+  },
+  "Wisla Kraków": {
+   "file": "assets/logos/wisla-krakow.png",
+   "country": "Poland"
+  },
+  "Wisla Plock": {
+   "file": "assets/logos/wisla-plock.png",
+   "country": "Poland"
+  },
+  "Wolfsberger AC": {
+   "file": "assets/logos/wolfsberger-ac.png",
+   "country": "Austria"
+  },
+  "Wolverhampton Wanderers": {
+   "file": "assets/logos/wolverhampton-wanderers.png",
+   "country": "England"
+  },
+  "Y. Malatyaspor": {
+   "file": "assets/logos/y-malatyaspor.png",
+   "country": "Türkiye"
+  },
+  "Yverdon Sport FC": {
+   "file": "assets/logos/yverdon-sport-fc.png",
+   "country": "Switzerland"
+  },
+  "Zaglebie Lubin": {
+   "file": "assets/logos/zaglebie-lubin.png",
+   "country": "Poland"
+  },
+  "Zalaegerszegi TE FC": {
+   "file": "assets/logos/zalaegerszegi-te-fc.png",
+   "country": "Hungary"
+  },
+  "Zeleznicar Pancevo": {
+   "file": "assets/logos/zeleznicar-pancevo.png",
+   "country": "Serbia"
+  },
+  "Zenit S-Pb": {
+   "file": "assets/logos/zenit-s-pb.png",
+   "country": "Russia"
+  },
+  "Zenit St. Petersburg": {
+   "file": "assets/logos/zenit-st-petersburg.png",
+   "country": "Russia"
+  },
+  "Zorya Lugansk": {
+   "file": "assets/logos/zorya-lugansk.png",
+   "country": "Ukraine"
+  },
+  "Zulte Waregem": {
+   "file": "assets/logos/zulte-waregem.png",
+   "country": "Belgium"
+  },
+  "Örgryte IS": {
+   "file": "assets/logos/orgryte-is.png",
+   "country": "Sweden"
+  },
+  "Östers IF": {
+   "file": "assets/logos/osters-if.png",
+   "country": "Sweden"
+  },
+  "Újpest FC": {
+   "file": "assets/logos/ujpest-fc.png",
+   "country": "Hungary"
+  },
+  "Ümraniyespor": {
+   "file": "assets/logos/umraniyespor.png",
+   "country": "Türkiye"
+  }
+ }
+}
