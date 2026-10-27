@@ -260,6 +260,21 @@ def stats_block(p):
     return '<div class="mstats"><h2>Статистика матча</h2>' + "".join(parts) + legend + "</div>"
 
 
+def match_faq(p):
+    faq = [(q, a) for q, a in (p.get("faq") or []) if q and a]
+    if not faq:
+        faq = [(f"Кто победит в матче {p['home']} — {p['away']}?",
+                f"Наш прогноз на матч — {p['pick']} за коэффициент {fmt_k(p.get('odds'))}." + (f" Мы оцениваем вероятность этого исхода в {round(float(p['prob']))}%." if p.get('prob') else "")),
+               (f"Во сколько начинается матч {p['home']} — {p['away']}?",
+                f"Матч начнётся {human_date(p['date'])} в {p['time']} по московскому времени.")]
+    return faq
+
+
+def faq_block(p):
+    return ('<h2>Вопросы о матче</h2><div class="faq prose">' +
+            "".join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in match_faq(p)) + "</div>")
+
+
 def match_page(p, all_p):
     title = f'{p["home"]} — {p["away"]}: прогноз и ставка на {short_date(p["date"])} | Metod VIPBET'
     desc = f'Прогноз на матч {p["home"]} — {p["away"]} ({p["league"]}) {human_date(p["date"])}: {p["pick"]} за {fmt_k(p.get("odds"))}. {p.get("text", "")}'[:300]
@@ -279,7 +294,9 @@ def match_page(p, all_p):
           "homeTeam": {"@type": "SportsTeam", "name": p["home"]}, "awayTeam": {"@type": "SportsTeam", "name": p["away"]},
           "description": p.get("text", ""), "url": url, "eventStatus": "https://schema.org/EventScheduled",
           "location": {"@type": "Place", "name": p.get("league", "")}}
-    head = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+    faq_ld = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in match_faq(p)]}
+    head = "".join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace("</", "<\\/") + "</script>" for x in (ld, faq_ld))
     body = f"""<section style="padding-block:36px 24px">
   <div class="wrap">
     <p class="crumbs"><a href="../index.html">Главная</a> › <a href="../index.html#predictions">Прогнозы</a> › {e(p['home'])} — {e(p['away'])}</p>
@@ -298,8 +315,10 @@ def match_page(p, all_p):
         {score}
         {stats_block(p)}
         <h2>Разбор матча</h2>
-        <p>{e(p.get('text', ''))}</p>
+        <p><b style="color:var(--text)">{e(p.get('text', ''))}</b></p>
         {f"<p>{e(p['more'])}</p>" if p.get('more') else ''}
+        {f'<div class="prose analysis">{article_html({"body": p["analysis"]})}</div>' if p.get('analysis') else ''}
+        {faq_block(p)}
         <p class="fine">Прогноз — оценка вероятности исхода, а не гарантия результата.</p>
       </article>
       <aside>{promo_card()}</aside>
