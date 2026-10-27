@@ -449,13 +449,27 @@ const SITE = {
 
   // ---- team logos (TheSportsDB, cached in the visitor's browser) ----
   const SPORT_EN = { 'Футбол':'Soccer', 'Хоккей':'Ice Hockey', 'Баскетбол':'Basketball' };
-  let LOGO_INDEX = {};
-  const normTeam = n => String(n||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
-    .replace(/[^a-z0-9 ]+/g,' ').replace(/\b(fc|cf|afc|ac|sc|fk|sk|ssc|ss|us|as|cd|club|calcio|\d{4})\b/g,' ').replace(/\s+/g,' ').trim();
-  const localLogo = en => en ? (LOGO_INDEX[en] || LOGO_INDEX[normTeam(en)] || null) : null;
-  function logoAttrs(en, logo, sport){
+  const LOGO_INDEX = { 'Футбол':{}, 'Хоккей':{} };
+  const normTeam = n => ' ' + String(n||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/ё/g,'е')
+    .replace(/[^a-z0-9а-я]+/g,' ') + ' ';
+  const stripTeam = n => normTeam(n).replace(/ (fc|cf|afc|ac|sc|fk|sk|ssc|ss|us|as|cd|club|calcio|hc|хк|фк|\d{4}) /g,' ').replace(/ (fc|cf|afc|ac|sc|fk|sk|hc|хк|фк) /g,' ').replace(/\s+/g,' ').trim();
+  function addLogos(sport, data){
+    const idx = LOGO_INDEX[sport];
+    for (const [name, t] of Object.entries((data && data.teams) || {})) {
+      for (const key of [name, ...(t.aliases || [])]) {
+        if (!(key in idx)) idx[key] = t.file;
+        const k = stripTeam(key); if (k && !(k in idx)) idx[k] = t.file;
+      }
+    }
+  }
+  const localLogo = (sport, ...names) => {
+    const idx = LOGO_INDEX[sport]; if (!idx) return null;
+    for (const n of names) { if (!n) continue; if (idx[n]) return idx[n]; const k = stripTeam(n); if (k && idx[k]) return idx[k]; }
+    return null;
+  };
+  function logoAttrs(en, logo, sport, ru){
     if (logo) return `data-logo="${esc(logo)}"`;
-    const local = localLogo(en);
+    const local = localLogo(sport, en, ru);
     if (local) return `data-logo="${esc(local)}"`;
     if (en && SPORT_EN[sport]) return `data-en="${esc(en)}" data-sport="${esc(SPORT_EN[sport])}"`;
     return '';
@@ -517,7 +531,7 @@ const SITE = {
     const m = upcoming.find(p => p.featured) || upcoming[0];
     if (!m) { $('#motd').innerHTML = '<div class="empty">Новые прогнозы появятся утром.</div>'; return; }
     const k = m.odds1x2 || [];
-    const crest = (n, en, logo) => `<div class="team"><div class="crest" ${logoAttrs(en, logo, m.sport)} style="background:${crestColor(n)}">${esc(initials(n))}</div><span>${esc(n)}</span></div>`;
+    const crest = (n, en, logo) => `<div class="team"><div class="crest" ${logoAttrs(en, logo, m.sport, n)} style="background:${crestColor(n)}">${esc(initials(n))}</div><span>${esc(n)}</span></div>`;
     $('#motd').innerHTML = `
       <span class="tag">★ Матч дня</span>
       <div class="league">${esc(m.sport)} · ${esc(m.league)} · ${relDay(m.date)}</div>
@@ -551,7 +565,7 @@ const SITE = {
       const [lbl, cls] = RESULT[p.result] || RESULT.pending;
       return `<article class="card">
         <div class="top"><span>${esc(p.sport)} · ${esc(p.league)}</span><span class="tabnum">${relDay(p.date)}, ${esc(p.time)}</span></div>
-        <div class="match"><div class="tm"><i class="lg" ${logoAttrs(p.homeEn, p.homeLogo, p.sport)} style="background:${crestColor(p.home)}">${esc(initials(p.home))}</i>${esc(p.home)}</div><div class="tm"><i class="lg" ${logoAttrs(p.awayEn, p.awayLogo, p.sport)} style="background:${crestColor(p.away)}">${esc(initials(p.away))}</i>${esc(p.away)}</div></div>
+        <div class="match"><div class="tm"><i class="lg" ${logoAttrs(p.homeEn, p.homeLogo, p.sport, p.home)} style="background:${crestColor(p.home)}">${esc(initials(p.home))}</i>${esc(p.home)}</div><div class="tm"><i class="lg" ${logoAttrs(p.awayEn, p.awayLogo, p.sport, p.away)} style="background:${crestColor(p.away)}">${esc(initials(p.away))}</i>${esc(p.away)}</div></div>
         <div class="pickrow"><div class="pickbox"><small>Прогноз</small>${esc(p.pick)}</div><div class="pickbox k"><small>Кэф</small><b class="tabnum">${fmtK(p.odds)}</b></div><span class="status ${cls}">${lbl}</span></div>
         ${p.score ? `<div class="score-final">Счёт: ${esc(p.score)}</div>` : ''}
         <p>${esc(p.text)}</p>
@@ -583,10 +597,9 @@ const SITE = {
     .then(d => { N = (d.news || []).filter(n => n && n.title && n.date); renderNews(); })
     .catch(() => { $('#newsGrid').innerHTML = '<div class="empty">Не удалось загрузить новости. Обновите страницу.</div>'; });
 
-  const logosReady = fetch('data/logos.json')
-    .then(r => r.ok ? r.json() : {teams:{}})
-    .then(d => { for (const [name, t] of Object.entries(d.teams || {})) { LOGO_INDEX[name] = t.file; const k = normTeam(name); if (!(k in LOGO_INDEX)) LOGO_INDEX[k] = t.file; } })
-    .catch(() => {});
+  const getJSON = url => fetch(url).then(r => r.ok ? r.json() : null).catch(() => null);
+  const logosReady = Promise.all([getJSON('data/logos.json'), getJSON('data/logos_nhl.json'), getJSON('data/logos_khl.json')])
+    .then(([fb, nhl, khl]) => { addLogos('Футбол', fb); addLogos('Хоккей', khl); addLogos('Хоккей', nhl); });
   Promise.all([fetch(SITE.dataUrl + '?v=' + Date.now(), {cache:'no-store'}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }), logosReady])
     .then(([d]) => {
       P = (d.predictions || []).filter(p => p && p.home && p.away && p.date);

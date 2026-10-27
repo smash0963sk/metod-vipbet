@@ -1,0 +1,234 @@
+{
+ "source": "github.com/ianproject/2024-2025_NHL-LOGOS",
+ "teams": {
+  "Anaheim Ducks": {
+   "file": "assets/logos/nhl-anaheim-ducks.png",
+   "league": "NHL",
+   "aliases": [
+    "Анахайм"
+   ]
+  },
+  "Boston Bruins": {
+   "file": "assets/logos/nhl-boston-bruins.png",
+   "league": "NHL",
+   "aliases": [
+    "Бостон"
+   ]
+  },
+  "Buffalo Sabres": {
+   "file": "assets/logos/nhl-buffalo-sabres.png",
+   "league": "NHL",
+   "aliases": [
+    "Баффало"
+   ]
+  },
+  "Calgary Flames": {
+   "file": "assets/logos/nhl-calgary-flames.png",
+   "league": "NHL",
+   "aliases": [
+    "Калгари"
+   ]
+  },
+  "Carolina Hurricanes": {
+   "file": "assets/logos/nhl-carolina-hurricanes.png",
+   "league": "NHL",
+   "aliases": [
+    "Каролина"
+   ]
+  },
+  "Chicago Blackhawks": {
+   "file": "assets/logos/nhl-chicago-blackhawks.png",
+   "league": "NHL",
+   "aliases": [
+    "Чикаго"
+   ]
+  },
+  "Colorado Avalanche": {
+   "file": "assets/logos/nhl-colorado-avalanche.png",
+   "league": "NHL",
+   "aliases": [
+    "Колорадо"
+   ]
+  },
+  "Columbus Blue Jackets": {
+   "file": "assets/logos/nhl-columbus-blue-jackets.png",
+   "league": "NHL",
+   "aliases": [
+    "Коламбус"
+   ]
+  },
+  "Dallas Stars": {
+   "file": "assets/logos/nhl-dallas-stars.png",
+   "league": "NHL",
+   "aliases": [
+    "Даллас"
+   ]
+  },
+  "Detroit Red Wings": {
+   "file": "assets/logos/nhl-detroit-red-wings.png",
+   "league": "NHL",
+   "aliases": [
+    "Детройт"
+   ]
+  },
+  "Edmonton Oilers": {
+   "file": "assets/logos/nhl-edmonton-oilers.png",
+   "league": "NHL",
+   "aliases": [
+    "Эдмонтон"
+   ]
+  },
+  "Florida Panthers": {
+   "file": "assets/logos/nhl-florida-panthers.png",
+   "league": "NHL",
+   "aliases": [
+    "Флорида"
+   ]
+  },
+  "Los Angeles Kings": {
+   "file": "assets/logos/nhl-los-angeles-kings.png",
+   "league": "NHL",
+   "aliases": [
+    "Лос-Анджелес"
+   ]
+  },
+  "Minnesota Wild": {
+   "file": "assets/logos/nhl-minnesota-wild.png",
+   "league": "NHL",
+   "aliases": [
+    "Миннесота"
+   ]
+  },
+  "Montreal Canadiens": {
+   "file": "assets/logos/nhl-montreal-canadiens.png",
+   "league": "NHL",
+   "aliases": [
+    "Монреаль"
+   ]
+  },
+  "Nashville Predators": {
+   "file": "assets/logos/nhl-nashville-predators.png",
+   "league": "NHL",
+   "aliases": [
+    "Нэшвилл",
+    "Нэшвил"
+   ]
+  },
+  "New Jersey Devils": {
+   "file": "assets/logos/nhl-new-jersey-devils.png",
+   "league": "NHL",
+   "aliases": [
+    "Нью-Джерси"
+   ]
+  },
+  "New York Islanders": {
+   "file": "assets/logos/nhl-new-york-islanders.png",
+   "league": "NHL",
+   "aliases": [
+    "Айлендерс",
+    "Нью-Йорк Айлендерс"
+   ]
+  },
+  "New York Rangers": {
+   "file": "assets/logos/nhl-new-york-rangers.png",
+   "league": "NHL",
+   "aliases": [
+    "Рейнджерс",
+    "Нью-Йорк Рейнджерс"
+   ]
+  },
+  "Ottawa Senators": {
+   "file": "assets/logos/nhl-ottawa-senators.png",
+   "league": "NHL",
+   "aliases": [
+    "Оттава"
+   ]
+  },
+  "Philadelphia Flyers": {
+   "file": "assets/logos/nhl-philadelphia-flyers.png",
+   "league": "NHL",
+   "aliases": [
+    "Филадельфия"
+   ]
+  },
+  "Pittsburgh Penguins": {
+   "file": "assets/logos/nhl-pittsburgh-penguins.png",
+   "league": "NHL",
+   "aliases": [
+    "Питтсбург"
+   ]
+  },
+  "San Jose Sharks": {
+   "file": "assets/logos/nhl-san-jose-sharks.png",
+   "league": "NHL",
+   "aliases": [
+    "Сан-Хосе"
+   ]
+  },
+  "Seattle Kraken": {
+   "file": "assets/logos/nhl-seattle-kraken.png",
+   "league": "NHL",
+   "aliases": [
+    "Сиэтл"
+   ]
+  },
+  "St. Louis Blues": {
+   "file": "assets/logos/nhl-st-louis-blues.png",
+   "league": "NHL",
+   "aliases": [
+    "Сент-Луис"
+   ]
+  },
+  "Tampa Bay Lightning": {
+   "file": "assets/logos/nhl-tampa-bay-lightning.png",
+   "league": "NHL",
+   "aliases": [
+    "Тампа",
+    "Тампа-Бэй"
+   ]
+  },
+  "Toronto Maple Leafs": {
+   "file": "assets/logos/nhl-toronto-maple-leafs.png",
+   "league": "NHL",
+   "aliases": [
+    "Торонто"
+   ]
+  },
+  "Utah Hockey Club": {
+   "file": "assets/logos/nhl-utah-hockey-club.png",
+   "league": "NHL",
+   "aliases": [
+    "Юта",
+    "Utah Mammoth"
+   ]
+  },
+  "Vancouver Canucks": {
+   "file": "assets/logos/nhl-vancouver-canucks.png",
+   "league": "NHL",
+   "aliases": [
+    "Ванкувер"
+   ]
+  },
+  "Vegas Golden Knights": {
+   "file": "assets/logos/nhl-vegas-golden-knights.png",
+   "league": "NHL",
+   "aliases": [
+    "Вегас"
+   ]
+  },
+  "Washington Capitals": {
+   "file": "assets/logos/nhl-washington-capitals.png",
+   "league": "NHL",
+   "aliases": [
+    "Вашингтон"
+   ]
+  },
+  "Winnipeg Jets": {
+   "file": "assets/logos/nhl-winnipeg-jets.png",
+   "league": "NHL",
+   "aliases": [
+    "Виннипег"
+   ]
+  }
+ }
+}

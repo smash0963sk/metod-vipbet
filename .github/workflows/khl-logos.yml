@@ -1,0 +1,52 @@
+# Скачивает логотипы клубов КХЛ и добавляет их на сайт.
+# Запускается сам при изменении скрипта, раз в месяц и вручную (вкладка Actions → «Логотипы КХЛ» → Run workflow).
+name: Логотипы КХЛ
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/fetch_khl_logos.py
+      - .github/workflows/khl-logos.yml
+  schedule:
+    - cron: "17 3 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: khl-logos
+  cancel-in-progress: false
+
+jobs:
+  logos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # API лиги иногда подолгу не отвечает — три попытки с паузой
+      - name: Скачать логотипы
+        run: |
+          for i in 1 2 3; do
+            python scripts/fetch_khl_logos.py && exit 0
+            echo "Попытка $i не удалась, ждём минуту"; sleep 60
+          done
+          exit 1
+
+      - name: Сохранить в репозиторий
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/logos data/logos_khl.json
+          if git diff --cached --quiet; then echo "Без изменений"; exit 0; fi
+          git commit -m "Логотипы КХЛ"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 10
+          done
+          exit 1
