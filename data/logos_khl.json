@@ -1,0 +1,227 @@
+{
+ "source": "khl.api.webcaster.pro",
+ "teams": {
+  "Металлург Мг": {
+   "file": "assets/logos/khl-30.png",
+   "league": "KHL",
+   "location": "Магнитогорск",
+   "aliases": [
+    "Metallurg Magnitogorsk",
+    "Металлург",
+    "Металлург Магнитогорск",
+    "Металлург Мг Магнитогорск"
+   ]
+  },
+  "Локомотив": {
+   "file": "assets/logos/khl-26.png",
+   "league": "KHL",
+   "location": "Ярославль",
+   "aliases": [
+    "Lokomotiv Yaroslavl",
+    "Lokomotiv",
+    "Локомотив Ярославль"
+   ]
+  },
+  "ЦСКА": {
+   "file": "assets/logos/khl-16.png",
+   "league": "KHL",
+   "location": "Москва",
+   "aliases": [
+    "CSKA Moscow",
+    "CSKA",
+    "ЦСКА Москва"
+   ]
+  },
+  "Драконы": {
+   "file": "assets/logos/khl-315.png",
+   "league": "KHL",
+   "location": "Шанхай",
+   "aliases": [
+    "Драконы Шанхай"
+   ]
+  },
+  "Спартак": {
+   "file": "assets/logos/khl-18.png",
+   "league": "KHL",
+   "location": "Москва",
+   "aliases": [
+    "Spartak Moscow",
+    "Спартак Москва",
+    "Спартак Москва"
+   ]
+  },
+  "Нефтехимик": {
+   "file": "assets/logos/khl-36.png",
+   "league": "KHL",
+   "location": "Нижнекамск",
+   "aliases": [
+    "Neftekhimik Nizhnekamsk",
+    "Neftekhimik",
+    "Нефтехимик Нижнекамск"
+   ]
+  },
+  "Северсталь": {
+   "file": "assets/logos/khl-42.png",
+   "league": "KHL",
+   "location": "Череповец",
+   "aliases": [
+    "Severstal Cherepovets",
+    "Severstal",
+    "Северсталь Череповец"
+   ]
+  },
+  "Торпедо": {
+   "file": "assets/logos/khl-22.png",
+   "league": "KHL",
+   "location": "Нижний Новгород",
+   "aliases": [
+    "Torpedo Nizhny Novgorod",
+    "Torpedo",
+    "Торпедо Нижний Новгород"
+   ]
+  },
+  "Ак Барс": {
+   "file": "assets/logos/khl-40.png",
+   "league": "KHL",
+   "location": "Казань",
+   "aliases": [
+    "Ak Bars Kazan",
+    "Ak Bars",
+    "Ак Барс Казань"
+   ]
+  },
+  "Амур": {
+   "file": "assets/logos/khl-12.png",
+   "league": "KHL",
+   "location": "Хабаровск",
+   "aliases": [
+    "Amur Khabarovsk",
+    "Amur",
+    "Амур Хабаровск"
+   ]
+  },
+  "Барыс": {
+   "file": "assets/logos/khl-46.png",
+   "league": "KHL",
+   "location": "Астана",
+   "aliases": [
+    "Barys Astana",
+    "Barys",
+    "Барыс Астана"
+   ]
+  },
+  "Салават Юлаев": {
+   "file": "assets/logos/khl-32.png",
+   "league": "KHL",
+   "location": "Уфа",
+   "aliases": [
+    "Salavat Yulaev Ufa",
+    "Salavat Yulaev",
+    "Салават Юлаев Уфа"
+   ]
+  },
+  "Автомобилист": {
+   "file": "assets/logos/khl-56.png",
+   "league": "KHL",
+   "location": "Екатеринбург",
+   "aliases": [
+    "Avtomobilist Yekaterinburg",
+    "Avtomobilist",
+    "Автомобилист Екатеринбург"
+   ]
+  },
+  "Динамо Мн": {
+   "file": "assets/logos/khl-38.png",
+   "league": "KHL",
+   "location": "Минск",
+   "aliases": [
+    "Dinamo Minsk",
+    "Динамо Минск",
+    "Динамо Мн Минск"
+   ]
+  },
+  "Динамо М": {
+   "file": "assets/logos/khl-8.png",
+   "league": "KHL",
+   "location": "Москва",
+   "aliases": [
+    "Dynamo Moscow",
+    "Dinamo Moscow",
+    "Динамо Москва",
+    "Динамо",
+    "Динамо М Москва"
+   ]
+  },
+  "СКА": {
+   "file": "assets/logos/khl-44.png",
+   "league": "KHL",
+   "location": "Санкт-Петербург",
+   "aliases": [
+    "SKA Saint Petersburg",
+    "SKA St. Petersburg",
+    "SKA",
+    "СКА Санкт-Петербург"
+   ]
+  },
+  "Авангард": {
+   "file": "assets/logos/khl-10.png",
+   "league": "KHL",
+   "location": "Омск",
+   "aliases": [
+    "Avangard Omsk",
+    "Avangard",
+    "Авангард Омск"
+   ]
+  },
+  "Трактор": {
+   "file": "assets/logos/khl-28.png",
+   "league": "KHL",
+   "location": "Челябинск",
+   "aliases": [
+    "Traktor Chelyabinsk",
+    "Traktor",
+    "Трактор Челябинск"
+   ]
+  },
+  "Адмирал": {
+   "file": "assets/logos/khl-61.png",
+   "league": "KHL",
+   "location": "Владивосток",
+   "aliases": [
+    "Admiral Vladivostok",
+    "Admiral",
+    "Адмирал Владивосток"
+   ]
+  },
+  "Сибирь": {
+   "file": "assets/logos/khl-24.png",
+   "league": "KHL",
+   "location": "Новосибирск",
+   "aliases": [
+    "Sibir Novosibirsk",
+    "Sibir",
+    "Сибирь Новосибирск"
+   ]
+  },
+  "ХК Сочи": {
+   "file": "assets/logos/khl-113.png",
+   "league": "KHL",
+   "location": "Сочи",
+   "aliases": [
+    "HC Sochi",
+    "ХК Сочи",
+    "ХК Сочи Сочи"
+   ]
+  },
+  "Лада": {
+   "file": "assets/logos/khl-105.png",
+   "league": "KHL",
+   "location": "Тольятти",
+   "aliases": [
+    "Lada Togliatti",
+    "Lada",
+    "Лада Тольятти"
+   ]
+  }
+ }
+}
