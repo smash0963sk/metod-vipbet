@@ -1,24 +1,21 @@
-# Бот Telegram-канала: прогнозы с сайта в канал.
-#   09:05 МСК — итоги вчера (по понедельникам ещё итоги недели) и прогнозы на сегодня
-#   11:05 МСК — «Ставка дня»   14:05 МСК — «Верняк дня»
-#   17:05 МСК — «Экспресс дня» 19:05 МСК — «Прогноз на вечер»
-# Нужно: секрет TG_BOT_TOKEN (или TG_CHANNEL_BOT_TOKEN) и бот — администратор канала.
+# Бот Telegram-канала: запускается каждый час и публикует то, что пора по расписанию (МСК):
+#   ежедневно 09 утро · 11 ставка дня · 12 опрос · 13 новости · 14 верняк · 17 экспресс · 19 прогноз на вечер
+#   ср 15 школа ставок · пт 18 матчи выходных · сб 15 «Угадай счёт» · вс 20 ответственная игра
+#   1-го числа 10 — итоги месяца и обновление закреплённого поста
+#   каждый запуск — ответы «✅ Зашло / ❌ Не зашло» на посты, когда на сайте появился результат
+# Нужно: секрет TG_CHANNEL_BOT_TOKEN (или TG_BOT_TOKEN) и бот — администратор канала.
 name: Telegram-канал
 
 on:
   schedule:
-    - cron: "5 6 * * *"
-    - cron: "5 8 * * *"
-    - cron: "5 11 * * *"
-    - cron: "5 14 * * *"
-    - cron: "5 16 * * *"
+    - cron: "5 * * * *"
   workflow_dispatch:
     inputs:
       slot:
-        description: "Какой пост опубликовать"
+        description: "Что опубликовать (auto — по расписанию)"
         type: choice
-        options: [morning, bet, lock, express, evening]
-        default: bet
+        options: [auto, results, morning, bet, poll, news, lock, express, evening, school, weekend, guess, responsible, monthly, pinned]
+        default: auto
       dry_run:
         description: "Только проверка — ничего не публиковать"
         type: boolean
@@ -43,26 +40,13 @@ jobs:
 
       - run: pip install --quiet pillow
 
-      - name: Выбрать слот
-        id: slot
-        run: |
-          case "${{ github.event.schedule }}" in
-            "5 6 * * *")  s=morning ;;
-            "5 8 * * *")  s=bet ;;
-            "5 11 * * *") s=lock ;;
-            "5 14 * * *") s=express ;;
-            "5 16 * * *") s=evening ;;
-            *)            s="${{ inputs.slot }}" ;;
-          esac
-          echo "slot=$s" >> "$GITHUB_OUTPUT"
-
       - name: Опубликовать в канал
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHANNEL_BOT_TOKEN: ${{ secrets.TG_CHANNEL_BOT_TOKEN }}
           TG_CHANNEL_ID: ${{ secrets.TG_CHANNEL_ID }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '1' || '0' }}
-        run: python scripts/tg_channel_bot.py "${{ steps.slot.outputs.slot }}"
+        run: python scripts/tg_channel_bot.py "${{ inputs.slot || 'auto' }}"
 
       - name: Запомнить опубликованное
         run: |
