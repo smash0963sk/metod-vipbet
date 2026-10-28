@@ -24,7 +24,7 @@
 Секреты: THREADS_ACCESS_TOKEN, INSTAGRAM_ACCESS_TOKEN, PIXABAY_API_KEY (или PEXELS_API_KEY), TG_BOT_TOKEN, TG_CHAT_ID (не обязателен)
 (THREADS_USER_ID и INSTAGRAM_USER_ID не обязательны — бот узнает их сам). DRY_RUN=1 — ничего не публиковать.
 """
-import glob, json, os, shutil, sys, time, urllib.parse, urllib.request
+import glob, json, os, re, shutil, sys, time, urllib.parse, urllib.request
 from datetime import date, datetime, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -115,6 +115,18 @@ def download(url, tmp):
         shutil.copyfileobj(r, f)
 
 
+PEOPLE = {"woman", "women", "man", "men", "girl", "girls", "boy", "boys", "people", "person", "persons", "portrait",
+          "model", "face", "lady", "child", "children", "kid", "kids", "couple", "female", "male", "human", "selfie",
+          "businessman", "businesswoman", "bride", "groom", "baby", "teen", "guy", "family", "friends"}
+
+
+def has_people(text, query):
+    """Отсеивает фото с людьми: чужие узнаваемые лица нельзя выдавать за окружение персонажа."""
+    words = set(re.findall(r"[a-z]+", (text or "").lower()))
+    allowed = set(re.findall(r"[a-z]+", query.lower()))  # силуэт пары разрешён, если он прямо в запросе
+    return bool((words & PEOPLE) - allowed)
+
+
 def stock_photo(query, st, dst):
     """Фото из бесплатного фотобанка: Pexels (PEXELS_API_KEY) или Pixabay (PIXABAY_API_KEY)."""
     fake = os.environ.get("PERSONA_FAKE_PHOTO")  # для локальной проверки без интернета
@@ -127,7 +139,7 @@ def stock_photo(query, st, dst):
     if key:
         url = "https://api.pexels.com/v1/search?" + urllib.parse.urlencode({"query": query, "orientation": "portrait", "per_page": 30})
         for ph in http_json(url, {"Authorization": key, "User-Agent": "persona-bot"}).get("photos", []):
-            if str(ph["id"]) in used:
+            if str(ph["id"]) in used or has_people(ph.get("alt", ""), query):
                 continue
             download(ph["src"].get("large2x") or ph["src"]["original"], tmp)
             crop_4x5(tmp, dst)
@@ -144,7 +156,7 @@ def stock_photo(query, st, dst):
                     "safesearch": "true", "per_page": 50, "order": "popular", "min_height": 1000})
                 for ph in http_json(url, {"User-Agent": "persona-bot"}).get("hits", []):
                     pid = f"pixabay:{ph['id']}"
-                    if pid in used:
+                    if pid in used or has_people(ph.get("tags", ""), query):
                         continue
                     download(ph.get("largeImageURL") or ph["webformatURL"], tmp)
                     crop_4x5(tmp, dst)
