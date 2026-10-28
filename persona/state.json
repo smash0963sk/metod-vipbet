@@ -1,13 +1,5 @@
 {
  "posted": {
-  "ig_post:2026-10-28": {
-   "at": "2026-10-28T23:45:25+03:00",
-   "slot": "ig_post",
-   "ids": [
-    "telegram"
-   ],
-   "sport": null
-  },
   "th_photo:2026-10-28": {
    "at": "2026-10-28T23:35:49+03:00",
    "slot": "th_photo",
@@ -17,9 +9,7 @@
    "sport": null
   }
  },
- "used_photos": [
-  "p001"
- ],
+ "used_photos": [],
  "used_thoughts": [
   "t001"
  ],
@@ -27,19 +17,6 @@
   "pixabay:7063830",
   "pixabay:5772212"
  ],
- "day": {
-  "2026-10-28": {
-   "item": "p001",
-   "image": "persona/media/2026-10-28-p001.jpg",
-   "ig": "Лучшие решения приходят за рулём, когда город уже спит.\n\nНикаких звонков, никаких встреч. Только дорога и мысли, до которых днём не доходят руки.\n\nА где думается вам?\n\n#мышление #успех #lifestyle #ночнойгород #бизнес",
-   "th": "Лучшие решения приходят за рулём, когда город уже спит. Где думается вам?",
-   "meta": {
-    "source": "pixabay",
-    "pexels_id": "pixabay:5772212",
-    "author": "StuBaileyPhoto",
-    "page": "https://pixabay.com/photos/car-interiors-steering-wheel-5772212/"
-   }
-  }
- },
+ "day": {},
  "tg_chat": "8036813047"
 }

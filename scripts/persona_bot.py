@@ -98,15 +98,32 @@ def http_json(url, headers=None):
         return json.load(r)
 
 
-def crop_4x5(src, dst):
+def phone_look(im, seed=0):
+    """Убирает «стоковый» лоск: чуть спокойнее цвета, тёплый тон телефона, лёгкая виньетка. Чёрный остаётся чёрным."""
+    from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
+    im = ImageEnhance.Color(im).enhance(0.92)
+    r, g, b = im.split()
+    r = r.point(lambda v: min(255, int(v * 1.025)))
+    b = b.point(lambda v: int(v * 0.97))
+    im = Image.merge("RGB", (r, g, b))
+    w, h = im.size
+    vign = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(vign).ellipse((-w * 0.3, -h * 0.25, w * 1.3, h * 1.25), fill=255)
+    vign = vign.filter(ImageFilter.GaussianBlur(w // 5))
+    return Image.composite(im, ImageEnhance.Brightness(im).enhance(0.86), vign)
+
+
+def crop_4x5(src, dst, look=False, seed=0):
     from PIL import Image, ImageOps
     im = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
     w, h = im.size
     tw, th = (w, int(w * 5 / 4)) if w * 5 / 4 <= h else (int(h * 4 / 5), h)
     left, top = (w - tw) // 2, (h - th) // 2
     im = im.crop((left, top, left + tw, top + th)).resize((1080, 1350), Image.LANCZOS)
+    if look:
+        im = phone_look(im, seed)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-    im.save(dst, "JPEG", quality=90, optimize=True, progressive=True)
+    im.save(dst, "JPEG", quality=88, optimize=True, progressive=True)
 
 
 def download(url, tmp):
@@ -127,13 +144,13 @@ def has_people(text, query):
     return bool((words & PEOPLE) - allowed)
 
 
-def stock_photo(query, st, dst):
+def stock_photo(query, used, dst):
     """Фото из бесплатного фотобанка: Pexels (PEXELS_API_KEY) или Pixabay (PIXABAY_API_KEY)."""
     fake = os.environ.get("PERSONA_FAKE_PHOTO")  # для локальной проверки без интернета
     if fake:
-        crop_4x5(fake, dst)
-        return {"source": "test", "query": query}
-    used = set(map(str, st["pexels_ids"]))
+        crop_4x5(fake, dst, look=True, seed=len(used))
+        used.add(f"test:{dst}")
+        return {"source": "test", "query": query, "pexels_id": f"test:{dst}"}
     tmp = dst + ".src"
     key = os.environ.get("PEXELS_API_KEY")
     if key:
@@ -142,8 +159,9 @@ def stock_photo(query, st, dst):
             if str(ph["id"]) in used or has_people(ph.get("alt", ""), query):
                 continue
             download(ph["src"].get("large2x") or ph["src"]["original"], tmp)
-            crop_4x5(tmp, dst)
+            crop_4x5(tmp, dst, look=True, seed=ph["id"])
             os.remove(tmp)
+            used.add(str(ph["id"]))
             return {"source": "pexels", "pexels_id": ph["id"], "author": ph.get("photographer"), "page": ph.get("url")}
     key = os.environ.get("PIXABAY_API_KEY")
     if key:
@@ -159,48 +177,82 @@ def stock_photo(query, st, dst):
                     if pid in used or has_people(ph.get("tags", ""), query):
                         continue
                     download(ph.get("largeImageURL") or ph["webformatURL"], tmp)
-                    crop_4x5(tmp, dst)
+                    crop_4x5(tmp, dst, look=True, seed=ph["id"])
                     os.remove(tmp)
+                    used.add(pid)
                     return {"source": "pixabay", "pexels_id": pid, "author": ph.get("user"), "page": ph.get("pageURL")}
     return None
 
 
-def inbox_photo(dst):
-    files = sorted(f for f in glob.glob(os.path.join(PDIR, "inbox", "*")) if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")))
-    if not files:
-        return None
-    src = files[0]
-    crop_4x5(src, dst)
-    txt = os.path.splitext(src)[0] + ".txt"
-    caption = open(txt, encoding="utf-8").read().strip() if os.path.exists(txt) else None
-    return {"source": "inbox", "file": os.path.relpath(src, ROOT), "caption": caption}
+IMG_EXT = (".jpg", ".jpeg", ".png", ".webp")
+
+
+def inbox_dump(d):
+    """Свои фото: папка persona/inbox/<любое имя>/ с кадрами (+ caption.txt) — это один дамп;
+    отдельный файл в persona/inbox/ (+ файл .txt с тем же именем) — пост из одного фото."""
+    base = os.path.join(PDIR, "inbox")
+    folders = sorted(f for f in glob.glob(os.path.join(base, "*")) if os.path.isdir(f))
+    for f in folders:
+        files = sorted(x for x in glob.glob(os.path.join(f, "*")) if x.lower().endswith(IMG_EXT))[:10]
+        if not files:
+            continue
+        imgs = []
+        for i, src in enumerate(files, 1):
+            rel = f"persona/media/{d}-own-{i}.jpg"
+            crop_4x5(src, os.path.join(ROOT, rel))
+            imgs.append(rel)
+        cap = os.path.join(f, "caption.txt")
+        return imgs, (open(cap, encoding="utf-8").read().strip() if os.path.exists(cap) else None), os.path.relpath(f, ROOT)
+    files = sorted(x for x in glob.glob(os.path.join(base, "*")) if x.lower().endswith(IMG_EXT))
+    if files:
+        rel = f"persona/media/{d}-own-1.jpg"
+        crop_4x5(files[0], os.path.join(ROOT, rel))
+        txt = os.path.splitext(files[0])[0] + ".txt"
+        return [rel], (open(txt, encoding="utf-8").read().strip() if os.path.exists(txt) else None), os.path.relpath(files[0], ROOT)
+    return None
 
 
 def photo_of_day(st, plan):
-    """Фото дня — одно на Threads и Instagram. Выбирается при первом обращении за день."""
+    """Фотодамп дня — один на Threads (первые 4 кадра) и Instagram (вся карусель). Выбирается раз в день."""
     d = today()
-    if d in st["day"] and os.path.exists(os.path.join(ROOT, st["day"][d]["image"])):
-        return st["day"][d]
-    item = next_item(CONTENT["photos"], list(st["used_photos"]))
-    rel = f"persona/media/{d}-{item['id']}.jpg"
-    meta = inbox_photo(os.path.join(ROOT, rel))
-    if meta:
-        rel_final = rel
+    old = st["day"].get(d)
+    if old:
+        imgs = old.get("images") or ([old["image"]] if old.get("image") else [])
+        if imgs and all(os.path.exists(os.path.join(ROOT, x)) for x in imgs):
+            return dict(old, images=imgs)
+    if plan.get("day"):
+        return plan["day"][d]
+    dumps = CONTENT.get("dumps") or []
+    item = next_item(dumps, list(st["used_photos"])) if dumps else next_item(CONTENT["photos"], list(st["used_photos"]))
+    shots = item.get("shots") or [item["query"]]
+    own = inbox_dump(d)
+    used = set(map(str, st["pexels_ids"]))
+    new_ids = []
+    if own:
+        imgs, caption, src = own
+        plan["mark"]["inbox"] = src
+        meta = {"source": "inbox", "file": src}
     else:
-        meta = stock_photo(item["query"], st, os.path.join(ROOT, rel))
-        rel_final = rel
-    if not meta:
-        return None
-    ig, th = item["ig"], item["th"]
-    if meta.get("caption"):
-        ig = th = meta["caption"]
-    day = {"item": item["id"], "image": rel_final, "ig": ig, "th": th, "meta": meta}
+        imgs, caption = [], None
+        for i, q in enumerate(shots, 1):
+            rel = f"persona/media/{d}-{item['id']}-{i}.jpg"
+            try:
+                m = stock_photo(q, used, os.path.join(ROOT, rel))
+            except Exception as e:
+                print(f"::warning title=Фото::{q}: {e}")
+                m = None
+            if m:
+                imgs.append(rel)
+                new_ids.append(m.get("pexels_id"))
+        meta = {"source": "stock", "shots": len(imgs)}
+        if len(imgs) < (2 if len(shots) > 1 else 1):
+            return None
+    ig = caption or item["ig"]
+    th = caption or item["th"]
+    day = {"item": item["id"], "images": imgs, "ig": ig, "th": th, "music": item.get("music"), "place": item.get("place"), "meta": meta}
     plan["day"] = {d: day}
     plan["mark"]["photo"] = item["id"]
-    if meta.get("pexels_id"):
-        plan["mark"]["pexels_id"] = meta["pexels_id"]
-    if meta.get("source") == "inbox":
-        plan["mark"]["inbox"] = meta["file"]
+    plan["mark"]["pexels_ids"] = [x for x in new_ids if x]
     return day
 
 
@@ -384,7 +436,7 @@ def prepare(slot):
     elif slot == "th_photo":
         day = photo_of_day(st, plan)
         if day:
-            plan["posts"].append({"platform": "threads", "text": day["th"], "image": day["image"]})
+            plan["posts"].append({"platform": "threads", "text": day["th"], "images": day["images"][:4]})
         else:
             print("::warning title=Персонаж::Нет фото (нет ключа фотобанка PIXABAY_API_KEY / PEXELS_API_KEY и пустая папка persona/inbox) — публикую мысль")
             thought_post(st, plan)
@@ -401,14 +453,14 @@ def prepare(slot):
         if p:
             rel = f"persona/media/{d}-card-{p['id']}.jpg"
             render_card(p, os.path.join(ROOT, rel))
-            plan["posts"].append({"platform": "instagram", "text": ig_sport(p), "image": rel})
+            plan["posts"].append({"platform": "instagram", "text": ig_sport(p), "images": [rel]})
             plan["mark"]["sport"] = p["id"]
         else:
             day = photo_of_day(st, plan)
             if not day:
                 print("::warning title=Персонаж::Нет фото для Instagram — пост пропущен")
                 return write_outbox(None)
-            plan["posts"].append({"platform": "instagram", "text": day["ig"], "image": day["image"]})
+            plan["posts"].append({"platform": "instagram", "text": day["ig"], "images": day["images"], "music": day.get("music")})
 
     elif slot == "th_evening":
         if n % 3 == 0:
@@ -437,7 +489,7 @@ def write_outbox(plan):
     with open(OUTBOX, "w", encoding="utf-8") as f:
         json.dump(plan, f, ensure_ascii=False, indent=1)
     for post in plan["posts"]:
-        print(f"----- {plan['key']} → {post['platform']} ({len(post['text'])} симв.){' + фото ' + post['image'] if post.get('image') else ''} -----")
+        print(f"----- {plan['key']} → {post['platform']} ({len(post['text'])} симв.){' + фото: ' + str(len(post['images'])) if post.get('images') else ''} -----")
         print(post["text"])
         if post.get("tg_reply"):
             print(f"[комментарий] {REPLIES[0].format(tg=TG)}")
@@ -478,28 +530,46 @@ def media_url(rel):
     return base.rstrip("/") + "/" + rel
 
 
-def threads_post(text, image=None, reply_to=None, link=None):
+def threads_post(text, images=None, reply_to=None, link=None):
     tok = os.environ["THREADS_ACCESS_TOKEN"]
     uid = os.environ.get("THREADS_USER_ID") or call(TH_API, "GET", "me", {"fields": "id"}, tok)["id"]
-    params = {"media_type": "IMAGE" if image else "TEXT", "text": text}
-    if image:
-        params["image_url"] = media_url(image)
+    images = images or []
+    params = {"text": text}
+    if len(images) > 1:  # карусель: сначала контейнер на каждый кадр
+        kids = []
+        for img in images[:20]:
+            k = call(TH_API, "POST", f"{uid}/threads", {"media_type": "IMAGE", "image_url": media_url(img), "is_carousel_item": "true"}, tok)["id"]
+            wait_ready(TH_API, k, "status", tok)
+            kids.append(k)
+        params.update(media_type="CAROUSEL", children=",".join(kids))
+    elif images:
+        params.update(media_type="IMAGE", image_url=media_url(images[0]))
+    else:
+        params["media_type"] = "TEXT"
     if reply_to:
         params["reply_to_id"] = reply_to
     if link:
         params["link_attachment"] = link
     cid = call(TH_API, "POST", f"{uid}/threads", params, tok)["id"]
-    if image:
+    if images:
         wait_ready(TH_API, cid, "status", tok)
     else:
         time.sleep(5)
     return call(TH_API, "POST", f"{uid}/threads_publish", {"creation_id": cid}, tok)["id"]
 
 
-def instagram_post(caption, image):
+def instagram_post(caption, images):
     tok = os.environ["INSTAGRAM_ACCESS_TOKEN"]
     uid = os.environ.get("INSTAGRAM_USER_ID") or call(IG_API, "GET", "me", {"fields": "user_id"}, tok)["user_id"]
-    cid = call(IG_API, "POST", f"{uid}/media", {"image_url": media_url(image), "caption": caption}, tok)["id"]
+    if len(images) > 1:
+        kids = []
+        for img in images[:10]:
+            k = call(IG_API, "POST", f"{uid}/media", {"image_url": media_url(img), "is_carousel_item": "true"}, tok)["id"]
+            wait_ready(IG_API, k, "status_code", tok)
+            kids.append(k)
+        cid = call(IG_API, "POST", f"{uid}/media", {"media_type": "CAROUSEL", "children": ",".join(kids), "caption": caption}, tok)["id"]
+    else:
+        cid = call(IG_API, "POST", f"{uid}/media", {"image_url": media_url(images[0]), "caption": caption}, tok)["id"]
     wait_ready(IG_API, cid, "status_code", tok)
     return call(IG_API, "POST", f"{uid}/media_publish", {"creation_id": cid}, tok)["id"]
 
@@ -515,6 +585,7 @@ SLOT_INFO = {
 
 
 def tg_call(method, fields, files=None):
+    """files: {"имя_поля": путь}; для sendMediaGroup картинки передаются как attach://имя_поля."""
     url = f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/{method}"
     if files:
         boundary = "----persona" + str(int(time.time() * 1000))
@@ -553,12 +624,25 @@ def tg_deliver(plan, post, st, chat):
     where, at, kind = SLOT_INFO.get(plan["slot"], ("Threads", "", "пост"))
     if post["platform"] == "instagram":
         where = "Instagram"
-        kind = "карточка разбора матча" if plan["mark"].get("sport") else "фото дня"
+        kind = "карточка разбора матча" if plan["mark"].get("sport") else "фотодамп дня"
     icon = "📸" if where == "Instagram" else "🧵"
     head = f"{icon} <b>{where}</b> · {kind}\nОпубликовать в {at} МСК (или запланировать в приложении)"
-    if post.get("image"):
+    imgs = post.get("images") or []
+    if len(imgs) > 1:
+        head += f"\nКарусель из {len(imgs)} фото — сохраните все и выложите одним постом в том же порядке."
+    elif imgs:
         head += "\n\nСохраните фото: нажмите на него → «Сохранить»."
-        tg_call("sendPhoto", {"chat_id": chat, "caption": head, "parse_mode": "HTML"}, {"photo": os.path.join(ROOT, post["image"])})
+    if post.get("music"):
+        head += f"\n🎵 Музыка (добавьте в приложении): {h.escape(post['music'])}"
+    if len(imgs) > 1:
+        tg_call("sendMessage", {"chat_id": chat, "text": head, "parse_mode": "HTML"})
+        for start_i in range(0, len(imgs), 10):
+            part = imgs[start_i:start_i + 10]
+            media = [{"type": "photo", "media": f"attach://p{i}"} for i in range(len(part))]
+            tg_call("sendMediaGroup", {"chat_id": chat, "media": json.dumps(media)},
+                    {f"p{i}": os.path.join(ROOT, x) for i, x in enumerate(part)})
+    elif imgs:
+        tg_call("sendPhoto", {"chat_id": chat, "caption": head, "parse_mode": "HTML"}, {"photo": os.path.join(ROOT, imgs[0])})
     else:
         tg_call("sendMessage", {"chat_id": chat, "text": head, "parse_mode": "HTML"})
     tg_call("sendMessage", {"chat_id": chat, "parse_mode": "HTML",
@@ -594,7 +678,7 @@ def publish():
             print(f"::notice title=Персонаж ({plat})::{plan['key']}: готовый пост отправлен вам в Telegram")
             continue
         if plat == "threads":
-            pid = threads_post(post["text"], post.get("image"))
+            pid = threads_post(post["text"], post.get("images"))
             if post.get("tg_reply"):
                 time.sleep(10)
                 reply = REPLIES[len(st["posted"]) % len(REPLIES)].format(tg=TG)
@@ -603,7 +687,7 @@ def publish():
                 except Exception as e:
                     print(f"::warning title=Threads::Пост вышел, но комментарий со ссылкой не добавлен: {e}")
         else:
-            pid = instagram_post(post["text"], post["image"])
+            pid = instagram_post(post["text"], post["images"])
         ids.append(pid)
         print(f"::notice title=Персонаж ({plat})::Опубликовано {plan['key']}, id {pid}")
     if not ids:
@@ -613,14 +697,15 @@ def publish():
         st["used_photos"].append(m["photo"])
     if m.get("thought"):
         st["used_thoughts"].append(m["thought"])
-    if m.get("pexels_id"):
-        st["pexels_ids"].append(m["pexels_id"])
+    st["pexels_ids"].extend(m.get("pexels_ids") or [])
     if plan.get("day"):
         st["day"].update(plan["day"])
     if m.get("inbox"):
         src = os.path.join(ROOT, m["inbox"])
+        if os.path.isdir(src):
+            shutil.rmtree(src)
         for f in (src, os.path.splitext(src)[0] + ".txt"):
-            if os.path.exists(f):
+            if os.path.isfile(f):
                 os.remove(f)
     st["posted"][plan["key"]] = {"at": now().isoformat(timespec="seconds"), "slot": plan["slot"], "ids": ids, "sport": m.get("sport")}
     save_state(st)
