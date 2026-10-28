@@ -1,5 +1,5 @@
 {
- "_about": "Очередь лайфстайл-контента Виктора Платонова. photos — посты с фото (query — запрос к фотобанку Pexels на английском, ig — подпись для Instagram, th — текст для Threads). thoughts — текстовые посты для Threads. Здесь никогда не упоминаются ставки, букмекеры и Telegram. Бот берёт элементы по порядку и отмечает использованные в persona/state.json. dumps — «фотодампы» для Instagram в стиле iPhone-POV: карусель 6–8 кадров из одного места (shots — запросы к фотобанку), короткая подпись, трек-подсказка (музыку добавляете в приложении). Фото дня в Threads — первые 4 кадра дампа.",
+ "_about": "Очередь лайфстайл-контента Виктора Платонова. photos — посты с фото (query — запрос к фотобанку Pexels на английском, ig — подпись для Instagram, th — текст для Threads). thoughts — текстовые посты для Threads. Здесь никогда не упоминаются ставки, букмекеры и Telegram. Бот берёт элементы по порядку и отмечает использованные в persona/state.json. dumps — «фотодампы» для Instagram в стиле iPhone-POV: карусель 6–8 кадров из одного места (shots — запросы к фотобанку), короткая подпись, трек-подсказка (музыку добавляете в приложении). Фото дня в Threads — первые 4 кадра дампа. ai — те же 8 кадров, описанные для нейросети Kling (на английском); если есть секрет KLING_API_KEY, бот генерирует кадры по ним.",
  "photos": [
   {
    "id": "p001",
@@ -387,6 +387,16 @@
     "luxury boutique entrance paris",
     "paris street night lights",
     "luggage hotel entrance"
+   ],
+   "ai": [
+    "walking behind on a Haussmann street in Paris on an overcast autumn afternoon, ornate iron gates and limestone facades, POV from chest height, the photographer's own shoulder in black jacket slightly visible at the edge",
+    "the Eiffel Tower glowing gold at night with a searchlight beam, seen from an apartment window between dark Parisian roofs and bare tree branches",
+    "black Mercedes-Maybach S-Class parked on an empty Paris street corner at golden hour, Haussmann buildings, pedestrian crossing in foreground",
+    "hand holding a paper coffee cup and a crepe wrapped in newspaper paper over a wet stone ledge in Paris drizzle, black sleeve visible",
+    "view from a Paris hotel room window at dusk: zinc rooftops, chimneys, soft pink sky, sheer curtain at the edge of frame",
+    "entrance of a luxury jewelry boutique in Paris with flowers in planters and a polished metal emblem on the limestone wall, daylight",
+    "black Maybach with rear door open at night in front of an old Paris building, purple ambient interior lighting, two suitcases on the sidewalk",
+    "candlelit dinner table in a classic Paris restaurant at night, wine glasses, white tablecloth, a waiter's arm pouring wine, no faces"
    ]
   },
   {
@@ -404,6 +414,16 @@
     "desert road sunset",
     "dubai night skyline",
     "hotel gym window"
+   ],
+   "ai": [
+    "matte black Lamborghini parked in front of a modern cafe terrace in Dubai, bright midday sun, clean paving stones",
+    "Dubai Marina skyscrapers seen from a hotel balcony at sunset, glass railing in the foreground",
+    "sunlit luxury resort lobby with tall sandy arches and lanterns, black Maybach parked at the entrance, silver suitcase",
+    "empty red padel court surrounded by palm trees and green mesh fence in bright sun",
+    "infinity pool edge overlooking the Dubai skyline at blue hour, a phone and sunglasses on a lounger",
+    "inside a sports car looking at the side mirror, carbon fiber door, palm plants outside, a sleeve of a black hoodie on the armrest",
+    "private villa home gym with a treadmill facing a floor-to-ceiling window onto a courtyard olive tree, soft daylight",
+    "desert highway at sunset seen through a car windshield, steering wheel visible at the bottom"
    ]
   },
   {
@@ -421,6 +441,16 @@
     "espresso cafe terrace sea",
     "marina night lights",
     "luxury watch wrist"
+   ],
+   "ai": [
+    "Monaco harbor full of white yachts in morning light, view from a terrace above",
+    "Monte Carlo casino square at night with a black supercar parked in front, warm lights",
+    "teak deck of a yacht at sea with a glass of sparkling water and sunglasses on a cushion, bright sun",
+    "winding coastal road above the Mediterranean seen from the passenger seat of a convertible",
+    "espresso cup and croissant on a cafe table with a view of the Monaco marina",
+    "close-up of a steel luxury watch on a wrist resting on a car door, sea in the background",
+    "Monaco streets at dusk with warm street lamps and palm trees, quiet",
+    "night view of illuminated yachts in Port Hercule from a balcony"
    ]
   },
   {
@@ -438,6 +468,16 @@
     "penthouse view city night",
     "moscow river night",
     "highway night lights"
+   ],
+   "ai": [
+    "Moscow City skyscrapers at night seen through a car window with rain drops",
+    "black Mercedes sedan parked near a lit historic building in central Moscow at night, wet asphalt reflections",
+    "Red Square and the Kremlin towers lit at night in winter, light snow",
+    "car interior at night, illuminated dashboard, city lights bokeh through the windshield",
+    "restaurant table by a panoramic window high above Moscow at night, two glasses, candle",
+    "penthouse living room with floor-to-ceiling windows overlooking Moscow at night, dim lights",
+    "Moscow river embankment at night with bridges lights, view from a moving car",
+    "hand holding a hot coffee in a paper cup on a snowy Moscow street at night, black glove"
    ]
   },
   {
@@ -455,6 +495,16 @@
     "ski slope sunny",
     "helicopter snow mountains",
     "alpine village night"
+   ],
+   "ai": [
+    "Swiss Alps snowy peaks under blue sky seen from a chalet balcony with wooden railing",
+    "cozy chalet living room with a burning fireplace, ski boots by the door, warm light",
+    "black SUV parked on a snowy mountain road, pine trees, golden afternoon light",
+    "mug of hot chocolate on a snowy wooden table, mountains blurred behind",
+    "top of a ski slope on a sunny day, ski tips in the bottom of the frame, POV",
+    "helicopter standing on a snowy helipad in the mountains, bright day",
+    "alpine village at night with warm lit windows and falling snow",
+    "hotel spa pool with a window view of snowy mountains, steam rising"
    ]
   },
   {
@@ -472,6 +522,16 @@
     "lake como villa",
     "italian dinner pasta wine table",
     "milan street tram"
+   ],
+   "ai": [
+    "Milan Duomo cathedral facade in soft morning light seen from the square",
+    "Galleria Vittorio Emanuele glass dome and mosaic floor, early morning, nearly empty",
+    "espresso cup on a marble counter of an old Italian bar, morning light",
+    "vintage red Italian sports car parked on a narrow cobblestone street in Milan",
+    "Lake Como villa terrace with stone balustrade overlooking the lake and mountains",
+    "pasta plate and a glass of red wine on a restaurant table, evening light, no faces",
+    "Milan street with an orange tram passing at golden hour",
+    "luxury shopping bags on the back seat of a car"
    ]
   },
   {
@@ -489,6 +549,16 @@
     "overwater bungalow deck",
     "tropical breakfast tray",
     "sunset ocean boat"
+   ],
+   "ai": [
+    "overwater villas in the Maldives seen from a wooden jetty at sunrise",
+    "aerial view of turquoise lagoon and white sand island from a seaplane window",
+    "floating breakfast tray in a private pool facing the ocean",
+    "hammock between palm trees over white sand, calm sea",
+    "infinity pool merging with the ocean at sunset, sun loungers",
+    "deck of an overwater bungalow with stairs into crystal clear water",
+    "feet in the sand near the waterline, POV, golden light",
+    "small speedboat on calm turquoise water at sunset, view from the bow"
    ]
   },
   {
@@ -506,6 +576,16 @@
     "tea cup london cafe",
     "big ben night",
     "shopping bags luxury"
+   ],
+   "ai": [
+    "wet London street at dusk with Georgian townhouses and a black cab passing",
+    "Rolls-Royce parked in front of a Mayfair townhouse, overcast day",
+    "Tower Bridge lit at night seen from the river embankment",
+    "cup of tea and a pastry on a table in a classic London cafe, rainy window",
+    "Big Ben and Westminster at blue hour from across the river",
+    "luxury shopping bags on a hotel bed with a view of London roofs",
+    "London Underground escalator, motion blur, POV, no faces",
+    "hotel room window view of London at night in the rain"
    ]
   },
   {
@@ -523,6 +603,16 @@
     "rose wine glass sea view",
     "sea view balcony",
     "sunset mediterranean"
+   ],
+   "ai": [
+    "Promenade des Anglais in Nice in morning sun with blue chairs and the sea",
+    "convertible car driving on a cliff road above the French Riviera, POV from passenger seat",
+    "beach club white loungers and umbrellas over turquoise water",
+    "hilltop medieval village of Eze with stone streets and bougainvillea",
+    "glass of rosé on a terrace table with a sea view, sunny",
+    "yacht anchored in a calm bay near Villefranche-sur-Mer",
+    "sea view hotel balcony at sunset with open french doors",
+    "Mediterranean sunset over the water with a pier"
    ]
   },
   {
@@ -540,6 +630,16 @@
     "grand bazaar lamps",
     "luxury hotel istanbul",
     "istanbul street night"
+   ],
+   "ai": [
+    "Bosphorus bridge lit at night seen from a waterfront terrace",
+    "Istanbul mosque silhouettes at sunset over the Golden Horn",
+    "Turkish tea in a tulip glass on a silver tray, morning light on a balcony",
+    "deck of a yacht on the Bosphorus with the city skyline, afternoon",
+    "rooftop view over Istanbul domes and minarets at golden hour",
+    "colorful mosaic lamps in the Grand Bazaar, warm light",
+    "luxury hotel suite with a window overlooking the Bosphorus",
+    "Istanbul street at night with old tram and warm lights"
    ]
   },
   {
@@ -557,6 +657,16 @@
     "black suv new york",
     "brooklyn bridge",
     "times square night"
+   ],
+   "ai": [
+    "yellow taxis on a Manhattan avenue at dusk, POV from the sidewalk",
+    "Manhattan skyline at night from a high-rise window",
+    "Central Park path with autumn leaves, morning light",
+    "hand holding a coffee cup on a New York street, black sleeve, steam",
+    "black SUV parked in front of a SoHo cast-iron building",
+    "Brooklyn Bridge walkway at sunrise",
+    "hotel bar counter with a city view at night, two glasses",
+    "penthouse terrace overlooking Manhattan at sunset"
    ]
   },
   {
@@ -574,7 +684,21 @@
     "bedroom city view morning",
     "terrace plants evening",
     "watch box collection"
+   ],
+   "ai": [
+    "modern minimalist living room with large windows and soft morning light",
+    "home gym with a treadmill facing a floor-to-ceiling window and a small courtyard tree",
+    "espresso machine making coffee on a marble kitchen counter, morning",
+    "reading chair and bookshelf in warm evening light",
+    "private garage with a black sports car under soft lights",
+    "bedroom with a city view at sunrise, unmade white sheets",
+    "terrace with plants and a sofa at blue hour, city lights",
+    "watch box with several luxury watches on a wooden desk"
    ]
   }
- ]
+ ],
+ "ai_style": {
+  "prompt": "Candid smartphone photo shot on iPhone, first-person point of view, natural available light, slightly underexposed, true-to-life colors, mild wide-angle lens distortion, unposed authentic travel photo dump aesthetic, no visible faces. Scene: {shot}. If hands or sleeves appear, the photographer wears a black oversized jacket and a silver steel wristwatch.",
+  "negative": "faces, people posing, looking at camera, text, captions, watermark, cartoon, illustration, 3d render, CGI, oversaturated, HDR, studio lighting, stock photo look, deformed hands, extra fingers"
+ }
 }

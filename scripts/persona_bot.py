@@ -21,6 +21,8 @@
 Полуавтомат: если токенов Meta нет, но есть TG_BOT_TOKEN, готовые посты (фото + текст) приходят
 вам в личный Telegram в нужное время, а вы публикуете их сами. Чат определяется по /start боту.
 
+Kling: если есть секрет KLING_API_KEY, кадры дампа генерируются нейросетью по описаниям из content.json (поле ai).
+
 Секреты: THREADS_ACCESS_TOKEN, INSTAGRAM_ACCESS_TOKEN, PIXABAY_API_KEY (или PEXELS_API_KEY), TG_BOT_TOKEN, TG_CHAT_ID (не обязателен)
 (THREADS_USER_ID и INSTAGRAM_USER_ID не обязательны — бот узнает их сам). DRY_RUN=1 — ничего не публиковать.
 """
@@ -184,6 +186,62 @@ def stock_photo(query, used, dst):
     return None
 
 
+KLING_API = "https://api-singapore.klingai.com/v1/images/generations"
+
+
+def kling_batch(shots, dsts):
+    """Генерирует кадры в Kling (секрет KLING_API_KEY): все задачи сразу, потом ждём готовности."""
+    key = os.environ["KLING_API_KEY"]
+    cfg = PERSONA.get("kling", {})
+    style = CONTENT.get("ai_style", {})
+    hdr = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+
+    def req(method, url, body=None):
+        r = urllib.request.Request(url, data=json.dumps(body).encode() if body else None, headers=hdr, method=method)
+        try:
+            with urllib.request.urlopen(r, timeout=60) as resp:
+                out = json.load(resp)
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"Kling {e.code}: {e.read()[:300]!r}")
+        if out.get("code") not in (0, None):
+            raise RuntimeError(f"Kling: {out.get('code')} {out.get('message')}")
+        return out["data"]
+
+    tasks = {}
+    for shot, dst in zip(shots, dsts):
+        body = {"model_name": cfg.get("model", "kling-v3"), "prompt": style.get("prompt", "{shot}").format(shot=shot)[:2500],
+                "negative_prompt": style.get("negative", ""), "aspect_ratio": "3:4", "n": 1,
+                "resolution": cfg.get("resolution", "1k")}
+        try:
+            tasks[req("POST", KLING_API, body)["task_id"]] = dst
+        except Exception as e:
+            print(f"::warning title=Kling::{e}")
+            if not tasks and ("1102" in str(e) or "balance" in str(e).lower()):
+                break  # нет баланса — нет смысла слать остальные
+    done = []
+    deadline = time.time() + 600
+    while tasks and time.time() < deadline:
+        time.sleep(8)
+        for tid, dst in list(tasks.items()):
+            try:
+                d = req("GET", f"{KLING_API}/{tid}")
+            except Exception as e:
+                print(f"::warning title=Kling::{e}")
+                continue
+            if d.get("task_status") == "succeed":
+                url = d["task_result"]["images"][0]["url"]
+                tmp = dst + ".src"
+                download(url, tmp)
+                crop_4x5(tmp, dst)
+                os.remove(tmp)
+                done.append(dst)
+                del tasks[tid]
+            elif d.get("task_status") == "failed":
+                print(f"::warning title=Kling::кадр не сгенерирован: {d.get('task_status_msg')}")
+                del tasks[tid]
+    return [x for x in dsts if x in done]
+
+
 IMG_EXT = (".jpg", ".jpeg", ".png", ".webp")
 
 
@@ -227,12 +285,21 @@ def photo_of_day(st, plan):
     shots = item.get("shots") or [item["query"]]
     own = inbox_dump(d)
     used = set(map(str, st["pexels_ids"]))
-    new_ids = []
+    new_ids, imgs, caption = [], [], None
     if own:
         imgs, caption, src = own
         plan["mark"]["inbox"] = src
         meta = {"source": "inbox", "file": src}
-    else:
+    elif os.environ.get("KLING_API_KEY") and item.get("ai"):
+        caption = None
+        rels = [f"persona/media/{d}-{item['id']}-{i}.jpg" for i in range(1, len(item["ai"]) + 1)]
+        done = kling_batch(item["ai"], [os.path.join(ROOT, r) for r in rels])
+        imgs = [os.path.relpath(x, ROOT) for x in done]
+        meta = {"source": "kling", "shots": len(imgs)}
+        if len(imgs) < 3:
+            print("::warning title=Kling::Сгенерировано меньше 3 кадров — беру фото из фотобанка")
+            imgs = []
+    if not own and not imgs:
         imgs, caption = [], None
         for i, q in enumerate(shots, 1):
             rel = f"persona/media/{d}-{item['id']}-{i}.jpg"
@@ -436,7 +503,7 @@ def prepare(slot):
     elif slot == "th_photo":
         day = photo_of_day(st, plan)
         if day:
-            plan["posts"].append({"platform": "threads", "text": day["th"], "images": day["images"][:4]})
+            plan["posts"].append({"platform": "threads", "text": day["th"], "images": day["images"][:4], "ai": day.get("meta", {}).get("source") == "kling"})
         else:
             print("::warning title=Персонаж::Нет фото (нет ключа фотобанка PIXABAY_API_KEY / PEXELS_API_KEY и пустая папка persona/inbox) — публикую мысль")
             thought_post(st, plan)
@@ -460,7 +527,7 @@ def prepare(slot):
             if not day:
                 print("::warning title=Персонаж::Нет фото для Instagram — пост пропущен")
                 return write_outbox(None)
-            plan["posts"].append({"platform": "instagram", "text": day["ig"], "images": day["images"], "music": day.get("music")})
+            plan["posts"].append({"platform": "instagram", "text": day["ig"], "images": day["images"], "music": day.get("music"), "ai": day.get("meta", {}).get("source") == "kling"})
 
     elif slot == "th_evening":
         if n % 3 == 0:
@@ -632,6 +699,8 @@ def tg_deliver(plan, post, st, chat):
         head += f"\nКарусель из {len(imgs)} фото — сохраните все и выложите одним постом в том же порядке."
     elif imgs:
         head += "\n\nСохраните фото: нажмите на него → «Сохранить»."
+    if post.get("ai"):
+        head += "\n🤖 Кадры созданы нейросетью: при публикации включите «Метка ИИ» (Расширенные настройки)."
     if post.get("music"):
         head += f"\n🎵 Музыка (добавьте в приложении): {h.escape(post['music'])}"
     if len(imgs) > 1:

@@ -65,6 +65,7 @@ jobs:
         env:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          KLING_API_KEY: ${{ secrets.KLING_API_KEY }}
         run: python scripts/persona_bot.py prepare "${{ steps.slot.outputs.slot }}"
 
       - name: Выложить картинки (нужен публичный адрес для Instagram и Threads)
