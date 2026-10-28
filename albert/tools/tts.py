@@ -1,0 +1,94 @@
+"""Озвучка эпизода через Fish Audio: каждая реплика — отдельный файл albert/build/<эпизод>/voice/NN.mp3.
+
+python3 albert/tools/tts.py ep01
+Секрет: FISH_API_KEY. Голоса — в albert/voices.json ({"A": "<id голоса Альберта>", "S": "<id голоса Стаса>"}).
+Если голосов нет, бот выбирает популярные русские мужские голоса из библиотеки Fish Audio и записывает их в voices.json.
+Уже озвученные реплики (тот же текст и голос) повторно не озвучиваются — Fish Audio платный.
+"""
+import hashlib, json, os, sys, time, urllib.parse, urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+API = "https://api.fish.audio"
+KEY = os.environ.get("FISH_API_KEY")
+MODEL = os.environ.get("FISH_MODEL", "s2.1-pro")
+VOICES_FILE = os.path.join(ROOT, "voices.json")
+SPEED = {"A": 1.0, "S": 1.06}
+
+
+def req(method, path, body=None, headers=None, raw=False):
+    h = {"Authorization": f"Bearer {KEY}", **(headers or {})}
+    data = json.dumps(body).encode() if body is not None else None
+    if data:
+        h["Content-Type"] = "application/json"
+    r = urllib.request.Request(API + path, data=data, headers=h, method=method)
+    try:
+        with urllib.request.urlopen(r, timeout=180) as resp:
+            return resp.read() if raw else json.load(resp)
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Fish Audio {e.code}: {e.read()[:300]!r}")
+
+
+def pick_voices():
+    try:
+        v = json.load(open(VOICES_FILE, encoding="utf-8"))
+        if v.get("A") and v.get("S"):
+            return v
+    except FileNotFoundError:
+        v = {}
+    q = urllib.parse.urlencode({"language": "ru", "page_size": 40, "sort_by": "task_count"})
+    items = req("GET", f"/model?{q}").get("items", [])
+    def male(m):
+        tags = " ".join(m.get("tags") or []).lower() + " " + (m.get("title") or "").lower()
+        return ("male" in tags or "муж" in tags or "парень" in tags) and "female" not in tags and "жен" not in tags
+    males = [m for m in items if male(m)] or items
+    for m in items[:15]:
+        print(f"::notice title=Fish Audio — русский голос::{m.get('title')} · id {m.get('_id')} · теги: {', '.join(m.get('tags') or [])}")
+    if len(males) < 2:
+        raise RuntimeError("Не нашёл подходящих русских голосов — укажите id в albert/voices.json")
+    v = {"A": v.get("A") or males[0]["_id"], "S": v.get("S") or males[1]["_id"],
+         "_titles": {"A": males[0].get("title"), "S": males[1].get("title")}}
+    json.dump(v, open(VOICES_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"::notice title=Голоса::Альберт — {v['_titles']['A']}, Стас — {v['_titles']['S']} (поменять можно в albert/voices.json)")
+    return v
+
+
+def main(ep_name):
+    if not KEY:
+        print("::warning title=Озвучка::Нет секрета FISH_API_KEY — видео будет без голоса")
+        return
+    ep = json.load(open(os.path.join(ROOT, "episodes", ep_name + ".json"), encoding="utf-8"))
+    voices = pick_voices()
+    out = os.path.join(ROOT, "build", ep_name, "voice")
+    os.makedirs(out, exist_ok=True)
+    meta_f = os.path.join(out, "meta.json")
+    meta = json.load(open(meta_f)) if os.path.exists(meta_f) else {}
+    made = 0
+    for i, ln in enumerate(ep["lines"], 1):
+        text = ln.get("say") or ln["text"]
+        voice = voices[ln["who"]]
+        h = hashlib.sha1(f"{voice}|{MODEL}|{text}".encode()).hexdigest()
+        f = os.path.join(out, f"{i:02d}.mp3")
+        if os.path.exists(f) and meta.get(f"{i:02d}") == h:
+            continue
+        body = {"text": text, "reference_id": voice, "format": "mp3", "mp3_bitrate": 192, "normalize": True,
+                "latency": "normal", "prosody": {"speed": SPEED.get(ln["who"], 1.0)}}
+        for attempt in range(3):
+            try:
+                audio = req("POST", "/v1/tts", body, {"model": MODEL}, raw=True)
+                break
+            except RuntimeError as e:
+                if "402" in str(e):
+                    raise RuntimeError("Fish Audio: закончился баланс API (402)")
+                if attempt == 2:
+                    raise
+                time.sleep(5)
+        open(f, "wb").write(audio)
+        meta[f"{i:02d}"] = h
+        made += 1
+        print(f"{i:02d} [{ln['who']}] {text}")
+    json.dump(meta, open(meta_f, "w"), indent=1)
+    print(f"::notice title=Озвучка::Озвучено реплик: {made} (остальные взяты из кэша)")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1] if len(sys.argv) > 1 else "ep01")

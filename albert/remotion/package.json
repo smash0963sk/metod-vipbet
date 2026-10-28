@@ -1,0 +1,14 @@
+{
+  "name": "albert-remotion",
+  "private": true,
+  "description": "Мультики с Альбертом: рендер в Remotion",
+  "scripts": {
+    "render": "remotion render src/index.js Episode"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  }
+}
