@@ -1,3 +1,4 @@
 persona/outbox.json
 persona/media/*.src
 __pycache__/
+data/tg_cards/

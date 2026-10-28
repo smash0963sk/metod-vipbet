@@ -1,0 +1,78 @@
+# Бот Telegram-канала: прогнозы с сайта в канал.
+#   09:05 МСК — итоги вчера (по понедельникам ещё итоги недели) и прогнозы на сегодня
+#   11:05 МСК — «Ставка дня»   14:05 МСК — «Верняк дня»
+#   17:05 МСК — «Экспресс дня» 19:05 МСК — «Прогноз на вечер»
+# Нужно: секрет TG_BOT_TOKEN (или TG_CHANNEL_BOT_TOKEN) и бот — администратор канала.
+name: Telegram-канал
+
+on:
+  schedule:
+    - cron: "5 6 * * *"
+    - cron: "5 8 * * *"
+    - cron: "5 11 * * *"
+    - cron: "5 14 * * *"
+    - cron: "5 16 * * *"
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: "Какой пост опубликовать"
+        type: choice
+        options: [morning, bet, lock, express, evening]
+        default: bet
+      dry_run:
+        description: "Только проверка — ничего не публиковать"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tg-channel
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet pillow
+
+      - name: Выбрать слот
+        id: slot
+        run: |
+          case "${{ github.event.schedule }}" in
+            "5 6 * * *")  s=morning ;;
+            "5 8 * * *")  s=bet ;;
+            "5 11 * * *") s=lock ;;
+            "5 14 * * *") s=express ;;
+            "5 16 * * *") s=evening ;;
+            *)            s="${{ inputs.slot }}" ;;
+          esac
+          echo "slot=$s" >> "$GITHUB_OUTPUT"
+
+      - name: Опубликовать в канал
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHANNEL_BOT_TOKEN: ${{ secrets.TG_CHANNEL_BOT_TOKEN }}
+          TG_CHANNEL_ID: ${{ secrets.TG_CHANNEL_ID }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '1' || '0' }}
+        run: python scripts/tg_channel_bot.py "${{ steps.slot.outputs.slot }}"
+
+      - name: Запомнить опубликованное
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tg_channel_state.json 2>/dev/null || exit 0
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Канал: опубликованные посты"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 10
+          done
+          exit 1

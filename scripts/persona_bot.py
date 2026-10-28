@@ -350,7 +350,7 @@ def wrap(draw, text, fnt, width):
     return lines
 
 
-def crest(p, side, size):
+def crest(p, side, size, accent=(201, 169, 110)):
     from PIL import Image, ImageDraw
     from build_pages import logo_for, initials
     c = Image.new("RGBA", (size, size), (0, 0, 0, 0))
@@ -365,45 +365,60 @@ def crest(p, side, size):
         lg = lg.resize((max(1, int(lg.width * r)), max(1, int(lg.height * r))), Image.LANCZOS)
         c.alpha_composite(lg, ((size - lg.width) // 2, (size - lg.height) // 2))
     else:
-        d.ellipse((0, 0, size - 1, size - 1), fill=(201, 169, 110, 255))
+        d.ellipse((0, 0, size - 1, size - 1), fill=tuple(accent) + (255,))
         f = font("InterDisplay-Black.otf", size // 3)
         t = initials(p[side])
         d.text((size / 2, size / 2), t, font=f, fill=(10, 10, 10), anchor="mm")
     return c
 
 
-def render_card(p, dst):
+PERSONA_BRAND = {
+    "accent": (201, 169, 110), "glow": (60, 48, 28), "line": (70, 60, 42), "track": (40, 36, 30),
+    "title": "Р А З Б О Р   М А Т Ч А", "mark": "В.И.П.", "mark_font": ("Lora-Variable.ttf", 34, "Bold"),
+    "label": "М О Й   В Ы Б О Р", "prob": "Моя оценка вероятности — {p}%", "pick_font": ("Lora-Variable.ttf", 76, "Bold"),
+    "vs_font": ("Lora-Italic-Variable.ttf", 64, "Italic"), "signature": None,
+    "sign_font": ("Lora-Italic-Variable.ttf", 40, "Italic"),
+    "foot": ["18+ · Это мнение, а не гарантия · Только легальные БК", "Полный разбор — в Telegram, ссылка в профиле"],
+}
+
+
+def render_card(p, dst, brand=None):
+    """Карточка прогноза 1080×1350. brand — цвета и тексты (по умолчанию — стиль персонажа)."""
     from PIL import Image, ImageDraw, ImageFilter
+    B = dict(PERSONA_BRAND, **(brand or {}))
     W, H = 1080, 1350
-    GOLD, WHITE, GREY = (201, 169, 110), (245, 242, 235), (150, 146, 138)
+    GOLD, WHITE, GREY = tuple(B["accent"]), (245, 242, 235), (150, 146, 138)
     im = Image.new("RGB", (W, H), (9, 9, 9))
     glow = Image.new("L", (W, H), 0)
     ImageDraw.Draw(glow).ellipse((-200, -380, W + 200, 520), fill=70)
     glow = glow.filter(ImageFilter.GaussianBlur(160))
-    im = Image.composite(Image.new("RGB", (W, H), (60, 48, 28)), im, glow).convert("RGBA")
+    im = Image.composite(Image.new("RGB", (W, H), tuple(B["glow"])), im, glow).convert("RGBA")
     d = ImageDraw.Draw(im)
     M = 84
-    d.text((M, 96), "Р А З Б О Р   М А Т Ч А", font=font("Inter-SemiBold.otf", 26), fill=GOLD)
-    d.text((W - M, 92), "В.И.П.", font=font("Lora-Variable.ttf", 34, "Bold"), fill=GOLD, anchor="ra")
+    d.text((M, 96), B["title"], font=font("Inter-SemiBold.otf", 26), fill=GOLD)
+    d.text((W - M, 92), B["mark"], font=font(*B["mark_font"]), fill=GOLD, anchor="ra")
     when = f"{p.get('league', '')} · {tb.human(p['date'])}, {p['time']} МСК"
-    d.text((M, 146), when, font=font("Inter-Regular.otf", 28), fill=GREY)
+    fw = font("Inter-Regular.otf", 28)
+    while d.textlength(when, font=fw) > W - 2 * M and len(when) > 20:
+        when = when[:-2]
+    d.text((M, 146), when, font=fw, fill=GREY)
 
     S, top = 230, 250
     for side, cx in (("home", W * 0.27), ("away", W * 0.73)):
-        im.alpha_composite(crest(p, side, S), (int(cx - S / 2), top))
+        im.alpha_composite(crest(p, side, S, B["accent"]), (int(cx - S / 2), top))
         fn = font("Inter-SemiBold.otf", 36)
         y = top + S + 30
         for line in wrap(d, p[side], fn, 380)[:2]:
             d.text((cx, y), line, font=fn, fill=WHITE, anchor="ma")
             y += 46
-    d.text((W / 2, top + S / 2), "vs", font=font("Lora-Italic-Variable.ttf", 64, "Italic"), fill=GOLD, anchor="mm")
+    d.text((W / 2, top + S / 2), "vs", font=font(*B["vs_font"]), fill=GOLD, anchor="mm")
 
     y = 690
-    d.line((M, y, W - M, y), fill=(70, 60, 42), width=2)
+    d.line((M, y, W - M, y), fill=tuple(B["line"]), width=2)
     y += 48
-    d.text((M, y), "М О Й   В Ы Б О Р", font=font("Inter-SemiBold.otf", 26), fill=GOLD)
+    d.text((M, y), B["label"], font=font("Inter-SemiBold.otf", 26), fill=GOLD)
     y += 54
-    fp = font("Lora-Variable.ttf", 76, "Bold")
+    fp = font(*B["pick_font"])
     for line in wrap(d, p["pick"], fp, W - 2 * M)[:2]:
         d.text((M, y), line, font=fp, fill=WHITE)
         y += 92
@@ -412,15 +427,15 @@ def render_card(p, dst):
     y += 96
     if p.get("prob"):
         pr = max(0, min(100, round(float(p["prob"]))))
-        d.text((M, y), f"Моя оценка вероятности — {pr}%", font=font("Inter-Regular.otf", 30), fill=GREY)
+        d.text((M, y), B["prob"].format(p=pr), font=font("Inter-Regular.otf", 30), fill=GREY)
         y += 52
-        d.rounded_rectangle((M, y, W - M, y + 14), 7, fill=(40, 36, 30))
+        d.rounded_rectangle((M, y, W - M, y + 14), 7, fill=tuple(B["track"]))
         d.rounded_rectangle((M, y, M + (W - 2 * M) * pr / 100, y + 14), 7, fill=GOLD)
 
-    d.line((M, H - 196, W - M, H - 196), fill=(70, 60, 42), width=2)
-    d.text((M, H - 160), PERSONA["name"], font=font("Lora-Italic-Variable.ttf", 40, "Italic"), fill=WHITE)
-    d.text((M, H - 102), "18+ · Это мнение, а не гарантия · Только легальные БК", font=font("Inter-Regular.otf", 26), fill=GREY)
-    d.text((M, H - 66), "Полный разбор — в Telegram, ссылка в профиле", font=font("Inter-Regular.otf", 26), fill=GREY)
+    d.line((M, H - 196, W - M, H - 196), fill=tuple(B["line"]), width=2)
+    d.text((M, H - 160), B["signature"] or PERSONA["name"], font=font(*B["sign_font"]), fill=WHITE)
+    d.text((M, H - 102), B["foot"][0], font=font("Inter-Regular.otf", 26), fill=GREY)
+    d.text((M, H - 66), B["foot"][1], font=font("Inter-Regular.otf", 26), fill=GREY)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     im.convert("RGB").save(dst, "JPEG", quality=92, optimize=True)
 
