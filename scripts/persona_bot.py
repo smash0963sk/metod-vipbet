@@ -17,7 +17,10 @@
 Фото: сначала свои из persona/inbox/ (рядом можно положить .txt с подписью),
 иначе — бесплатный фотобанк Pexels по запросу из persona/content.json (секрет PEXELS_API_KEY).
 
-Секреты: THREADS_ACCESS_TOKEN, INSTAGRAM_ACCESS_TOKEN, PEXELS_API_KEY
+Полуавтомат: если токенов Meta нет, но есть TG_BOT_TOKEN, готовые посты (фото + текст) приходят
+вам в личный Telegram в нужное время, а вы публикуете их сами. Чат определяется по /start боту.
+
+Секреты: THREADS_ACCESS_TOKEN, INSTAGRAM_ACCESS_TOKEN, PEXELS_API_KEY, TG_BOT_TOKEN, TG_CHAT_ID (не обязателен)
 (THREADS_USER_ID и INSTAGRAM_USER_ID не обязательны — бот узнает их сам). DRY_RUN=1 — ничего не публиковать.
 """
 import glob, json, os, shutil, sys, time, urllib.parse, urllib.request
@@ -467,6 +470,72 @@ def instagram_post(caption, image):
     return call(IG_API, "POST", f"{uid}/media_publish", {"creation_id": cid}, tok)["id"]
 
 
+# ---------- доставка в личный Telegram (полуавтомат, пока нет доступа к API Meta) ----------
+SLOT_INFO = {
+    "th_morning": ("Threads", "09:10", "мысль дня"),
+    "th_sport": ("Threads", "12:40", "разбор матча"),
+    "th_photo": ("Threads", "16:10", "фото дня"),
+    "ig_post": ("Instagram", "18:30", "пост"),
+    "th_evening": ("Threads", "20:10", "вечерний пост"),
+}
+
+
+def tg_call(method, fields, files=None):
+    url = f"https://api.telegram.org/bot{os.environ['TG_BOT_TOKEN']}/{method}"
+    if files:
+        boundary = "----persona" + str(int(time.time() * 1000))
+        body = b""
+        for k, v in fields.items():
+            body += f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode()
+        for k, path in files.items():
+            body += (f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"; filename="{os.path.basename(path)}"\r\n'
+                     "Content-Type: image/jpeg\r\n\r\n").encode() + open(path, "rb").read() + b"\r\n"
+        body += f"--{boundary}--\r\n".encode()
+        req = urllib.request.Request(url, data=body, headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+    else:
+        req = urllib.request.Request(url, data=urllib.parse.urlencode(fields).encode())
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            return json.load(r)["result"]
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"Telegram {e.code}: {e.read()[:300]!r}")
+
+
+def tg_chat(st):
+    """Куда слать: секрет TG_CHAT_ID, сохранённый чат или тот, кто написал боту /start."""
+    chat = os.environ.get("TG_CHAT_ID") or st.get("tg_chat")
+    if chat:
+        return chat
+    for u in reversed(tg_call("getUpdates", {"limit": 100})):
+        c = (u.get("message") or {}).get("chat") or {}
+        if c.get("type") == "private":
+            st["tg_chat"] = str(c["id"])
+            return st["tg_chat"]
+    return None
+
+
+def tg_deliver(plan, post, st, chat):
+    import html as h
+    where, at, kind = SLOT_INFO.get(plan["slot"], ("Threads", "", "пост"))
+    if post["platform"] == "instagram":
+        where = "Instagram"
+        kind = "карточка разбора матча" if plan["mark"].get("sport") else "фото дня"
+    icon = "📸" if where == "Instagram" else "🧵"
+    head = f"{icon} <b>{where}</b> · {kind}\nОпубликовать в {at} МСК (или запланировать в приложении)"
+    if post.get("image"):
+        head += "\n\nСохраните фото: нажмите на него → «Сохранить»."
+        tg_call("sendPhoto", {"chat_id": chat, "caption": head, "parse_mode": "HTML"}, {"photo": os.path.join(ROOT, post["image"])})
+    else:
+        tg_call("sendMessage", {"chat_id": chat, "text": head, "parse_mode": "HTML"})
+    tg_call("sendMessage", {"chat_id": chat, "parse_mode": "HTML",
+                            "text": f"Текст поста — нажмите на блок, чтобы скопировать:\n<pre>{h.escape(post['text'])}</pre>"})
+    if post.get("tg_reply"):
+        reply = REPLIES[len(st["posted"]) % len(REPLIES)].format(tg=TG)
+        tg_call("sendMessage", {"chat_id": chat, "parse_mode": "HTML", "disable_web_page_preview": "true",
+                                "text": f"Сразу после публикации — <b>первым комментарием</b> под постом:\n<pre>{h.escape(reply)}</pre>"})
+    return "telegram"
+
+
 def publish():
     if not os.path.exists(OUTBOX):
         print("Публиковать нечего")
@@ -478,9 +547,17 @@ def publish():
     for post in plan["posts"]:
         plat = post["platform"]
         need = "THREADS_ACCESS_TOKEN" if plat == "threads" else "INSTAGRAM_ACCESS_TOKEN"
-        if dry or not os.environ.get(need):
-            why = "включён режим проверки" if dry else f"нет секрета {need}"
+        if dry or (not os.environ.get(need) and not os.environ.get("TG_BOT_TOKEN")):
+            why = "включён режим проверки" if dry else f"нет секрета {need} или TG_BOT_TOKEN"
             print(f"::notice title=Персонаж ({plat})::{plan['key']}: не опубликовано — {why}")
+            continue
+        if not os.environ.get(need):
+            chat = tg_chat(st)
+            if not chat:
+                print("::warning title=Персонаж::Не знаю, куда присылать посты: напишите своему боту /start в Telegram")
+                continue
+            ids.append(tg_deliver(plan, post, st, chat))
+            print(f"::notice title=Персонаж ({plat})::{plan['key']}: готовый пост отправлен вам в Telegram")
             continue
         if plat == "threads":
             pid = threads_post(post["text"], post.get("image"))

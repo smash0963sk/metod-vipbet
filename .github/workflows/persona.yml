@@ -4,6 +4,7 @@
 #   16:10 МСК  Threads — фото дня
 #   18:30 МСК  Instagram — фото дня или (3 дня из 10) карточка разбора матча
 #   20:10 МСК  Threads — раз в 3 дня экспресс со ссылкой на Telegram, иначе мысль
+# Пока нет токенов Meta, но задан TG_BOT_TOKEN, — готовые посты приходят вам в личный Telegram.
 # Ручной запуск: Actions → «Персонаж» → Run workflow (слот и режим проверки).
 name: Персонаж
 
@@ -70,8 +71,9 @@ jobs:
         env:
           T1: ${{ secrets.THREADS_ACCESS_TOKEN }}
           T2: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          T3: ${{ secrets.TG_BOT_TOKEN }}
         run: |
-          if [ -z "$T1$T2" ]; then echo "Секретов с токенами нет — картинки не выкладываю"; exit 0; fi
+          if [ -z "$T1$T2$T3" ]; then echo "Секретов с токенами нет — картинки не выкладываю"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add persona/media
@@ -89,6 +91,8 @@ jobs:
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           DRY_RUN: ${{ env.DRY }}
         run: python scripts/persona_bot.py publish
 
