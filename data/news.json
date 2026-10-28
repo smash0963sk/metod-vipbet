@@ -1,6 +1,69 @@
 {
-  "updated": "2026-10-27T17:00:00+03:00",
+  "updated": "2026-10-28T08:22:47+03:00",
   "news": [
+    {
+      "id": "2026-10-27-efl-cup-fleetwood-arsenal",
+      "date": "2026-10-27",
+      "sport": "Футбол",
+      "title": "Флитвуд из четвёртого дивизиона выбил Арсенал из Кубка лиги",
+      "text": "Основное время матча 1/8 финала завершилось 1:1, а в серии пенальти точнее оказались хозяева — 5:3. Флитвуд выступает в Лиге 2, четвёртом по силе дивизионе Англии.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/england/news/flitvud-arsenal-schet-1-1-pen-3-2-rezultat-matcha-kubka-angliyskoy-ligi-27-oktyabrya-2026-goda-2468117/"
+    },
+    {
+      "id": "2026-10-27-efl-cup-bradford-peterborough",
+      "date": "2026-10-27",
+      "sport": "Футбол",
+      "title": "Брэдфорд обыграл Питерборо и вышел в четвертьфинал Кубка лиги",
+      "text": "Брэдфорд Сити победил 2:0 и вместе с Флитвудом стал вторым клубом не из Премьер-лиги в четвертьфинале. Перед матчем команда не проигрывала 11 игр подряд.",
+      "source": "LiveScore",
+      "url": "https://www.livescore.com/en/news/football/efl-cup/carabao-cup-predictions-all-eight-fourth-round-games/"
+    },
+    {
+      "id": "2026-10-27-khl-ska-torpedo",
+      "date": "2026-10-27",
+      "sport": "Хоккей",
+      "title": "Торпедо вырвало победу у СКА в Петербурге — 4:3",
+      "text": "СКА сравнял счёт в последнюю минуту, но нижегородцы забросили победную шайбу после ошибки вратаря Артемия Плешкова. Егор Виноградов набрал 2+1, для СКА это третье поражение при Андрее Разине.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/khl/news/ska-torpedo-schet-i-rezultat-matcha-khl-27-oktyabrya-2026-2468036/"
+    },
+    {
+      "id": "2026-10-28-nhl-dallas-new-jersey",
+      "date": "2026-10-28",
+      "sport": "Хоккей",
+      "title": "Нью-Джерси разгромил Даллас, у Грицюка передача",
+      "text": "Дьяволы победили 5:1, дубли оформили Нико Хишир и Джек Хьюз. Арсений Грицюк отдал голевую передачу и набрал десятое очко в 12 матчах, Нью-Джерси выиграл четвёртый матч подряд.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/nhl/news/dallas-nyu-dzhersi-schet-1-5-rezultat-matcha-regulyarnogo-chempionata-nhl-28-oktyabrya-2026-goda-2468143/"
+    },
+    {
+      "id": "2026-10-28-nhl-stlouis-montreal",
+      "date": "2026-10-28",
+      "sport": "Хоккей",
+      "title": "Монреаль всухую обыграл Сент-Луис, Бучневич без очков",
+      "text": "Канадцы победили 2:0 и выиграли третий матч подряд. Павел Бучневич и Алексей Торопченко результативными действиями не отметились.",
+      "source": "Allhockey.ru",
+      "url": "https://allhockey.ru/news/show/613580-Monreal_oderzhal_suhuju_pobedu_nad_Sent_Luisom_rossiyane_bez_ochkov"
+    },
+    {
+      "id": "2026-10-27-atp-paris-auger-aliassime",
+      "date": "2026-10-27",
+      "sport": "Теннис",
+      "title": "Оже-Альяссим пропустит Мастерс в Париже",
+      "text": "Седьмая ракетка мира снялся с турнира из-за проблем с коленом. Канадец потеряет очки за прошлогодний финал в Париже.",
+      "source": "Sports.ru",
+      "url": "https://www.sports.ru/tennis/1117417449-ozhe-alyassim-snyalsya-s-mastersa-v-parizhe.html"
+    },
+    {
+      "id": "2026-10-27-atp-monfils-career",
+      "date": "2026-10-27",
+      "sport": "Теннис",
+      "title": "Монфис рассказал, почему решил досрочно завершить карьеру",
+      "text": "Француз объяснил своё решение во время стрима и признался, что тяжело переживает расставание с Элиной Свитолиной. Церемония чествования Монфиса пройдёт 3 ноября на Мастерсе в Париже.",
+      "source": "Sports.ru",
+      "url": "https://www.sports.ru/tennis/1117416972-monfis-o-reshenii-dosrochno-zavershit-kareru-iz-za-razvoda-rasstavanie.html"
+    },
     {
       "id": "2026-10-27-nhl-gridin-panarin",
       "date": "2026-10-27",
