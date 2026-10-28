@@ -1,0 +1,33 @@
+# Продлевает токен Threads (он действует 60 дней) — раз в месяц, автоматически.
+# Нужен секрет GH_PAT: токен GitHub с правом изменять секреты этого репозитория.
+# Без GH_PAT сценарий просто напомнит, что токен пора обновить вручную.
+name: Threads — продление токена
+
+on:
+  schedule:
+    - cron: "13 4 1,20 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Продлить токен
+        env:
+          TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$TOKEN" ]; then echo "::warning::Нет секрета THREADS_ACCESS_TOKEN"; exit 0; fi
+          RESP=$(curl -s "https://graph.threads.net/refresh_access_token?grant_type=th_refresh_token&access_token=$TOKEN")
+          NEW=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('access_token',''))" 2>/dev/null)
+          if [ -z "$NEW" ]; then echo "::error::Не удалось продлить токен: $RESP" | sed "s/$TOKEN/***/g"; exit 1; fi
+          echo "::add-mask::$NEW"
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::Токен продлён, но секрет GH_PAT не задан — новый токен некуда сохранить. Обновите THREADS_ACCESS_TOKEN вручную до истечения 60 дней."
+            exit 0
+          fi
+          gh secret set THREADS_ACCESS_TOKEN --body "$NEW" -R "${{ github.repository }}"
+          echo "::notice::Токен Threads продлён ещё на 60 дней"
