@@ -37,6 +37,7 @@ BRAND = {
     "foot": ["18+ · Только легальные БК · Это прогноз, а не гарантия",
              BASE.replace("https://", "").rstrip("/")],
 }
+CARD_H = 1150  # карточки для канала обрезаны снизу: без подписи и адреса сайта
 TITLES = {"bet": "С Т А В К А   Д Н Я", "lock": "В Е Р Н Я К   Д Н Я", "evening": "П Р О Г Н О З   Н А   В Е Ч Е Р"}
 HEAD = {"bet": "🔥 <b>СТАВКА ДНЯ</b>", "lock": "🔒 <b>ВЕРНЯК ДНЯ</b>", "evening": "🌙 <b>ПРОГНОЗ НА ВЕЧЕР</b>"}
 
@@ -224,7 +225,7 @@ def list_card(title, sub, items, dst, total=None):
     d.text((W - M, 92), BRAND["mark"], font=pb.font(*BRAND["mark_font"]), fill=LIME, anchor="ra")
     d.text((M, 146), sub, font=pb.font("Inter-Regular.otf", 28), fill=GREY)
     n = len(items)
-    bottom = H - 210 - (150 if total else 0)
+    bottom = CARD_H - 40 - (180 if total else 0)
     row_h = min(250, (bottom - 230) // max(1, n))
     S = min(96, row_h - 60)
     y = 230
@@ -246,12 +247,8 @@ def list_card(title, sub, items, dst, total=None):
         d.line((M, bottom + 20, W - M, bottom + 20), fill=BRAND["line"], width=2)
         d.text((M, bottom + 50), "О Б Щ И Й   К О Э Ф Ф И Ц И Е Н Т", font=pb.font("Inter-SemiBold.otf", 24), fill=LIME)
         d.text((M, bottom + 86), f"{total:.2f}", font=pb.font("InterDisplay-Black.otf", 72), fill=WHITE)
-    d.line((M, H - 196, W - M, H - 196), fill=BRAND["line"], width=2)
-    d.text((M, H - 160), BRAND["signature"], font=pb.font(*BRAND["sign_font"]), fill=WHITE)
-    d.text((M, H - 102), BRAND["foot"][0], font=pb.font("Inter-Regular.otf", 26), fill=GREY)
-    d.text((M, H - 66), BRAND["foot"][1], font=pb.font("Inter-Regular.otf", 26), fill=GREY)
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-    im.convert("RGB").save(dst, "JPEG", quality=92, optimize=True)
+    im.convert("RGB").crop((0, 0, W, CARD_H)).save(dst, "JPEG", quality=92, optimize=True)
 
 
 # ---------- публикация ----------
@@ -266,7 +263,10 @@ def send(ch, img_rel, caption, dry):
 
 def send_photo_post(ch, p, kind, dry):
     rel = f"data/tg_cards/{p['id']}-{kind}.jpg"
-    pb.render_card(p, os.path.join(ROOT, rel), dict(BRAND, title=TITLES[kind]))
+    path = os.path.join(ROOT, rel)
+    pb.render_card(p, path, dict(BRAND, title=TITLES[kind]))
+    from PIL import Image
+    Image.open(path).crop((0, 0, 1080, CARD_H)).save(path, "JPEG", quality=92, optimize=True)  # без нижних подписей
     return send(ch, rel, single(p, kind), dry)
 
 
