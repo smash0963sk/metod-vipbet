@@ -1,4 +1,5 @@
-"""Бот Metod VIPBET для Threads: публикует прогнозы с сайта через официальный Threads API (Meta).
+"""Бот Metod VIPBET для Threads: публикует прогнозы через официальный Threads API (Meta)
+и ведёт читателей в Telegram-канал (ссылка — в первом комментарии под постом).
 
 Слоты (запускаются сценарием .github/workflows/threads.yml):
   morning — итоги вчерашнего дня (если есть закрытые прогнозы) + «Ставка дня»
@@ -26,6 +27,15 @@ SPORT_EMOJI = {"Футбол": "⚽", "Хоккей": "🏒", "Теннис": "�
 LIMIT = 500  # максимум символов в посте Threads
 TOPIC = "#ставкинаспорт"  # Threads учитывает один хештег-тему на пост
 WITH_PROMO = bool(CFG.get("threads_with_promo", False))
+TG = CFG["telegram"]
+# "reply" — ссылка на Telegram в первом комментарии (посты без ссылок Threads показывает шире)
+# "attach" — ссылка прямо в посте
+LINK_MODE = CFG.get("threads_link_mode", "reply")
+REPLIES = [
+    "Все прогнозы дня, разборы и итоги — в нашем Telegram-канале 👉 {tg}",
+    "Ставки дня, экспрессы и честная статистика каждый день — в Telegram 👉 {tg}",
+    "Подписывайся на Telegram, чтобы получать прогнозы раньше всех 👉 {tg}",
+]
 
 
 def now():
@@ -58,7 +68,7 @@ def fit(head, body, tail):
 
 
 def tail_text():
-    t = "Полный разбор — по ссылке 👇"
+    t = "Полный разбор и все прогнозы — в Telegram, ссылка в комментарии 👇" if LINK_MODE == "reply" else "Полный разбор и все прогнозы — в нашем Telegram 👇"
     if WITH_PROMO:
         t += f"\nПромокод {CFG['promo']} — бонус {CFG['bonus']} в Мелбет."
     return t + f"\n18+ {TOPIC}"
@@ -155,7 +165,8 @@ def post_results(preds, day):
     lines = [f"{mark[p['result']]} {p['home']} — {p['away']} {p.get('score') or ''}: {p['pick']} ({k(p['odds'])})".replace("  ", " ") for p in ps]
     head = f"📈 Итоги {human(day)}: {w} зашло, {l} не зашло, {'+' if profit >= 0 else '−'}{abs(profit):.2f} ед."
     body = "\n".join(lines)
-    t = f"Показываем все результаты, включая проигрыши. Архив — по ссылке 👇\n18+ {TOPIC}"
+    t = ("Показываем все результаты, включая проигрыши. Прогнозы на сегодня — в Telegram, ссылка в комментарии 👇" if LINK_MODE == "reply"
+         else "Показываем все результаты, включая проигрыши. Прогнозы на сегодня — в нашем Telegram 👇") + f"\n18+ {TOPIC}"
     return fit(head, body, t)
 
 
@@ -175,25 +186,38 @@ def api(method, path, params):
         raise RuntimeError(f"Threads API {e.code}: {e.read()[:300]!r}")
 
 
-def publish(text, link):
+def publish(text, link=None, reply_to=None):
     uid = os.environ["THREADS_USER_ID"]
     params = {"media_type": "TEXT", "text": text}
     if link:
         params["link_attachment"] = link
+    if reply_to:
+        params["reply_to_id"] = reply_to
     container = api("POST", f"{uid}/threads", params)["id"]
     time.sleep(5)  # Meta рекомендует подождать перед публикацией контейнера
     return api("POST", f"{uid}/threads_publish", {"creation_id": container})["id"]
 
 
-def send(st, key, text, link, dry):
+def send(st, key, text, dry):
+    """Публикует пост и ссылку на Telegram (в комментарии или прямо в посте)."""
     if key in st["posted"]:
         print(f"Уже опубликовано: {key}")
         return
-    print(f"----- {key} ({len(text)} симв.) -----\n{text}\nСсылка: {link}\n")
+    reply = REPLIES[len(st["posted"]) % len(REPLIES)].format(tg=TG)
+    print(f"----- {key} ({len(text)} симв.) -----\n{text}")
+    print(f"[{'комментарий' if LINK_MODE == 'reply' else 'ссылка в посте'}] {reply if LINK_MODE == 'reply' else TG}\n")
     if dry:
         print(f"::notice title=Threads (проверка)::{key}: пост не опубликован, включён DRY_RUN")
         return
-    post_id = publish(text, link)
+    if LINK_MODE == "reply":
+        post_id = publish(text)
+        time.sleep(10)
+        try:
+            publish(reply, link=TG, reply_to=post_id)
+        except Exception as e:  # пост уже вышел — не дублируем его из-за ошибки комментария
+            print(f"::warning title=Threads::Пост {key} опубликован, но комментарий со ссылкой не добавлен: {e}")
+    else:
+        post_id = publish(text, link=TG)
     st["posted"][key] = {"at": now().isoformat(timespec="seconds"), "id": post_id}
     print(f"::notice title=Threads::Опубликовано {key}, id {post_id}")
     time.sleep(30)
@@ -214,18 +238,18 @@ def main():
         y = (now() - timedelta(days=1)).strftime("%Y-%m-%d")
         txt = post_results(preds, y)
         if txt:
-            send(st, f"results:{y}", txt, BASE + "archive.html", dry)
+            send(st, f"results:{y}", txt, dry)
         p = pick_tag(preds, "bet_of_day")
         if p:
-            send(st, f"bet:{p['id']}", post_single(p, "🔥 Ставка дня"), page_url(p), dry)
+            send(st, f"bet:{p['id']}", post_single(p, "🔥 Ставка дня"), dry)
     elif slot == "midday":
         p = pick_tag(preds, "lock_of_day")
         if p:
-            send(st, f"lock:{p['id']}", post_single(p, "🔒 Верняк дня"), page_url(p), dry)
+            send(st, f"lock:{p['id']}", post_single(p, "🔒 Верняк дня"), dry)
     elif slot == "evening":
         legs, day = express(preds)
         if legs:
-            send(st, f"express:{day}", post_express(legs, day), BASE + "index.html#express", dry)
+            send(st, f"express:{day}", post_express(legs, day), dry)
         else:
             print("На сегодня нет подходящих событий для экспресса")
     if not dry:
