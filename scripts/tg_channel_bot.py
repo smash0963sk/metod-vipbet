@@ -93,7 +93,7 @@ def buttons():
 def promo_line():
     if not PROMO:
         return ""
-    return f"\n🎁 Промокод <code>{e(CFG['promo'])}</code> — бонус {e(CFG['bonus'])}"
+    return f"\n🎁 Промокод <b>{e(CFG['promo'])}</b> — бонус {e(CFG['bonus'])}"
 
 
 def plural(n, one, few, many):
