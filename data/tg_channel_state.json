@@ -1,5 +1,12 @@
 {
- "posted": {},
+ "posted": {
+  "pinned:2026-10-29": {
+   "msg": 51,
+   "at": "2026-10-29T00:52:07+03:00",
+   "slot": "pinned"
+  }
+ },
  "channel": "-1004311370526",
- "channel_title": "ЭКСПРЕССНАЯ 🔐"
+ "channel_title": "ЭКСПРЕССНАЯ 🔐",
+ "pinned": 51
 }
