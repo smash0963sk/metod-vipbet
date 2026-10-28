@@ -27,7 +27,7 @@ SPORT_EMOJI = {"Футбол": "⚽", "Хоккей": "🏒", "Теннис": "�
 LIMIT = 500  # максимум символов в посте Threads
 TOPIC = "#ставкинаспорт"  # Threads учитывает один хештег-тему на пост
 WITH_PROMO = bool(CFG.get("threads_with_promo", False))
-TG = CFG["telegram"]
+TG = CFG.get("threads_telegram") or CFG["telegram"]  # отдельная ссылка для Threads — видно, сколько пришло именно оттуда
 # "reply" — ссылка на Telegram в первом комментарии (посты без ссылок Threads показывает шире)
 # "attach" — ссылка прямо в посте
 LINK_MODE = CFG.get("threads_link_mode", "reply")
