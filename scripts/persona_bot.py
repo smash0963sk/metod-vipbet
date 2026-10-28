@@ -15,12 +15,13 @@
   python3 scripts/persona_bot.py publish          → публикация и отметка в persona/state.json
 
 Фото: сначала свои из persona/inbox/ (рядом можно положить .txt с подписью),
-иначе — бесплатный фотобанк Pexels по запросу из persona/content.json (секрет PEXELS_API_KEY).
+иначе — бесплатный фотобанк Pixabay или Pexels по запросу из persona/content.json
+(секрет PIXABAY_API_KEY или PEXELS_API_KEY).
 
 Полуавтомат: если токенов Meta нет, но есть TG_BOT_TOKEN, готовые посты (фото + текст) приходят
 вам в личный Telegram в нужное время, а вы публикуете их сами. Чат определяется по /start боту.
 
-Секреты: THREADS_ACCESS_TOKEN, INSTAGRAM_ACCESS_TOKEN, PEXELS_API_KEY, TG_BOT_TOKEN, TG_CHAT_ID (не обязателен)
+Секреты: THREADS_ACCESS_TOKEN, INSTAGRAM_ACCESS_TOKEN, PIXABAY_API_KEY (или PEXELS_API_KEY), TG_BOT_TOKEN, TG_CHAT_ID (не обязателен)
 (THREADS_USER_ID и INSTAGRAM_USER_ID не обязательны — бот узнает их сам). DRY_RUN=1 — ничего не публиковать.
 """
 import glob, json, os, shutil, sys, time, urllib.parse, urllib.request
@@ -108,26 +109,47 @@ def crop_4x5(src, dst):
     im.save(dst, "JPEG", quality=90, optimize=True, progressive=True)
 
 
-def pexels_photo(query, st, dst):
-    key = os.environ.get("PEXELS_API_KEY")
+def download(url, tmp):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 persona-bot"})
+    with urllib.request.urlopen(req, timeout=120) as r, open(tmp, "wb") as f:
+        shutil.copyfileobj(r, f)
+
+
+def stock_photo(query, st, dst):
+    """Фото из бесплатного фотобанка: Pexels (PEXELS_API_KEY) или Pixabay (PIXABAY_API_KEY)."""
     fake = os.environ.get("PERSONA_FAKE_PHOTO")  # для локальной проверки без интернета
     if fake:
         crop_4x5(fake, dst)
         return {"source": "test", "query": query}
-    if not key:
-        return None
-    url = "https://api.pexels.com/v1/search?" + urllib.parse.urlencode({"query": query, "orientation": "portrait", "per_page": 30})
-    res = http_json(url, {"Authorization": key, "User-Agent": "persona-bot"})
-    for ph in res.get("photos", []):
-        if ph["id"] in st["pexels_ids"]:
-            continue
-        tmp = dst + ".src"
-        req = urllib.request.Request(ph["src"].get("large2x") or ph["src"]["original"], headers={"User-Agent": "persona-bot"})
-        with urllib.request.urlopen(req, timeout=120) as r, open(tmp, "wb") as f:
-            shutil.copyfileobj(r, f)
-        crop_4x5(tmp, dst)
-        os.remove(tmp)
-        return {"source": "pexels", "pexels_id": ph["id"], "photographer": ph.get("photographer"), "page": ph.get("url")}
+    used = set(map(str, st["pexels_ids"]))
+    tmp = dst + ".src"
+    key = os.environ.get("PEXELS_API_KEY")
+    if key:
+        url = "https://api.pexels.com/v1/search?" + urllib.parse.urlencode({"query": query, "orientation": "portrait", "per_page": 30})
+        for ph in http_json(url, {"Authorization": key, "User-Agent": "persona-bot"}).get("photos", []):
+            if str(ph["id"]) in used:
+                continue
+            download(ph["src"].get("large2x") or ph["src"]["original"], tmp)
+            crop_4x5(tmp, dst)
+            os.remove(tmp)
+            return {"source": "pexels", "pexels_id": ph["id"], "author": ph.get("photographer"), "page": ph.get("url")}
+    key = os.environ.get("PIXABAY_API_KEY")
+    if key:
+        # Pixabay: картинки нужно скачивать к себе (постоянные ссылки на их сервер запрещены правилами API)
+        words = query.split()
+        for q in (query, " ".join(words[:3]), " ".join(words[:2])):
+            for orient in ("vertical", "all"):
+                url = "https://pixabay.com/api/?" + urllib.parse.urlencode({
+                    "key": key, "q": q[:100], "image_type": "photo", "orientation": orient,
+                    "safesearch": "true", "per_page": 50, "order": "popular", "min_height": 1000})
+                for ph in http_json(url, {"User-Agent": "persona-bot"}).get("hits", []):
+                    pid = f"pixabay:{ph['id']}"
+                    if pid in used:
+                        continue
+                    download(ph.get("largeImageURL") or ph["webformatURL"], tmp)
+                    crop_4x5(tmp, dst)
+                    os.remove(tmp)
+                    return {"source": "pixabay", "pexels_id": pid, "author": ph.get("user"), "page": ph.get("pageURL")}
     return None
 
 
@@ -153,7 +175,7 @@ def photo_of_day(st, plan):
     if meta:
         rel_final = rel
     else:
-        meta = pexels_photo(item["query"], st, os.path.join(ROOT, rel))
+        meta = stock_photo(item["query"], st, os.path.join(ROOT, rel))
         rel_final = rel
     if not meta:
         return None
@@ -352,7 +374,7 @@ def prepare(slot):
         if day:
             plan["posts"].append({"platform": "threads", "text": day["th"], "image": day["image"]})
         else:
-            print("::warning title=Персонаж::Нет фото (нет PEXELS_API_KEY и пустая папка persona/inbox) — публикую мысль")
+            print("::warning title=Персонаж::Нет фото (нет ключа фотобанка PIXABAY_API_KEY / PEXELS_API_KEY и пустая папка persona/inbox) — публикую мысль")
             thought_post(st, plan)
 
     elif slot == "ig_post":
