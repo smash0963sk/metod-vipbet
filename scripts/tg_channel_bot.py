@@ -26,7 +26,7 @@ CARD_DIR = os.path.join(ROOT, "data", "tg_cards")
 PROMO = CFG.get("tg_channel_promo", True)
 e = lambda s: html.escape(str(s if s is not None else ""), quote=False)
 SPORT = tb.SPORT_EMOJI
-DISCLAIMER = "<i>18+. Ставки — только в легальных букмекерских компаниях. Это прогноз, а не гарантия.</i>"
+DISCLAIMER = "<i>18+ · Ставки — только в легальных БК · Это прогноз, а не гарантия</i>"
 
 BRAND = {
     "accent": (178, 221, 16), "glow": (34, 48, 4), "line": (52, 66, 14), "track": (30, 36, 14),
@@ -84,49 +84,24 @@ def channel(st):
     return None
 
 
-def buttons(p=None, site=True):
-    rows = []
-    if p is not None:
-        rows.append([{"text": "📊 Полный разбор и статистика", "url": tb.page_url(p)}])
-    elif site:
-        rows.append([{"text": "📊 Все прогнозы на сайте", "url": BASE}])
-    if PROMO:
-        rows.append([{"text": f"🎁 Бонус {CFG['bonus']} · промокод {CFG['promo']}", "url": CFG["reg_link"]}])
-    return json.dumps({"inline_keyboard": rows})
+def buttons():
+    """Под каждым постом — одна кнопка: «Ставим в Мелбет» (ваша реферальная ссылка)."""
+    return json.dumps({"inline_keyboard": [[{"text": "🎯 Ставим в Мелбет", "url": CFG["reg_link"]}]]})
 
 
 def promo_line():
     if not PROMO:
         return ""
-    return f"\n\n🎁 Мелбет: промокод <code>{e(CFG['promo'])}</code> — бонус {e(CFG['bonus'])} новым игрокам."
+    return f"\n🎁 Промокод <code>{e(CFG['promo'])}</code> — бонус {e(CFG['bonus'])}"
 
 
-# ---------- тексты ----------
+def plural(n, one, few, many):
+    w = one if n % 10 == 1 and n % 100 != 11 else few if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14 else many
+    return f"{n} {w}"
+
+
 def date_ru(d):
     return tb.human(d)
-
-
-def single(p, kind):
-    em = SPORT.get(p.get("sport"), "🏆")
-    lines = [HEAD[kind], "",
-             f"{em} <b>{e(p['home'])} — {e(p['away'])}</b>",
-             f"🏆 {e(p.get('league', ''))} · {date_ru(p['date'])}, {e(p['time'])} МСК", "",
-             f"✅ <b>{e(p['pick'])} за {tb.k(p['odds'])}</b>"]
-    if p.get("prob"):
-        lines.append(f"📊 Вероятность по нашей оценке: {round(float(p['prob']))}%")
-    st = p.get("stats") or {}
-    form = st.get("form") or {}
-    if form.get("home") and form.get("away"):
-        lines.append(f"📈 Форма: {e(form['home'])} / {e(form['away'])}")
-    head = "\n".join(lines)
-    tail = promo_line() + "\n\n" + DISCLAIMER
-    body = (p.get("text") or "").strip()
-    more = (p.get("more") or "").strip()
-    room = 1024 - len(strip_tags(head)) - len(strip_tags(tail)) - 8  # лимит подписи к фото
-    txt = body + ("\n\n" + more if more else "")
-    if len(txt) > room:
-        txt = body if len(body) <= room else body[: room - 1].rsplit(" ", 1)[0] + "…"
-    return f"{head}\n\n{e(txt)}{tail}"
 
 
 def strip_tags(s):
@@ -134,17 +109,49 @@ def strip_tags(s):
     return html.unescape(re.sub(r"<[^>]+>", "", s))
 
 
+def short(text, limit):
+    text = " ".join((text or "").split())
+    if len(text) <= limit:
+        return text
+    cut = text[:limit].rsplit(" ", 1)[0].rstrip(",.;:—- ")
+    dot = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
+    return cut[: dot + 1] if dot > limit * 0.5 else cut + "…"
+
+
+def match_line(p):
+    return f"{SPORT.get(p.get('sport'), '🏆')} <b>{e(p['home'])} — {e(p['away'])}</b>"
+
+
+def single(p, kind):
+    lines = [HEAD[kind], "", match_line(p),
+             f"🏆 {e(p.get('league', ''))} · {date_ru(p['date'])}, {e(p['time'])} МСК", "",
+             f"✅ Прогноз: <i>{e(p['pick'])}</i> — <b>{tb.k(p['odds'])}</b>"]
+    if p.get("prob"):
+        lines.append(f"📊 Вероятность: {round(float(p['prob']))}%")
+    head = "\n".join(lines)
+    tail = "\n" + promo_line() + "\n\n" + DISCLAIMER
+    room = 1024 - len(strip_tags(head)) - len(strip_tags(tail)) - 10
+    quote = short(p.get("text") or p.get("more") or "", min(330, room))
+    return f"{head}\n\n<blockquote>{e(quote)}</blockquote>{tail}"
+
+
 def express_text(legs, day):
     total = 1.0
     rows = []
+    per = max(90, (1024 - 420) // max(1, len(legs)) - 70)
     for i, p in enumerate(legs, 1):
         total *= float(p["odds"])
-        rows.append(f"{i}. {SPORT.get(p.get('sport'), '🏆')} {e(p['home'])} — {e(p['away'])}, {e(p['time'])}\n"
-                    f"     ✅ {e(p['pick'])} — <b>{tb.k(p['odds'])}</b>")
-    return (f"🧩 <b>ЭКСПРЕСС ДНЯ · {date_ru(day)}</b>\n\n" + "\n\n".join(rows) +
-            f"\n\n💰 Общий коэффициент: <b>{total:.2f}</b>\n\n"
-            "Экспресс проигрывает, если не зашло хотя бы одно событие, — ставьте на него меньше, чем на одиночные."
+        rows.append(f"{i}️⃣ {match_line(p)} · {e(p['time'])}\n"
+                    f"✅ <i>{e(p['pick'])}</i> — <b>{tb.k(p['odds'])}</b>\n"
+                    f"<blockquote>{e(short(p.get('text', ''), per))}</blockquote>")
+    return (f"🧩 <b>ЭКСПРЕСС ДНЯ · {date_ru(day)}</b>\n\n" + "\n".join(rows) +
+            f"\n💰 Общий коэффициент: <b>{total:.2f}</b>\n"
+            "<i>Экспресс не зайдёт, если ошибся хотя бы один исход, — ставьте на него меньше обычного.</i>\n"
             + promo_line() + "\n\n" + DISCLAIMER)
+
+
+def tb_profit(p):
+    return (float(p["odds"]) - 1) if p["result"] == "win" else -1 if p["result"] == "loss" else 0
 
 
 def results_block(preds, day):
@@ -154,13 +161,9 @@ def results_block(preds, day):
     mark = {"win": "✅", "loss": "❌", "return": "↩️"}
     w = sum(p["result"] == "win" for p in ps)
     profit = sum(tb_profit(p) for p in ps)
-    rows = [f"{mark[p['result']]} {e(p['home'])} — {e(p['away'])} {e(p.get('score') or '')} · {e(p['pick'])} ({tb.k(p['odds'])})" for p in ps]
+    rows = [f"{mark[p['result']]} <b>{e(p['home'])} — {e(p['away'])}</b> {e(p.get('score') or '')} · <i>{e(p['pick'])}</i> ({tb.k(p['odds'])})" for p in ps]
     return (f"📈 <b>Итоги {date_ru(day)}</b>\n" + "\n".join(rows) +
-            f"\n\nЗашло {w} из {len(ps)} · {'+' if profit >= 0 else '−'}{abs(profit):.2f} ед.")
-
-
-def tb_profit(p):
-    return (float(p["odds"]) - 1) if p["result"] == "win" else -1 if p["result"] == "loss" else 0
+            f"\nЗашло {w} из {len(ps)} · {'+' if profit >= 0 else '−'}{abs(profit):.2f} ед.")
 
 
 def week_block(preds, today):
@@ -189,36 +192,82 @@ def morning_text(preds):
     if res:
         parts.append(res)
     day_preds, day = tb.open_today(preds)
-    if day_preds:
-        rows = [f"{SPORT.get(p.get('sport'), '🏆')} {e(p['time'])} {e(p['home'])} — {e(p['away'])} · {e(p['pick'])} ({tb.k(p['odds'])})"
-                for p in sorted(day_preds, key=tb.start)[:10]]
-        parts.append(f"📅 <b>Прогнозы на {date_ru(day)}</b>\n" + "\n".join(rows) +
-                     "\n\nСтавка дня — в 11:00, верняк — в 14:00, экспресс — в 17:00, прогноз на вечер — в 19:00 (МСК).")
+    shown = sorted(day_preds, key=tb.start)[:8]
+    if shown:
+        rows = [f"🕒 {e(p['time'])} {match_line(p)}\n<i>{e(p['pick'])}</i> — <b>{tb.k(p['odds'])}</b>" for p in shown]
+        parts.append(f"📅 <b>Прогнозы на {date_ru(day)}</b>\n\n" + "\n\n".join(rows) +
+                     "\n\n<i>Ставка дня — в 11:00, верняк — в 14:00, экспресс — в 17:00, прогноз на вечер — в 19:00 (МСК).</i>")
     if len(parts) == 1:
-        return None
-    return "\n\n".join(parts) + "\n\n" + DISCLAIMER
+        return None, []
+    text = "\n\n".join(parts) + "\n" + promo_line() + "\n\n" + DISCLAIMER
+    while len(strip_tags(text)) > 1024 and len(shown) > 2:  # подпись к фото — до 1024 символов
+        shown = shown[:-1]
+        rows = rows[:-1]
+        parts[-1] = f"📅 <b>Прогнозы на {date_ru(day)}</b>\n\n" + "\n\n".join(rows)
+        text = "\n\n".join(parts) + "\n" + promo_line() + "\n\n" + DISCLAIMER
+    return text, shown
+
+
+# ---------- картинки ----------
+def list_card(title, sub, items, dst, total=None):
+    """Карточка со списком матчей (экспресс, прогнозы дня) в стиле VIPBET."""
+    from PIL import Image, ImageDraw, ImageFilter
+    W, H = 1080, 1350
+    LIME, WHITE, GREY = BRAND["accent"], (245, 242, 235), (150, 146, 138)
+    im = Image.new("RGB", (W, H), (9, 9, 9))
+    glow = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(glow).ellipse((-200, -380, W + 200, 520), fill=70)
+    im = Image.composite(Image.new("RGB", (W, H), BRAND["glow"]), im, glow.filter(ImageFilter.GaussianBlur(160))).convert("RGBA")
+    d = ImageDraw.Draw(im)
+    M = 84
+    d.text((M, 96), title, font=pb.font("Inter-SemiBold.otf", 26), fill=LIME)
+    d.text((W - M, 92), BRAND["mark"], font=pb.font(*BRAND["mark_font"]), fill=LIME, anchor="ra")
+    d.text((M, 146), sub, font=pb.font("Inter-Regular.otf", 28), fill=GREY)
+    n = len(items)
+    bottom = H - 210 - (150 if total else 0)
+    row_h = min(250, (bottom - 230) // max(1, n))
+    S = min(96, row_h - 60)
+    y = 230
+    for p in items:
+        im.alpha_composite(pb.crest(p, "home", S, LIME), (M, int(y)))
+        im.alpha_composite(pb.crest(p, "away", S, LIME), (M + S - 18, int(y)))
+        x = M + 2 * S + 20
+        ft = pb.font("Inter-SemiBold.otf", 34 if row_h > 150 else 30)
+        name = f"{p['home']} — {p['away']}"
+        while d.textlength(name, font=ft) > W - M - x and len(name) > 10:
+            name = name[:-2].rstrip() + "…" if not name.endswith("…") else name[:-3].rstrip() + "…"
+        d.text((x, y + 2), name, font=ft, fill=WHITE)
+        pk = f"{p['pick']}  ·  {tb.k(p['odds'])}"
+        fpk = pb.font("InterDisplay-Black.otf", 34 if row_h > 150 else 30)
+        d.text((x, y + 48), pk, font=fpk, fill=LIME)
+        d.text((x, y + 92), f"{p['time']} МСК · {p.get('league', '')}"[:48], font=pb.font("Inter-Regular.otf", 24), fill=GREY)
+        y += row_h
+    if total:
+        d.line((M, bottom + 20, W - M, bottom + 20), fill=BRAND["line"], width=2)
+        d.text((M, bottom + 50), "О Б Щ И Й   К О Э Ф Ф И Ц И Е Н Т", font=pb.font("Inter-SemiBold.otf", 24), fill=LIME)
+        d.text((M, bottom + 86), f"{total:.2f}", font=pb.font("InterDisplay-Black.otf", 72), fill=WHITE)
+    d.line((M, H - 196, W - M, H - 196), fill=BRAND["line"], width=2)
+    d.text((M, H - 160), BRAND["signature"], font=pb.font(*BRAND["sign_font"]), fill=WHITE)
+    d.text((M, H - 102), BRAND["foot"][0], font=pb.font("Inter-Regular.otf", 26), fill=GREY)
+    d.text((M, H - 66), BRAND["foot"][1], font=pb.font("Inter-Regular.otf", 26), fill=GREY)
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    im.convert("RGB").save(dst, "JPEG", quality=92, optimize=True)
 
 
 # ---------- публикация ----------
+def send(ch, img_rel, caption, dry):
+    print(f"[фото {img_rel}]\n{strip_tags(caption)}\n({len(strip_tags(caption))} симв.)\n")
+    if dry:
+        return None
+    r = tg("sendPhoto", {"chat_id": ch, "caption": caption, "parse_mode": "HTML", "reply_markup": buttons()},
+           {"photo": os.path.join(ROOT, img_rel)})
+    return r.get("message_id")
+
+
 def send_photo_post(ch, p, kind, dry):
     rel = f"data/tg_cards/{p['id']}-{kind}.jpg"
     pb.render_card(p, os.path.join(ROOT, rel), dict(BRAND, title=TITLES[kind]))
-    cap = single(p, kind)
-    print(f"[фото {rel}]\n{strip_tags(cap)}\n")
-    if dry:
-        return None
-    r = tg("sendPhoto", {"chat_id": ch, "caption": cap, "parse_mode": "HTML", "reply_markup": buttons(p)},
-           {"photo": os.path.join(ROOT, rel)})
-    return r.get("message_id")
-
-
-def send_text(ch, text, dry, p=None, site=True):
-    print(strip_tags(text) + "\n")
-    if dry:
-        return None
-    r = tg("sendMessage", {"chat_id": ch, "text": text, "parse_mode": "HTML",
-                           "disable_web_page_preview": "true", "reply_markup": buttons(p, site)})
-    return r.get("message_id")
+    return send(ch, rel, single(p, kind), dry)
 
 
 def main():
@@ -243,9 +292,16 @@ def main():
     posted = {v.get("pid") for v in st["posted"].values() if v.get("pid")}
     msg, pid = None, None
     if slot == "morning":
-        txt = morning_text(preds)
+        txt, shown = morning_text(preds)
         if txt:
-            msg = send_text(ch, txt, dry)
+            rel = f"data/tg_cards/{d}-morning.jpg"
+            day_preds_all, day = tb.open_today(preds)
+            if shown:
+                list_card("П Р О Г Н О З Ы   Д Н Я", f"{date_ru(day)} · {plural(len(day_preds_all), 'матч', 'матча', 'матчей')}", shown[:6], os.path.join(ROOT, rel))
+            else:
+                yest = [p for p in preds if p["date"] == (tb.now() - timedelta(days=1)).strftime("%Y-%m-%d") and p.get("result") in ("win", "loss", "return")]
+                list_card("И Т О Г И   Д Н Я", date_ru(yest[0]["date"]) if yest else "", yest[:6], os.path.join(ROOT, rel))
+            msg = send(ch, rel, txt, dry)
     elif slot in ("bet", "lock"):
         p = tb.pick_tag(preds, "bet_of_day" if slot == "bet" else "lock_of_day")
         if p and p["id"] in posted:
@@ -257,7 +313,12 @@ def main():
     elif slot == "express":
         legs, day = tb.express(preds)
         if legs:
-            msg = send_text(ch, express_text(legs, day), dry)
+            rel = f"data/tg_cards/{day}-express.jpg"
+            total = 1.0
+            for p in legs:
+                total *= float(p["odds"])
+            list_card("Э К С П Р Е С С   Д Н Я", f"{date_ru(day)} · {plural(len(legs), 'событие', 'события', 'событий')}", legs, os.path.join(ROOT, rel), total)
+            msg = send(ch, rel, express_text(legs, day), dry)
     elif slot == "evening":
         now = tb.now()
         day_preds, _ = tb.open_today(preds)
