@@ -69,13 +69,18 @@ def channel(st):
     ch = os.environ.get("TG_CHANNEL_ID") or st.get("channel")
     if ch:
         return ch
-    for u in reversed(tg("getUpdates", {"limit": 100, "allowed_updates": json.dumps(["my_chat_member", "channel_post"])})):
-        upd = u.get("my_chat_member") or u.get("channel_post") or {}
+    ups = tg("getUpdates", {"limit": 100})
+    seen = []
+    for u in reversed(ups):
+        upd = u.get("my_chat_member") or u.get("channel_post") or u.get("message") or {}
         c = upd.get("chat") or {}
-        if c.get("type") == "channel":
+        seen.append(f"{[k for k in u if k != 'update_id']}:{c.get('type')}")
+        if c.get("type") in ("channel", "supergroup"):
             st["channel"] = str(c["id"])
             st["channel_title"] = c.get("title")
             return st["channel"]
+    me = tg("getMe", {})
+    print(f"::notice title=Канал (диагностика)::бот @{me.get('username')}, обновлений: {len(ups)}, типы: {', '.join(seen[:10]) or 'нет'}")
     return None
 
 
