@@ -1,0 +1,101 @@
+# Бот персонажа «Виктор Платонов»: Instagram + Threads, контент 70% лайфстайл / 30% разборы матчей.
+#   09:10 МСК  Threads — мысль дня
+#   12:40 МСК  Threads — разбор матча + ссылка на Telegram в комментарии
+#   16:10 МСК  Threads — фото дня
+#   18:30 МСК  Instagram — фото дня или (3 дня из 10) карточка разбора матча
+#   20:10 МСК  Threads — раз в 3 дня экспресс со ссылкой на Telegram, иначе мысль
+# Ручной запуск: Actions → «Персонаж» → Run workflow (слот и режим проверки).
+name: Персонаж
+
+on:
+  schedule:
+    - cron: "10 6 * * *"    # 09:10 МСК
+    - cron: "40 9 * * *"    # 12:40 МСК
+    - cron: "10 13 * * *"   # 16:10 МСК
+    - cron: "30 15 * * *"   # 18:30 МСК
+    - cron: "10 17 * * *"   # 20:10 МСК
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: "Какой пост опубликовать"
+        type: choice
+        options: [th_morning, th_sport, th_photo, ig_post, th_evening]
+        default: th_photo
+      dry_run:
+        description: "Только проверка — ничего не публиковать"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: persona
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      DRY: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '1' || '0' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet pillow
+
+      - name: Выбрать слот
+        id: slot
+        run: |
+          case "${{ github.event.schedule }}" in
+            "10 6 * * *")  s=th_morning ;;
+            "40 9 * * *")  s=th_sport ;;
+            "10 13 * * *") s=th_photo ;;
+            "30 15 * * *") s=ig_post ;;
+            "10 17 * * *") s=th_evening ;;
+            *)             s="${{ inputs.slot }}" ;;
+          esac
+          echo "slot=$s" >> "$GITHUB_OUTPUT"
+
+      - name: Подготовить пост
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: python scripts/persona_bot.py prepare "${{ steps.slot.outputs.slot }}"
+
+      - name: Выложить картинки (нужен публичный адрес для Instagram и Threads)
+        if: env.DRY == '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add persona/media
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Персонаж: картинка поста"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && { sleep 20; exit 0; }
+            sleep 10
+          done
+          exit 1
+
+      - name: Опубликовать
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          DRY_RUN: ${{ env.DRY }}
+        run: python scripts/persona_bot.py publish
+
+      - name: Запомнить опубликованное
+        if: env.DRY == '0'
+        run: |
+          git add -A persona/state.json persona/inbox 2>/dev/null || true
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Персонаж: опубликованные посты"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 10
+          done
+          exit 1
