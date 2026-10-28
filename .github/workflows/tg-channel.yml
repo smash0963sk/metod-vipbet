@@ -1,6 +1,6 @@
 # Бот Telegram-канала: запускается каждый час и публикует то, что пора по расписанию (МСК):
 #   ежедневно 09 утро · 11 ставка дня · 12 опрос · 13 новости · 14 верняк · 17 экспресс · 19 прогноз на вечер
-#   ср 15 школа ставок · пт 18 матчи выходных · сб 15 «Угадай счёт» · вс 20 ответственная игра
+#   ср 15 школа ставок · пт 18 матчи выходных · вс 20 ответственная игра
 #   1-го числа 10 — итоги месяца и обновление закреплённого поста
 #   каждый запуск — ответы «✅ Зашло / ❌ Не зашло» на посты, когда на сайте появился результат
 # Нужно: секрет TG_CHANNEL_BOT_TOKEN (или TG_BOT_TOKEN) и бот — администратор канала.
@@ -14,7 +14,7 @@ on:
       slot:
         description: "Что опубликовать (auto — по расписанию)"
         type: choice
-        options: [auto, results, morning, bet, poll, news, lock, express, evening, school, weekend, guess, responsible, monthly, pinned]
+        options: [auto, results, morning, bet, poll, news, lock, express, evening, school, weekend, responsible, monthly, pinned]
         default: auto
       dry_run:
         description: "Только проверка — ничего не публиковать"
