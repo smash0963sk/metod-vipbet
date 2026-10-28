@@ -1,13 +1,5 @@
 {
  "posted": {
-  "ig_post:2026-10-29": {
-   "at": "2026-10-29T00:03:31+03:00",
-   "slot": "ig_post",
-   "ids": [
-    "telegram"
-   ],
-   "sport": null
-  },
   "th_photo:2026-10-28": {
    "at": "2026-10-28T23:35:49+03:00",
    "slot": "th_photo",
@@ -17,9 +9,7 @@
    "sport": null
   }
  },
- "used_photos": [
-  "d001"
- ],
+ "used_photos": [],
  "used_thoughts": [
   "t001"
  ],
@@ -43,28 +33,6 @@
   "pixabay:514932",
   "pixabay:10329298"
  ],
- "day": {
-  "2026-10-29": {
-   "item": "d001",
-   "images": [
-    "persona/media/2026-10-29-d001-1.jpg",
-    "persona/media/2026-10-29-d001-2.jpg",
-    "persona/media/2026-10-29-d001-3.jpg",
-    "persona/media/2026-10-29-d001-4.jpg",
-    "persona/media/2026-10-29-d001-5.jpg",
-    "persona/media/2026-10-29-d001-6.jpg",
-    "persona/media/2026-10-29-d001-7.jpg",
-    "persona/media/2026-10-29-d001-8.jpg"
-   ],
-   "ig": "Paris, вечер.\n\n#paris #travel #lifestyle",
-   "th": "Париж в октябре — лучшая версия Парижа. Согласны?",
-   "music": "The Weeknd — The Zone · Sonder — One Night Only",
-   "place": "Париж",
-   "meta": {
-    "source": "stock",
-    "shots": 8
-   }
-  }
- },
+ "day": {},
  "tg_chat": "8036813047"
 }
