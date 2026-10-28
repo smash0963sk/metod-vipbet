@@ -26,7 +26,7 @@ CARD_DIR = os.path.join(ROOT, "data", "tg_cards")
 PROMO = CFG.get("tg_channel_promo", True)
 e = lambda s: html.escape(str(s if s is not None else ""), quote=False)
 SPORT = tb.SPORT_EMOJI
-DISCLAIMER = "<i>18+ · Ставки — только в легальных БК · Это прогноз, а не гарантия</i>"
+DISCLAIMER = "<blockquote><i>18+ · Ставки — только в легальных БК · Это прогноз, а не гарантия</i></blockquote>"
 
 BRAND = {
     "accent": (178, 221, 16), "glow": (34, 48, 4), "line": (52, 66, 14), "track": (30, 36, 14),
