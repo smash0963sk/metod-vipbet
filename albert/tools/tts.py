@@ -113,6 +113,51 @@ def synth_edge(text, who, path):
     raise RuntimeError("Edge TTS не отдал звук (сервис Microsoft не отвечает этому серверу)")
 
 
+ELEVEN_FILE = os.path.join(ROOT, "voices_eleven.json")
+ELEVEN_DEFAULT = {"A": "JBFqnCBsd6RMkjVDRZzb", "S": "TX3LPaxmHKxFdv7VOQHJ"}  # George и Liam — стандартные голоса ElevenLabs
+
+
+def eleven_voices():
+    try:
+        v = json.load(open(ELEVEN_FILE, encoding="utf-8"))
+        return {"A": v.get("A") or ELEVEN_DEFAULT["A"], "S": v.get("S") or ELEVEN_DEFAULT["S"], "model": v.get("model")}
+    except FileNotFoundError:
+        return dict(ELEVEN_DEFAULT, model=None)
+
+
+def synth_eleven(text, who, path, voices, prev_text=None, next_text=None):
+    key = os.environ.get("ELEVENLABS_API_KEY")
+    if not key:
+        raise RuntimeError("Нет секрета ELEVENLABS_API_KEY")
+    model = voices.get("model") or os.environ.get("ELEVEN_MODEL") or "eleven_v4"
+    settings = {"stability": 0.4, "similarity_boost": 0.8}
+    if model != "eleven_v4":
+        settings.update(style=0.35, use_speaker_boost=True)
+    body = {"text": text, "model_id": model, "voice_settings": settings}
+    if prev_text:
+        body["previous_text"] = clean(prev_text)
+    if next_text:
+        body["next_text"] = clean(next_text)
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voices[who]}?output_format=mp3_44100_192"
+    for attempt in range(3):
+        r = urllib.request.Request(url, data=json.dumps(body).encode(),
+                                   headers={"xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/mpeg"}, method="POST")
+        try:
+            with urllib.request.urlopen(r, timeout=180) as resp:
+                open(path, "wb").write(resp.read())
+            return
+        except urllib.error.HTTPError as e:
+            msg = e.read()[:300].decode("utf-8", "ignore")
+            if e.code in (401, 402, 403) or "quota" in msg:
+                raise RuntimeError(f"ElevenLabs {e.code}: {msg}")
+            if e.code == 422 and model == "eleven_v4":
+                model = body["model_id"] = "eleven_multilingual_v2"  # запасная модель
+                continue
+            if attempt == 2:
+                raise RuntimeError(f"ElevenLabs {e.code}: {msg}")
+            time.sleep(5)
+
+
 def synth_fish(text, who, path, voices):
     global MODEL
     body = {"text": text, "reference_id": voices[who], "format": "mp3", "mp3_bitrate": 192, "normalize": True,
@@ -139,7 +184,8 @@ def main(ep_name):
         print("::warning title=Озвучка::Нет секрета FISH_API_KEY — видео будет без голоса")
         return
     ep = json.load(open(os.path.join(ROOT, "episodes", ep_name + ".json"), encoding="utf-8"))
-    voices = pick_voices() if ENGINE == "fish" else (SILERO if ENGINE == "silero" else {k: v[0] + v[1] for k, v in EDGE.items()})
+    voices = (pick_voices() if ENGINE == "fish" else eleven_voices() if ENGINE == "eleven"
+              else SILERO if ENGINE == "silero" else {k: v[0] + v[1] for k, v in EDGE.items()})
     out = os.path.join(ROOT, "build", ep_name, "voice" + SUFFIX)
     os.makedirs(out, exist_ok=True)
     meta_f = os.path.join(out, "meta.json")
@@ -152,7 +198,12 @@ def main(ep_name):
         f = os.path.join(out, f"{i:02d}.mp3")
         if os.path.exists(f) and meta.get(f"{i:02d}") == h:
             continue
-        if ENGINE == "silero":
+        if ENGINE == "eleven":
+            lines = ep["lines"]
+            prev = (lines[i - 2].get("say") or lines[i - 2]["text"]) if i > 1 else None
+            nxt = (lines[i].get("say") or lines[i]["text"]) if i < len(lines) else None
+            synth_eleven(text, ln["who"], f, voices, prev, nxt)
+        elif ENGINE == "silero":
             synth_silero(text, ln["who"], f)
         elif ENGINE == "edge":
             synth_edge(text, ln["who"], f)

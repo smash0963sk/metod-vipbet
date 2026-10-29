@@ -16,8 +16,8 @@ on:
       engine:
         description: "Чем озвучивать"
         type: choice
-        options: [fish, silero, edge]
-        default: fish
+        options: [eleven, fish, silero, edge]
+        default: eleven
       list_voices:
         description: "Только показать русские мужские голоса Fish Audio"
         type: boolean
@@ -36,7 +36,7 @@ jobs:
     timeout-minutes: 40
     env:
       EP: ${{ inputs.episode }}
-      VOICE_ENGINE: ${{ inputs.engine || 'fish' }}
+      VOICE_ENGINE: ${{ inputs.engine || 'eleven' }}
       SUF: ${{ (inputs.engine && inputs.engine != 'fish') && format('_{0}', inputs.engine) || '' }}
     defaults:
       run:
@@ -79,6 +79,7 @@ jobs:
       - name: Озвучка — Fish Audio
         env:
           FISH_API_KEY: ${{ secrets.FISH_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         run: |
           if [ "${{ inputs.revoice }}" = "true" ]; then rm -rf "albert/build/$EP/voice$SUF"; fi
           python albert/tools/tts.py "$EP" 2>&1 | tee /tmp/tts.log || { tail -20 /tmp/tts.log | sed 's/^/::error title=Fish Audio::/'; exit 1; }
