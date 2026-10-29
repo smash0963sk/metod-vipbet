@@ -28,27 +28,28 @@ def req(method, path, body=None, headers=None, raw=False):
         raise RuntimeError(f"Fish Audio {e.code}: {e.read()[:300]!r}")
 
 
+def list_voices():
+    """Показывает русские мужские голоса из библиотеки Fish Audio (для выбора в albert/voices.json)."""
+    seen = set()
+    for sort in ("task_count", "score", "created_at"):
+        for page in (1, 2):
+            q = urllib.parse.urlencode({"language": "ru", "page_size": 50, "page_number": page, "sort_by": sort})
+            for m in req("GET", f"/model?{q}").get("items", []):
+                tags = [t.lower() for t in (m.get("tags") or [])]
+                if m["_id"] in seen or "female" in tags or "male" not in tags:
+                    continue
+                seen.add(m["_id"])
+                print(f"::notice title=Голос::{m.get('title')} | id {m['_id']} | {', '.join(tags[:8])}")
+
+
 def pick_voices():
+    # Голоса выбираются вручную: в библиотеке много клонов реальных людей — их использовать нельзя.
     try:
         v = json.load(open(VOICES_FILE, encoding="utf-8"))
-        if v.get("A") and v.get("S"):
-            return v
     except FileNotFoundError:
         v = {}
-    q = urllib.parse.urlencode({"language": "ru", "page_size": 40, "sort_by": "task_count"})
-    items = req("GET", f"/model?{q}").get("items", [])
-    def male(m):
-        tags = " ".join(m.get("tags") or []).lower() + " " + (m.get("title") or "").lower()
-        return ("male" in tags or "муж" in tags or "парень" in tags) and "female" not in tags and "жен" not in tags
-    males = [m for m in items if male(m)] or items
-    for m in items[:15]:
-        print(f"::notice title=Fish Audio — русский голос::{m.get('title')} · id {m.get('_id')} · теги: {', '.join(m.get('tags') or [])}")
-    if len(males) < 2:
-        raise RuntimeError("Не нашёл подходящих русских голосов — укажите id в albert/voices.json")
-    v = {"A": v.get("A") or males[0]["_id"], "S": v.get("S") or males[1]["_id"],
-         "_titles": {"A": males[0].get("title"), "S": males[1].get("title")}}
-    json.dump(v, open(VOICES_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print(f"::notice title=Голоса::Альберт — {v['_titles']['A']}, Стас — {v['_titles']['S']} (поменять можно в albert/voices.json)")
+    if not (v.get("A") and v.get("S")):
+        raise RuntimeError("Не выбраны голоса: укажите id в albert/voices.json (запустите с list_voices, чтобы увидеть варианты)")
     return v
 
 
@@ -91,4 +92,7 @@ def main(ep_name):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "ep01")
+    if len(sys.argv) > 1 and sys.argv[1] == "--list":
+        list_voices()
+    else:
+        main(sys.argv[1] if len(sys.argv) > 1 else "ep01")

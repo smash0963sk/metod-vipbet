@@ -13,6 +13,10 @@ on:
         description: "Переозвучить все реплики заново"
         type: boolean
         default: false
+      list_voices:
+        description: "Только показать русские мужские голоса Fish Audio"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -27,6 +31,9 @@ jobs:
     timeout-minutes: 40
     env:
       EP: ${{ inputs.episode }}
+    defaults:
+      run:
+        shell: bash -eo pipefail {0}
     steps:
       - uses: actions/checkout@v4
 
@@ -50,6 +57,12 @@ jobs:
         with:
           path: ~/.cache/huggingface
           key: whisper-small-v1
+
+      - name: Голоса Fish Audio
+        if: inputs.list_voices
+        env:
+          FISH_API_KEY: ${{ secrets.FISH_API_KEY }}
+        run: python albert/tools/tts.py --list && exit 1
 
       - name: Озвучка — Fish Audio
         env:
