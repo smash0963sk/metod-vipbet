@@ -78,6 +78,27 @@ def for_silero(text):
     return t.replace("—", ",").replace("–", " ").replace("…", ".")
 
 
+def for_plain(text):
+    """Для открытых моделей: цифры словами, латиница — по-русски, без тегов и знаков ударения."""
+    return for_silero(text).replace("+", "")
+
+
+XTTS = {"A": "Damien Black", "S": "Andrew Chipper"}
+_xtts = None
+
+
+def synth_xtts(text, who, path):
+    global _xtts
+    os.environ.setdefault("COQUI_TOS_AGREED", "1")
+    if _xtts is None:
+        from TTS.api import TTS
+        _xtts = TTS("tts_models/multilingual/multi-dataset/xtts_v2")
+    wav = path + ".wav"
+    _xtts.tts_to_file(text=for_plain(text), file_path=wav, speaker=XTTS[who], language="ru", split_sentences=True)
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", wav, "-b:a", "192k", path], check=True)
+    os.remove(wav)
+
+
 _silero = None
 
 
@@ -185,7 +206,7 @@ def main(ep_name):
         return
     ep = json.load(open(os.path.join(ROOT, "episodes", ep_name + ".json"), encoding="utf-8"))
     voices = (pick_voices() if ENGINE == "fish" else eleven_voices() if ENGINE == "eleven"
-              else SILERO if ENGINE == "silero" else {k: v[0] + v[1] for k, v in EDGE.items()})
+              else SILERO if ENGINE == "silero" else XTTS if ENGINE == "xtts" else {k: v[0] + v[1] for k, v in EDGE.items()})
     out = os.path.join(ROOT, "build", ep_name, "voice" + SUFFIX)
     os.makedirs(out, exist_ok=True)
     meta_f = os.path.join(out, "meta.json")
@@ -205,6 +226,8 @@ def main(ep_name):
             synth_eleven(text, ln["who"], f, voices, prev, nxt)
         elif ENGINE == "silero":
             synth_silero(text, ln["who"], f)
+        elif ENGINE == "xtts":
+            synth_xtts(text, ln["who"], f)
         elif ENGINE == "edge":
             synth_edge(text, ln["who"], f)
         else:

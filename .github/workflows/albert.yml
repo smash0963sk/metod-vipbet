@@ -16,7 +16,7 @@ on:
       engine:
         description: "Чем озвучивать"
         type: choice
-        options: [eleven, fish, silero, edge]
+        options: [eleven, xtts, fish, silero, edge]
         default: eleven
       list_voices:
         description: "Только показать русские мужские голоса Fish Audio"
@@ -63,12 +63,19 @@ jobs:
           case "$VOICE_ENGINE" in
             silero) pip install --quiet torch --index-url https://download.pytorch.org/whl/cpu && pip install --quiet omegaconf num2words ;;
             edge)   pip install --quiet edge-tts ;;
+            xtts)   pip install --quiet coqui-tts num2words ;;
           esac
 
       - uses: actions/cache@v4
         with:
           path: ~/.cache/huggingface
           key: whisper-small-v1
+
+      - uses: actions/cache@v4
+        if: inputs.engine == 'xtts'
+        with:
+          path: ~/.local/share/tts
+          key: xtts-v2
 
       - name: Голоса Fish Audio
         if: inputs.list_voices
