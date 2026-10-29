@@ -67,20 +67,25 @@ def main(ep_name):
     for i, ln in enumerate(ep["lines"], 1):
         text = ln.get("say") or ln["text"]
         voice = voices[ln["who"]]
-        h = hashlib.sha1(f"{voice}|{MODEL}|{text}".encode()).hexdigest()
+        h = hashlib.sha1(f"{voice}|{text}".encode()).hexdigest()
         f = os.path.join(out, f"{i:02d}.mp3")
         if os.path.exists(f) and meta.get(f"{i:02d}") == h:
             continue
         body = {"text": text, "reference_id": voice, "format": "mp3", "mp3_bitrate": 192, "normalize": True,
                 "latency": "normal", "prosody": {"speed": SPEED.get(ln["who"], 1.0)}}
-        for attempt in range(3):
+        global MODEL
+        for attempt in range(4):
             try:
                 audio = req("POST", "/v1/tts", body, {"model": MODEL}, raw=True)
                 break
             except RuntimeError as e:
                 if "402" in str(e):
-                    raise RuntimeError("Fish Audio: закончился баланс API (402)")
-                if attempt == 2:
+                    if MODEL != "s2.1-pro-free":
+                        print(f"::warning title=Fish Audio::Нет баланса API для {MODEL} — перехожу на бесплатную модель s2.1-pro-free")
+                        MODEL = "s2.1-pro-free"
+                        continue
+                    raise RuntimeError("Fish Audio: нет баланса API и бесплатная модель недоступна (402)")
+                if attempt == 3:
                     raise
                 time.sleep(5)
         open(f, "wb").write(audio)
