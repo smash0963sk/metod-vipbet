@@ -1,5 +1,10 @@
 {
  "posted": {
+  "news:2026-10-29": {
+   "msg": 57,
+   "at": "2026-10-29T13:39:37+03:00",
+   "slot": "news"
+  },
   "poll:2026-10-29": {
    "msg": 56,
    "pid": "2026-10-29-fiorentina-atalanta",
@@ -27,5 +32,12 @@
  },
  "channel": "-1004311370526",
  "channel_title": "ЭКСПРЕССНАЯ 🔐",
- "pinned": 51
+ "pinned": 51,
+ "news_ids": [
+  "2026-10-29-football-liverpool-chelsea-league-cup",
+  "2026-10-29-hockey-washington-philadelphia-michkov",
+  "2026-10-29-football-spartak-rubin-kubok",
+  "2026-10-29-football-milan-bologna-seria-a",
+  "2026-10-29-hockey-cska-traktor"
+ ]
 }
