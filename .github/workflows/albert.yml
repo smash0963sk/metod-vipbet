@@ -63,7 +63,7 @@ jobs:
           case "$VOICE_ENGINE" in
             silero) pip install --quiet torch --index-url https://download.pytorch.org/whl/cpu && pip install --quiet omegaconf num2words ;;
             edge)   pip install --quiet edge-tts ;;
-            xtts)   pip install --quiet coqui-tts num2words ;;
+            xtts)   pip install --quiet torch torchaudio --index-url https://download.pytorch.org/whl/cpu && pip install --quiet "coqui-tts[codec]" num2words && python -c "import torch, TTS; print('torch', torch.__version__)" ;;
           esac
 
       - uses: actions/cache@v4
