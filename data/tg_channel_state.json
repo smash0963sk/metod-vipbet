@@ -1,5 +1,12 @@
 {
  "posted": {
+  "poll:2026-10-29": {
+   "msg": 56,
+   "pid": "2026-10-29-fiorentina-atalanta",
+   "kind": "poll",
+   "at": "2026-10-29T12:41:58+03:00",
+   "slot": "poll"
+  },
   "bet:2026-10-29": {
    "msg": 55,
    "pid": "2026-10-29-frosinone-lecce",
