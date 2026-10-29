@@ -94,8 +94,9 @@ def synth_silero(text, who, path):
 
 def synth_edge(text, who, path):
     voice, pitch, rate = EDGE[who]
-    tries = [["--pitch=" + pitch, "--rate=" + rate], []]
-    for k, extra in enumerate(tries * 2):
+    tries = [["--pitch=" + pitch, "--rate=" + rate]] * 4 + [[]] * 2
+    time.sleep(2)  # Microsoft ограничивает частоту запросов
+    for k, extra in enumerate(tries):
         r = subprocess.run(["edge-tts", "--voice", voice, *extra, "--text", clean(text), "--write-media", path], capture_output=True, text=True)
         if r.returncode == 0 and os.path.exists(path) and os.path.getsize(path) > 1000:
             if not extra and pitch:  # без параметров — меняем тон уже в ffmpeg
@@ -105,7 +106,8 @@ def synth_edge(text, who, path):
                 subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", path, "-af", f"asetrate=24000*{f:.4f},aresample=24000,atempo={1 / f:.4f}", tmp], check=True)
                 os.replace(tmp, path)
             return
-        time.sleep(3 + k * 3)
+        print(f"Edge TTS: попытка {k + 1} не удалась: {(r.stderr or '').strip()[-120:]}")
+        time.sleep(min(60, 5 * 2 ** k))
     if os.path.exists(path):
         os.remove(path)
     raise RuntimeError("Edge TTS не отдал звук (сервис Microsoft не отвечает этому серверу)")
@@ -157,6 +159,7 @@ def main(ep_name):
         else:
             synth_fish(text, ln["who"], f, voices)
         meta[f"{i:02d}"] = h
+        json.dump(meta, open(meta_f, "w"), indent=1)  # сохраняем сразу: при сбое готовые реплики не переозвучиваются
         made += 1
         print(f"{i:02d} [{ln['who']}] {text}")
     json.dump(meta, open(meta_f, "w"), indent=1)
