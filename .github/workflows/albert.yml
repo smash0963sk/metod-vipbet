@@ -71,6 +71,17 @@ jobs:
           if [ "${{ inputs.revoice }}" = "true" ]; then rm -rf "albert/build/$EP/voice"; fi
           python albert/tools/tts.py "$EP" 2>&1 | tee /tmp/tts.log || { tail -20 /tmp/tts.log | sed 's/^/::error title=Fish Audio::/'; exit 1; }
 
+      - name: Сохранить озвучку (чтобы не озвучивать повторно)
+        if: always() && !inputs.list_voices
+        run: |
+          ls -la "albert/build/$EP/voice" 2>/dev/null | head -20 || true
+          for f in albert/build/$EP/voice/*.mp3; do [ -f "$f" ] && echo "::notice title=Файл озвучки::$(basename $f): $(ffprobe -v error -show_entries format=format_name,duration -of csv=p=0 "$f" 2>&1 | head -1) · $(stat -c%s "$f") байт" && break; done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "albert/build/$EP/voice" 2>/dev/null || exit 0
+          git commit -m "Альберт: озвучка $EP" || exit 0
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
+
       - name: Разметка слов — Whisper
         run: |
           python albert/tools/align.py "$EP" 2>&1 | tee /tmp/align.log || { tail -20 /tmp/align.log | sed 's/^/::error title=Whisper::/'; exit 1; }

@@ -65,9 +65,21 @@ def main(ep_name):
     from faster_whisper import WhisperModel
     model = WhisperModel(os.environ.get("WHISPER_MODEL", "small"), device="cpu", compute_type="int8")
     res = []
+    import tempfile
     for ln, f in zip(ep["lines"], files):
-        segs, _ = model.transcribe(f, language="ru", word_timestamps=True, beam_size=5, vad_filter=False)
-        heard = [{"w": w.word.strip(), "s": w.start, "e": w.end} for s in segs for w in (s.words or [])]
+        wav = os.path.join(tempfile.gettempdir(), os.path.basename(f) + ".wav")
+        conv = subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", f, "-ar", "16000", "-ac", "1", wav], capture_output=True, text=True)
+        if conv.returncode != 0:
+            head = open(f, "rb").read(160)
+            print(f"::warning title=Whisper::{os.path.basename(f)} не читается как аудио ({conv.stderr.strip()[:150]}); начало файла: {head!r}")
+            res.append({"dur": None, "speechStart": 0, "speechEnd": None, "words": None})
+            continue
+        try:
+            segs, _ = model.transcribe(wav, language="ru", word_timestamps=True, beam_size=5, vad_filter=False)
+            heard = [{"w": w.word.strip(), "s": w.start, "e": w.end} for s in segs for w in (s.words or [])]
+        except Exception as ex:
+            print(f"::warning title=Whisper::{os.path.basename(f)}: {ex}")
+            heard = []
         script = ln["text"].split()
         words = map_words(script, heard)
         res.append({"dur": round(duration(f), 3),
