@@ -5,16 +5,18 @@ const { execFileSync } = require("child_process");
 const { timeline } = require("../engine/scene.js");
 
 const name = process.argv[2] || "ep01";
+const ENGINE = process.env.VOICE_ENGINE || "fish";
+const SUF = ENGINE === "fish" ? "" : "_" + ENGINE;
 const ROOT = path.join(__dirname, "..");
 const ep = JSON.parse(fs.readFileSync(path.join(ROOT, "episodes", name + ".json"), "utf8"));
 const bdir = path.join(ROOT, "build", name);
 fs.mkdirSync(bdir, { recursive: true });
-const vdir = path.join(bdir, "voice");
+const vdir = path.join(bdir, "voice" + SUF);
 const files = ep.lines.map((_, i) => path.join(vdir, String(i + 1).padStart(2, "0") + ".mp3"));
 const haveVoice = files.every(f => fs.existsSync(f));
 
 let align = null;
-const af = path.join(bdir, "align.json");
+const af = path.join(bdir, `align${SUF}.json`);
 if (haveVoice && fs.existsSync(af)) align = JSON.parse(fs.readFileSync(af, "utf8"));
 else if (haveVoice) align = files.map(f => parseFloat(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f]).toString()));
 
@@ -24,7 +26,7 @@ let audio = null;
 if (haveVoice) {
   // Звук: каждая реплика — чистка низов, компрессия, выравнивание громкости; звуки появления иконок;
   // фоновая музыка (если есть файл в albert/music), которая приглушается, пока персонажи говорят.
-  audio = name + ".mp3";
+  audio = name + SUF + ".mp3";
   const SFX = path.join(ROOT, "engine", "sfx");
   const ins = [], filt = [];
   let n = 0;
@@ -78,5 +80,5 @@ if (haveVoice) {
     path.join(ROOT, "remotion", "public", audio)]);
   console.log(`звук: ${files.length} реплик, эффектов ${ev.length}, музыка: ${track ? path.basename(track) : "нет"}`);
 }
-fs.writeFileSync(path.join(bdir, "props.json"), JSON.stringify({ ep, tl, total, audio }));
+fs.writeFileSync(path.join(bdir, `props${SUF}.json`), JSON.stringify({ ep, tl, total, audio }));
 console.log(`props: ${tl.length} реплик, ${total.toFixed(1)} с, озвучка: ${audio ? "есть" : "нет"}, Whisper: ${align && typeof align[0] === "object" ? "да" : "нет"}`);

@@ -55,8 +55,11 @@ def map_words(script, heard):
     return out
 
 
+SUFFIX = "" if os.environ.get("VOICE_ENGINE", "fish") == "fish" else "_" + os.environ["VOICE_ENGINE"]
+
+
 def main(ep_name):
-    vdir = os.path.join(ROOT, "build", ep_name, "voice")
+    vdir = os.path.join(ROOT, "build", ep_name, "voice" + SUFFIX)
     ep = json.load(open(os.path.join(ROOT, "episodes", ep_name + ".json"), encoding="utf-8"))
     files = [os.path.join(vdir, f"{i:02d}.mp3") for i in range(1, len(ep["lines"]) + 1)]
     if not all(os.path.exists(f) for f in files):
@@ -90,7 +93,7 @@ def main(ep_name):
                     "speechEnd": round(heard[-1]["e"], 3) if heard else None,
                     "words": words, "heard": " ".join(h["w"] for h in heard)})
         print(f"{ln['text']}\n   Whisper: {' '.join(h['w'] for h in heard)}\n   слов размечено: {'все' if words else 'нет (равномерно)'}")
-    json.dump(res, open(os.path.join(ROOT, "build", ep_name, "align.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump(res, open(os.path.join(ROOT, "build", ep_name, f"align{SUFFIX}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     ok = sum(1 for r in res if r["words"])
     print(f"::notice title=Whisper::Слова размечены в {ok} из {len(res)} реплик")
 

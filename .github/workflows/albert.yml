@@ -13,6 +13,11 @@ on:
         description: "Переозвучить все реплики заново"
         type: boolean
         default: false
+      engine:
+        description: "Чем озвучивать"
+        type: choice
+        options: [fish, silero, edge]
+        default: fish
       list_voices:
         description: "Только показать русские мужские голоса Fish Audio"
         type: boolean
@@ -22,7 +27,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: albert-${{ inputs.episode }}
+  group: albert-${{ inputs.episode }}-${{ inputs.engine }}
   cancel-in-progress: false
 
 jobs:
@@ -31,6 +36,8 @@ jobs:
     timeout-minutes: 40
     env:
       EP: ${{ inputs.episode }}
+      VOICE_ENGINE: ${{ inputs.engine || 'fish' }}
+      SUF: ${{ (inputs.engine && inputs.engine != 'fish') && format('_{0}', inputs.engine) || '' }}
     defaults:
       run:
         shell: bash -eo pipefail {0}
@@ -50,8 +57,13 @@ jobs:
           which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
           ffmpeg -version | head -1
 
-      - name: Whisper (faster-whisper)
-        run: pip install --quiet faster-whisper
+      - name: Whisper (faster-whisper) и движки озвучки
+        run: |
+          pip install --quiet faster-whisper
+          case "$VOICE_ENGINE" in
+            silero) pip install --quiet torch --index-url https://download.pytorch.org/whl/cpu && pip install --quiet omegaconf num2words ;;
+            edge)   pip install --quiet edge-tts ;;
+          esac
 
       - uses: actions/cache@v4
         with:
@@ -68,17 +80,17 @@ jobs:
         env:
           FISH_API_KEY: ${{ secrets.FISH_API_KEY }}
         run: |
-          if [ "${{ inputs.revoice }}" = "true" ]; then rm -rf "albert/build/$EP/voice"; fi
+          if [ "${{ inputs.revoice }}" = "true" ]; then rm -rf "albert/build/$EP/voice$SUF"; fi
           python albert/tools/tts.py "$EP" 2>&1 | tee /tmp/tts.log || { tail -20 /tmp/tts.log | sed 's/^/::error title=Fish Audio::/'; exit 1; }
 
       - name: Сохранить озвучку (чтобы не озвучивать повторно)
         if: always() && !inputs.list_voices
         run: |
-          ls -la "albert/build/$EP/voice" 2>/dev/null | head -20 || true
-          for f in albert/build/$EP/voice/*.mp3; do [ -f "$f" ] && echo "::notice title=Файл озвучки::$(basename $f): $(ffprobe -v error -show_entries format=format_name,duration -of csv=p=0 "$f" 2>&1 | head -1) · $(stat -c%s "$f") байт" && break; done
+          ls -la "albert/build/$EP/voice$SUF" 2>/dev/null | head -20 || true
+          for f in albert/build/$EP/voice$SUF/*.mp3; do [ -f "$f" ] && echo "::notice title=Файл озвучки::$(basename $f): $(ffprobe -v error -show_entries format=format_name,duration -of csv=p=0 "$f" 2>&1 | head -1) · $(stat -c%s "$f") байт" && break; done
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "albert/build/$EP/voice" 2>/dev/null || exit 0
+          git add "albert/build/$EP/voice$SUF" 2>/dev/null || exit 0
           git commit -m "Альберт: озвучка $EP" || exit 0
           for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
 
@@ -94,19 +106,19 @@ jobs:
         run: |
           npm install --no-audit --no-fund --loglevel=error
           rm -rf src/engine && cp -r ../engine src/engine
-          npx remotion render src/index.js Episode "../videos/$EP.mp4" --props="../build/$EP/props.json" \
+          npx remotion render src/index.js Episode "../videos/$EP$SUF.mp4" --props="../build/$EP/props$SUF.json" \
             --codec=h264 --crf=20 --concurrency=4 --log=warn 2>&1 | tee /tmp/remotion.log \
             || { tail -30 /tmp/remotion.log | sed 's/^/::error title=Remotion::/'; exit 1; }
-          test -s "../videos/$EP.mp4" || { tail -30 /tmp/remotion.log | sed 's/^/::error title=Remotion::/'; exit 1; }
-          ffprobe -v error -show_entries format=duration,size -of compact "../videos/$EP.mp4" | sed 's/^/::notice title=Видео::/'
+          test -s "../videos/$EP$SUF.mp4" || { tail -30 /tmp/remotion.log | sed 's/^/::error title=Remotion::/'; exit 1; }
+          ffprobe -v error -show_entries format=duration,size -of compact "../videos/$EP$SUF.mp4" | sed 's/^/::notice title=Видео::/'
 
       - name: Сохранить видео и озвучку
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "albert/videos/$EP.mp4" "albert/build/$EP" albert/voices.json 2>/dev/null || true
-          git add "albert/videos/$EP.mp4"
-          git commit -m "Альберт: видео $EP" || exit 0
+          git add "albert/videos/$EP$SUF.mp4" "albert/build/$EP" albert/voices.json 2>/dev/null || true
+          git add "albert/videos/$EP$SUF.mp4"
+          git commit -m "Альберт: видео $EP$SUF" || exit 0
           for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
           exit 1
 
@@ -116,6 +128,6 @@ jobs:
         run: |
           CHAT=$(python -c "import json;print(json.load(open('persona/state.json')).get('tg_chat',''))" 2>/dev/null)
           if [ -z "$TG_BOT_TOKEN" ] || [ -z "$CHAT" ]; then echo "Telegram не настроен — видео только в репозитории"; exit 0; fi
-          curl -s -F chat_id="$CHAT" -F video=@"albert/videos/$EP.mp4" -F supports_streaming=true \
-            -F caption="🎬 Альберт — $EP готов" "https://api.telegram.org/bot$TG_BOT_TOKEN/sendVideo" > /tmp/tg.json
+          curl -s -F chat_id="$CHAT" -F video=@"albert/videos/$EP$SUF.mp4" -F supports_streaming=true \
+            -F caption="🎬 Альберт — $EP · озвучка: $VOICE_ENGINE" "https://api.telegram.org/bot$TG_BOT_TOKEN/sendVideo" > /tmp/tg.json
           python -c "import json;r=json.load(open('/tmp/tg.json'));print('::notice title=Telegram::видео отправлено' if r.get('ok') else '::warning title=Telegram::'+str(r.get('description')))"
