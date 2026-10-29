@@ -1,5 +1,13 @@
 {
  "posted": {
+  "th_evening:2026-10-29": {
+   "at": "2026-10-29T20:52:17+03:00",
+   "slot": "th_evening",
+   "ids": [
+    "telegram"
+   ],
+   "sport": "express:2026-10-29"
+  },
   "ig_post:2026-10-29": {
    "at": "2026-10-29T19:22:56+03:00",
    "slot": "ig_post",
