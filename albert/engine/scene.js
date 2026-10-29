@@ -38,6 +38,8 @@ const ICONS = {
              <rect x="-9" y="${-s * 0.18}" width="18" height="${s * 0.32}" rx="9" fill="${INK}"/><circle cy="${s * 0.26}" r="11" fill="${INK}"/>`,
   tg: s => `<circle r="${s / 2}" fill="${BLUE}" stroke="${INK}" stroke-width="7"/>
              <path d="M${-s * 0.26} ${-s * 0.01} L${s * 0.24} ${-s * 0.2} L${s * 0.14} ${s * 0.24} L${s * 0.02} ${s * 0.1} L${-s * 0.06} ${s * 0.2} L${-s * 0.08} ${s * 0.06} Z" fill="#FFFFFF" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/>`,
+  usdt: s => `<circle r="${s / 2}" fill="#26A17B" stroke="${INK}" stroke-width="7"/><circle r="${s / 2 - 16}" fill="none" stroke="#7FD8BB" stroke-width="5"/>
+             <text y="${s * 0.2}" text-anchor="middle" font-family="IDB" font-size="${s * 0.6}" fill="#FFFFFF" stroke="${INK}" stroke-width="4" paint-order="stroke">₮</text>`,
   bank: s => `<path d="M${-s * 0.5} ${-s * 0.18} L0 ${-s * 0.46} L${s * 0.5} ${-s * 0.18} Z" fill="#E9B949" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
              ${[-0.34, -0.12, 0.1, 0.32].map(x => `<rect x="${s * x - 12}" y="${-s * 0.14}" width="24" height="${s * 0.46}" fill="#FFFFFF" stroke="${INK}" stroke-width="6"/>`).join("")}
              <rect x="${-s * 0.52}" y="${s * 0.32}" width="${s * 1.04}" height="${s * 0.12}" fill="#E9B949" stroke="${INK}" stroke-width="7"/>`,
@@ -145,7 +147,10 @@ function buildFrame(ep, tl, t) {
   // слово над говорящим
   if (word && speaking) {
     const kk = 0.86 + 0.14 * ease((t - word.s) / 0.08);
-    const size = shot === "close" ? 110 : 92;
+    let size = shot === "close" ? 110 : 92;
+    let wpx = word.w.length * size * 0.6;
+    if (wpx > W - 80) { size = Math.floor(size * (W - 80) / wpx); wpx = W - 80; }
+    capX = Math.min(Math.max(capX, wpx / 2 + 40), W - wpx / 2 - 40);  // слово не выходит за край кадра
     parts.push(`<g transform="translate(${capX},${capY}) scale(${kk})"><text x="0" y="0" text-anchor="middle" font-family="IDB" font-size="${size}" fill="${INK}" stroke="${ep.bg2 || "#FFF7E8"}" stroke-width="14" paint-order="stroke" stroke-linejoin="round">${esc(word.w)}</text></g>`);
   }
   // подпись автора и дисклеймер

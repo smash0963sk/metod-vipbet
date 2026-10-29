@@ -28,6 +28,8 @@ const POSES = {
   head: [[14, -6], [-150, -60]],     // чешет затылок
 };
 
+const FRONT = new Set(["chin"]);  // в этих позах правая рука рисуется поверх торса
+
 function albert(o = {}) {
   const skin = "#F2C29B", hair = "#33261F", vest = "#F7931A", vestD = "#D67608", tee = "#24262D", jeans = "#2F3E5C";
   const [L, R] = POSES[o.pose || "idle"];
@@ -45,7 +47,7 @@ function albert(o = {}) {
   <path d="M124 958 L206 958" stroke="${vest}" stroke-width="8"/><path d="M296 958 L214 958" stroke="${vest}" stroke-width="8"/>
   <!-- руки сзади -->
   ${limb(138, 430, L[0], L[1], 82, 150, tee, skin)}
-  ${limb(282, 430, R[0], R[1], 82, 150, tee, skin)}
+  ${FRONT.has(o.pose) ? "" : limb(282, 430, R[0], R[1], 82, 150, tee, skin)}
   <!-- торс: чёрная футболка и оранжевый жилет -->
   <path d="M128 430 Q130 398 170 392 L250 392 Q290 398 292 430 L296 612 Q210 630 124 612 Z" fill="${tee}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
   <path d="M128 430 Q130 398 168 392 L196 396 L198 616 Q160 618 124 612 Z" fill="${vest}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
@@ -55,6 +57,7 @@ function albert(o = {}) {
   <path d="M186 398 Q192 452 210 470 Q228 452 234 398" fill="none" stroke="#E9B949" stroke-width="6"/>
   <circle cx="210" cy="482" r="17" fill="#E9B949" stroke="${INK}" stroke-width="4"/>
   <text x="210" y="492" text-anchor="middle" font-family="IDB" font-size="24" fill="${INK}">₿</text>
+  ${FRONT.has(o.pose) ? limb(282, 430, R[0], R[1], 82, 150, tee, skin) : ""}
   <!-- шея и голова -->
   <rect x="188" y="320" width="44" height="80" rx="14" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
   <circle cx="117" cy="262" r="18" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
@@ -92,9 +95,10 @@ function stas(o = {}) {
   <path d="M122 968 Q122 932 152 930 L204 930 Q212 952 208 968 Z" fill="#545A66" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
   <path d="M298 968 Q298 932 268 930 L216 930 Q208 952 212 968 Z" fill="#545A66" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
   ${limb(140, 430, L[0], L[1], 80, 150, tee, skin, 44, 32, 21)}
-  ${limb(280, 430, R[0], R[1], 80, 150, tee, skin, 44, 32, 21)}
+  ${FRONT.has(o.pose) ? "" : limb(280, 430, R[0], R[1], 80, 150, tee, skin, 44, 32, 21)}
   <path d="M132 432 Q134 400 172 394 L248 394 Q286 400 288 432 L292 614 Q210 630 128 614 Z" fill="${tee}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
   <path d="M184 396 Q210 420 236 396" fill="none" stroke="${INK}" stroke-width="5"/>
+  ${FRONT.has(o.pose) ? limb(280, 430, R[0], R[1], 80, 150, tee, skin, 44, 32, 21) : ""}
   <rect x="190" y="322" width="40" height="78" rx="14" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
   <circle cx="122" cy="262" r="17" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
   <circle cx="298" cy="262" r="17" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>

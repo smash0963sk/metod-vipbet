@@ -1,0 +1,22 @@
+{
+ "title": "Кто зарабатывает на ваших USDT",
+ "handle": "Альберт · крипта без воды",
+ "disclaimer": "Не является финансовой рекомендацией",
+ "gap": 0.3,
+ "lines": [
+  {"who": "S", "shot": "solo", "pose": "explain", "text": "Альберт, у меня все деньги в USDT лежат. Надёжно же?", "info": {"icon": "usdt", "size": 250}},
+  {"who": "A", "shot": "duo", "pose": "idle", "listen": "idle", "text": "Пока надёжно. Но знаешь, кто на этом зарабатывает?"},
+  {"who": "S", "shot": "duo", "pose": "shrug", "text": "Кто?", "clear": true},
+  {"who": "A", "shot": "duo", "pose": "explain", "listen": "chin", "text": "Люди держат в USDT больше ста восьмидесяти миллиардов долларов.", "info": {"big": "$186 млрд", "bigSize": 150, "label": "лежит в USDT"}},
+  {"who": "A", "shot": "duo", "pose": "explain", "listen": "chin", "text": "А компания Tether кладёт эти деньги в облигации США.", "info": {"flow": ["usdt", "arrow", "bank"], "label": "ваши доллары → облигации США"}},
+  {"who": "A", "shot": "duo", "pose": "point", "listen": "chin", "text": "А облигации каждый день приносят проценты.", "info": {"icon": "chartUp", "label": "проценты капают каждый день"}},
+  {"who": "S", "shot": "duo", "pose": "chin", "text": "И эти проценты получаю я?"},
+  {"who": "A", "shot": "close", "pose": "idle", "text": "Нет."},
+  {"who": "A", "shot": "duo", "pose": "stop", "listen": "head", "text": "Ты получаешь ноль. Все проценты забирает Tether.", "info": {"big": "$0", "bigSize": 180, "label": "процентов держателям USDT", "color": "#E2463B"}},
+  {"who": "A", "shot": "duo", "pose": "explain", "listen": "head", "text": "За 2025 год прибыль компании — больше десяти миллиардов долларов.", "info": {"big": "$10 млрд+", "bigSize": 150, "label": "прибыль Tether за 2025 год"}},
+  {"who": "S", "shot": "solo", "pose": "head", "text": "То есть я просто дал им деньги бесплатно?", "clear": true},
+  {"who": "A", "shot": "duo", "pose": "explain", "listen": "chin", "text": "Именно. Это как вклад в банке, только проценты достаются не тебе.", "info": {"icon": "bank", "label": "вклад без процентов для тебя"}},
+  {"who": "S", "shot": "duo", "pose": "shrug", "text": "А как сделать, чтобы деньги работали на меня?", "clear": true},
+  {"who": "A", "shot": "solo", "pose": "explain", "text": "Разбираю это в своём Telegram. Ссылка в профиле.", "info": {"icon": "tg", "label": "Telegram — ссылка в профиле"}}
+ ]
+}
