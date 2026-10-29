@@ -75,7 +75,10 @@ def main(ep_name):
             res.append({"dur": None, "speechStart": 0, "speechEnd": None, "words": None})
             continue
         try:
-            segs, _ = model.transcribe(wav, language="ru", word_timestamps=True, beam_size=5, vad_filter=False)
+            import numpy as np  # аудио передаём массивом: так Whisper не зависит от версии PyAV
+            pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", wav, "-f", "s16le", "-ac", "1", "-ar", "16000", "-"], capture_output=True).stdout
+            audio = np.frombuffer(pcm, np.int16).astype(np.float32) / 32768.0
+            segs, _ = model.transcribe(audio, language="ru", word_timestamps=True, beam_size=5, vad_filter=False)
             heard = [{"w": w.word.strip(), "s": w.start, "e": w.end} for s in segs for w in (s.words or [])]
         except Exception as ex:
             print(f"::warning title=Whisper::{os.path.basename(f)}: {ex}")
