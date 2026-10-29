@@ -201,6 +201,14 @@ def synth_fish(text, who, path, voices):
 
 
 def main(ep_name):
+    if ENGINE == "own":  # свои файлы: albert/build/<эпизод>/voice_own/01.mp3, 02.mp3 …
+        ep = json.load(open(os.path.join(ROOT, "episodes", ep_name + ".json"), encoding="utf-8"))
+        out = os.path.join(ROOT, "build", ep_name, "voice_own")
+        miss = [f"{i:02d}.mp3" for i in range(1, len(ep["lines"]) + 1) if not os.path.exists(os.path.join(out, f"{i:02d}.mp3"))]
+        if miss:
+            raise RuntimeError(f"Не хватает файлов озвучки в albert/build/{ep_name}/voice_own: {', '.join(miss)}")
+        print(f"::notice title=Озвучка::Использую ваши файлы ({len(ep['lines'])} реплик)")
+        return
     if ENGINE == "fish" and not KEY:
         print("::warning title=Озвучка::Нет секрета FISH_API_KEY — видео будет без голоса")
         return

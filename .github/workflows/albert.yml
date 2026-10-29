@@ -16,7 +16,7 @@ on:
       engine:
         description: "Чем озвучивать"
         type: choice
-        options: [eleven, xtts, fish, silero, edge]
+        options: [eleven, own, xtts, fish, silero, edge]
         default: eleven
       list_voices:
         description: "Только показать русские мужские голоса Fish Audio"
