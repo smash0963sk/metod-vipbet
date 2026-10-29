@@ -1,6 +1,87 @@
 {
-  "updated": "2026-10-28T08:22:47+03:00",
+  "updated": "2026-10-29T08:24:44+03:00",
   "news": [
+    {
+      "id": "2026-10-29-football-spartak-rubin-kubok",
+      "date": "2026-10-28",
+      "sport": "Футбол",
+      "title": "Гол Дмитриева принёс «Спартаку» победу над «Рубином» и досрочный выход в плей-офф Кубка",
+      "text": "В 5-м туре группового этапа Пути РПЛ «Спартак» дома обыграл «Рубин» 1:0, Игорь Дмитриев забил уже в начале матча. С 13 очками красно-белые возглавили группу и досрочно оформили путёвку в плей-офф.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.ru/football/rus_cup/news/spartak-rubin-schet-i-rezultat-matcha-5-tura-gruppovogo-etapa-puti-rpl-kubka-rossii-28-oktyabrya-2026-2468456/"
+    },
+    {
+      "id": "2026-10-29-football-liverpool-chelsea-league-cup",
+      "date": "2026-10-29",
+      "sport": "Футбол",
+      "title": "«Ливерпуль» по пенальти выбил «Челси» из Кубка лиги",
+      "text": "На «Энфилде» основное время закончилось 1:1: оба гола забили с пенальти Морган Роджерс и Коди Гакпо. В серии 11-метровых «Ливерпуль» оказался точнее — 6:5, «Манчестер Сити» тоже прошёл «Брайтон» по пенальти.",
+      "source": "Бомбардир",
+      "url": "https://bombardir.ru/news/833037-kubok-ligi-liverpul-v-serii-penalti-proshel-chelsi-manchester-siti-brayton"
+    },
+    {
+      "id": "2026-10-29-football-milan-bologna-seria-a",
+      "date": "2026-10-28",
+      "sport": "Футбол",
+      "title": "Хет-трик Мбангулы: «Болонья» обыграла «Милан» на «Сан-Сиро» 4:2",
+      "text": "Три мяча забил Самуэль Мбангула, ещё один гол в свои ворота срезал защитник «Милана» Давиде Бартезаги. «Россонери» с 18 очками остались пятыми перед дерби с «Интером».",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/italy/news/milan-bolonya-schet-i-rezultat-matcha-9-tura-serii-a-28-oktyabrya-2026-2468455/"
+    },
+    {
+      "id": "2026-10-29-hockey-cska-traktor",
+      "date": "2026-10-28",
+      "sport": "Хоккей",
+      "title": "ЦСКА разгромил «Трактор» и возглавил Западную конференцию",
+      "text": "Армейцы проиграли первый период 0:1, но во втором забросили четыре шайбы подряд и победили 5:1. С 30 очками в 20 матчах ЦСКА обошёл «Локомотив».",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/khl/news/cska-traktor-schet-i-rezultat-matcha-khl-28-oktyabrya-2026-2468443/"
+    },
+    {
+      "id": "2026-10-29-hockey-ak-bars-avangard",
+      "date": "2026-10-28",
+      "sport": "Хоккей",
+      "title": "«Авангард» всухую обыграл «Ак Барс» в Казани",
+      "text": "Омичи победили 4:0, дубль сделал Майкл Маклауд, у Марселя Ибрагимова две передачи. «Авангард» поднялся на восьмое место на Востоке.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/khl/news/ak-bars-avangard-schet-i-rezultat-matcha-khl-28-oktyabrya-2026-2468437/"
+    },
+    {
+      "id": "2026-10-29-hockey-washington-philadelphia-michkov",
+      "date": "2026-10-29",
+      "sport": "Хоккей",
+      "title": "Мичков забил девятый гол в сезоне, но «Флайерз» уступили «Вашингтону»",
+      "text": "«Кэпиталз» обыграли «Филадельфию» 5:2, Матвей Мичков довёл счёт в сезоне до 11 очков (9+2) в 15 матчах. Александр Овечкин очков не набрал.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/nhl/news/vashington-filadelfiya-schet-5-2-rezultat-matcha-regulyarnogo-chempionata-nba-29-oktyabrya-2026-goda-2468520/"
+    },
+    {
+      "id": "2026-10-29-tennis-medvedev-vienna-50-wins",
+      "date": "2026-10-28",
+      "sport": "Теннис",
+      "title": "Медведев одержал 50-ю победу в сезоне на старте турнира в Вене",
+      "text": "Даниил Медведев обыграл Даниэля Мериду 7:6(5), 6:1 и выиграл пятый матч подряд после титула в Алматы. Следующий соперник россиянина — Кэмерон Норри.",
+      "source": "Sports.ru",
+      "url": "https://www.sports.ru/tennis/1117418324-medvedev-vyigral-50-j-match-v-sezone.html"
+    },
+    {
+      "id": "2026-10-29-tennis-djokovic-humbert-basel",
+      "date": "2026-10-28",
+      "sport": "Теннис",
+      "title": "Джокович отыгрался по сетам против Умбера в Базеле",
+      "text": "Новак Джокович проиграл первую партию Уго Умберу, но победил 4:6, 6:3, 6:4 за 2 часа 29 минут. Во втором круге его ждёт Ян-Леннард Штруфф.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/tennis/atp/news/novak-dzhokovich-ugo-umber-rezultat-matcha-pervogo-kruga-turnira-v-bazele-28-oktyabrya-2026-2468433/"
+    },
+    {
+      "id": "2026-10-29-tennis-shnayder-tokyo-quarterfinal",
+      "date": "2026-10-28",
+      "sport": "Теннис",
+      "title": "Шнайдер в трёх сетах обыграла Соснович и вышла в четвертьфинал в Токио",
+      "text": "Третья сеяная Диана Шнайдер победила Александру Соснович 6:3, 5:7, 6:3. В четвертьфинале россиянка сыграет с победительницей пары Эала — Гибсон.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/tennis/wta/news/diana-shnayder-aleksandra-sosnovich-schet-i-rezultat-matcha-2-kruga-v-tokio-28-oktyabrya-2026-2468265/"
+    },
     {
       "id": "2026-10-27-efl-cup-fleetwood-arsenal",
       "date": "2026-10-27",
