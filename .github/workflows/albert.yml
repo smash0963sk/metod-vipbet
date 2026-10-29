@@ -16,8 +16,8 @@ on:
       engine:
         description: "Чем озвучивать"
         type: choice
-        options: [eleven, own, xtts, fish, silero, edge]
-        default: eleven
+        options: [fish, eleven, own, silero, edge, xtts]
+        default: fish
       list_voices:
         description: "Только показать русские мужские голоса Fish Audio"
         type: boolean
@@ -36,7 +36,7 @@ jobs:
     timeout-minutes: 40
     env:
       EP: ${{ inputs.episode }}
-      VOICE_ENGINE: ${{ inputs.engine || 'eleven' }}
+      VOICE_ENGINE: ${{ inputs.engine || 'fish' }}
       SUF: ${{ (inputs.engine && inputs.engine != 'fish') && format('_{0}', inputs.engine) || '' }}
     defaults:
       run:

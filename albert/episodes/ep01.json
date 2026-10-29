@@ -13,30 +13,26 @@
    "info": {
     "icon": "car",
     "size": 300
-   },
-   "say": "[excited, impressed] Смотри, Альберт новую тачку взял."
+   }
   },
   {
    "who": "S",
    "shot": "solo",
    "pose": "head",
-   "text": "Значит, биткоин продал?",
-   "say": "[curious, rising tone] Значит, биткоин продал?"
+   "text": "Значит, биткоин продал?"
   },
   {
    "who": "A",
    "shot": "solo",
    "pose": "stop",
-   "text": "Нет. Я биткоин не продаю.",
-   "say": "[calm, confident, slight smirk] Нет. Я биткоин не продаю."
+   "text": "Нет. Я биткоин не продаю."
   },
   {
    "who": "S",
    "shot": "duo",
    "pose": "shrug",
    "text": "А деньги тогда откуда?",
-   "clear": true,
-   "say": "[confused] А деньги тогда откуда?"
+   "clear": true
   },
   {
    "who": "A",
@@ -51,8 +47,7 @@
      "doc"
     ],
     "label": "продал с прибылью → налог"
-   },
-   "say": "[calm, explaining] Смотри. Продаёшь биткоин с прибылью — платишь налог."
+   }
   },
   {
    "who": "A",
@@ -68,15 +63,13 @@
      "cash"
     ],
     "label": "биткоин в залог → кредит"
-   },
-   "say": "[confident] А я кладу биткоин в залог и беру кредит в долларах."
+   }
   },
   {
    "who": "A",
    "shot": "close",
    "pose": "idle",
-   "text": "Кредит — это не доход.",
-   "say": "[slow, emphatic] Кредит — это не доход."
+   "text": "Кредит — это не доход."
   },
   {
    "who": "A",
@@ -87,15 +80,13 @@
     "big": "0 ₽",
     "bigSize": 170,
     "label": "налог с кредита"
-   },
-   "say": "[satisfied] Налога с него нет."
+   }
   },
   {
    "who": "S",
    "shot": "duo",
    "pose": "chin",
-   "text": "А биткоин куда?",
-   "say": "[surprised] А биткоин куда?"
+   "text": "А биткоин куда?"
   },
   {
    "who": "A",
@@ -105,16 +96,14 @@
    "info": {
     "icon": "chartUp",
     "label": "биткоин остаётся у тебя"
-   },
-   "say": "[relaxed, smug] Остаётся моим. И дальше растёт."
+   }
   },
   {
    "who": "S",
    "shot": "solo",
    "pose": "chin",
    "text": "Хитро…",
-   "clear": true,
-   "say": "[impressed, short laugh] Хитро…"
+   "clear": true
   },
   {
    "who": "A",
@@ -124,8 +113,7 @@
    "info": {
     "icon": "chartDown",
     "label": "биткоин падает"
-   },
-   "say": "[serious, lower voice] Но есть ловушка. Если биткоин сильно упадёт — залог продадут."
+   }
   },
   {
    "who": "A",
@@ -137,8 +125,7 @@
     "big": "ликвидация",
     "bigSize": 96,
     "color": "#E2463B"
-   },
-   "say": "[serious] Это называется ликвидация."
+   }
   },
   {
    "who": "A",
@@ -150,16 +137,14 @@
     "big": "20–30%",
     "bigSize": 160,
     "label": "кредит от суммы залога"
-   },
-   "say": "[calm, advising] Поэтому берут не больше двадцати–тридцати процентов от залога."
+   }
   },
   {
    "who": "S",
    "shot": "duo",
    "pose": "shrug",
    "text": "А где про такое узнать?",
-   "clear": true,
-   "say": "[eager] А где про такое узнать?"
+   "clear": true
   },
   {
    "who": "A",
@@ -169,8 +154,7 @@
    "info": {
     "icon": "tg",
     "label": "Telegram — ссылка в профиле"
-   },
-   "say": "[friendly, inviting] Такие схемы разбираю в своём Telegram. Ссылка в профиле."
+   }
   }
  ]
 }
