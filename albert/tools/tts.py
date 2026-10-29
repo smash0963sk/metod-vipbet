@@ -94,7 +94,21 @@ def synth_silero(text, who, path):
 
 def synth_edge(text, who, path):
     voice, pitch, rate = EDGE[who]
-    subprocess.run(["edge-tts", "--voice", voice, f"--pitch={pitch}", f"--rate={rate}", "--text", clean(text), "--write-media", path], check=True)
+    tries = [["--pitch=" + pitch, "--rate=" + rate], []]
+    for k, extra in enumerate(tries * 2):
+        r = subprocess.run(["edge-tts", "--voice", voice, *extra, "--text", clean(text), "--write-media", path], capture_output=True, text=True)
+        if r.returncode == 0 and os.path.exists(path) and os.path.getsize(path) > 1000:
+            if not extra and pitch:  # без параметров — меняем тон уже в ffmpeg
+                tmp = path + ".tmp.mp3"
+                semis = int(pitch.replace("Hz", "")) / 12.0
+                f = 2 ** (semis / 12)
+                subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", path, "-af", f"asetrate=24000*{f:.4f},aresample=24000,atempo={1 / f:.4f}", tmp], check=True)
+                os.replace(tmp, path)
+            return
+        time.sleep(3 + k * 3)
+    if os.path.exists(path):
+        os.remove(path)
+    raise RuntimeError("Edge TTS не отдал звук (сервис Microsoft не отвечает этому серверу)")
 
 
 def synth_fish(text, who, path, voices):
