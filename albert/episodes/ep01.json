@@ -5,21 +5,172 @@
  "charsPerSec": 14.5,
  "gap": 0.25,
  "lines": [
-  {"who": "S", "shot": "solo", "pose": "explain", "text": "Смотри, Альберт новую тачку взял.", "info": {"icon": "car", "size": 300}},
-  {"who": "S", "shot": "solo", "pose": "head", "text": "Значит, биткоин продал?"},
-  {"who": "A", "shot": "solo", "pose": "stop", "text": "Нет. Я биткоин не продаю."},
-  {"who": "S", "shot": "duo", "pose": "shrug", "text": "А деньги тогда откуда?", "clear": true},
-  {"who": "A", "shot": "duo", "pose": "explain", "listen": "chin", "text": "Смотри. Продаёшь биткоин с прибылью — платишь налог.", "info": {"flow": ["btc", "arrow", "doc"], "label": "продал с прибылью → налог"}},
-  {"who": "A", "shot": "duo", "pose": "explain", "listen": "chin", "text": "А я кладу биткоин в залог и беру кредит в долларах.", "info": {"flow": ["btc", "lock", "arrow", "cash"], "label": "биткоин в залог → кредит"}},
-  {"who": "A", "shot": "close", "pose": "idle", "text": "Кредит — это не доход."},
-  {"who": "A", "shot": "duo", "pose": "explain", "text": "Налога с него нет.", "info": {"big": "0 ₽", "bigSize": 170, "label": "налог с кредита"}},
-  {"who": "S", "shot": "duo", "pose": "chin", "text": "А биткоин куда?"},
-  {"who": "A", "shot": "duo", "pose": "point", "text": "Остаётся моим. И дальше растёт.", "info": {"icon": "chartUp", "label": "биткоин остаётся у тебя"}},
-  {"who": "S", "shot": "solo", "pose": "chin", "text": "Хитро…", "clear": true},
-  {"who": "A", "shot": "solo", "pose": "stop", "text": "Но есть ловушка. Если биткоин сильно упадёт — залог продадут.", "info": {"icon": "chartDown", "label": "биткоин падает"}},
-  {"who": "A", "shot": "duo", "pose": "explain", "text": "Это называется ликвидация.", "info": {"icon": "warn", "big": "ликвидация", "bigSize": 96, "color": "#E2463B"}},
-  {"who": "A", "shot": "duo", "pose": "explain", "listen": "chin", "text": "Поэтому берут не больше двадцати–тридцати процентов от залога.", "info": {"big": "20–30%", "bigSize": 160, "label": "кредит от суммы залога"}},
-  {"who": "S", "shot": "duo", "pose": "shrug", "text": "А где про такое узнать?", "clear": true},
-  {"who": "A", "shot": "solo", "pose": "explain", "text": "Такие схемы разбираю в своём Telegram. Ссылка в профиле.", "info": {"icon": "tg", "label": "Telegram — ссылка в профиле"}}
+  {
+   "who": "S",
+   "shot": "solo",
+   "pose": "explain",
+   "text": "Смотри, Альберт новую тачку взял.",
+   "info": {
+    "icon": "car",
+    "size": 300
+   },
+   "say": "[excited, impressed] Смотри, Альберт новую тачку взял."
+  },
+  {
+   "who": "S",
+   "shot": "solo",
+   "pose": "head",
+   "text": "Значит, биткоин продал?",
+   "say": "[curious, rising tone] Значит, биткоин продал?"
+  },
+  {
+   "who": "A",
+   "shot": "solo",
+   "pose": "stop",
+   "text": "Нет. Я биткоин не продаю.",
+   "say": "[calm, confident, slight smirk] Нет. Я биткоин не продаю."
+  },
+  {
+   "who": "S",
+   "shot": "duo",
+   "pose": "shrug",
+   "text": "А деньги тогда откуда?",
+   "clear": true,
+   "say": "[confused] А деньги тогда откуда?"
+  },
+  {
+   "who": "A",
+   "shot": "duo",
+   "pose": "explain",
+   "listen": "chin",
+   "text": "Смотри. Продаёшь биткоин с прибылью — платишь налог.",
+   "info": {
+    "flow": [
+     "btc",
+     "arrow",
+     "doc"
+    ],
+    "label": "продал с прибылью → налог"
+   },
+   "say": "[calm, explaining] Смотри. Продаёшь биткоин с прибылью — платишь налог."
+  },
+  {
+   "who": "A",
+   "shot": "duo",
+   "pose": "explain",
+   "listen": "chin",
+   "text": "А я кладу биткоин в залог и беру кредит в долларах.",
+   "info": {
+    "flow": [
+     "btc",
+     "lock",
+     "arrow",
+     "cash"
+    ],
+    "label": "биткоин в залог → кредит"
+   },
+   "say": "[confident] А я кладу биткоин в залог и беру кредит в долларах."
+  },
+  {
+   "who": "A",
+   "shot": "close",
+   "pose": "idle",
+   "text": "Кредит — это не доход.",
+   "say": "[slow, emphatic] Кредит — это не доход."
+  },
+  {
+   "who": "A",
+   "shot": "duo",
+   "pose": "explain",
+   "text": "Налога с него нет.",
+   "info": {
+    "big": "0 ₽",
+    "bigSize": 170,
+    "label": "налог с кредита"
+   },
+   "say": "[satisfied] Налога с него нет."
+  },
+  {
+   "who": "S",
+   "shot": "duo",
+   "pose": "chin",
+   "text": "А биткоин куда?",
+   "say": "[surprised] А биткоин куда?"
+  },
+  {
+   "who": "A",
+   "shot": "duo",
+   "pose": "point",
+   "text": "Остаётся моим. И дальше растёт.",
+   "info": {
+    "icon": "chartUp",
+    "label": "биткоин остаётся у тебя"
+   },
+   "say": "[relaxed, smug] Остаётся моим. И дальше растёт."
+  },
+  {
+   "who": "S",
+   "shot": "solo",
+   "pose": "chin",
+   "text": "Хитро…",
+   "clear": true,
+   "say": "[impressed, short laugh] Хитро…"
+  },
+  {
+   "who": "A",
+   "shot": "solo",
+   "pose": "stop",
+   "text": "Но есть ловушка. Если биткоин сильно упадёт — залог продадут.",
+   "info": {
+    "icon": "chartDown",
+    "label": "биткоин падает"
+   },
+   "say": "[serious, lower voice] Но есть ловушка. Если биткоин сильно упадёт — залог продадут."
+  },
+  {
+   "who": "A",
+   "shot": "duo",
+   "pose": "explain",
+   "text": "Это называется ликвидация.",
+   "info": {
+    "icon": "warn",
+    "big": "ликвидация",
+    "bigSize": 96,
+    "color": "#E2463B"
+   },
+   "say": "[serious] Это называется ликвидация."
+  },
+  {
+   "who": "A",
+   "shot": "duo",
+   "pose": "explain",
+   "listen": "chin",
+   "text": "Поэтому берут не больше двадцати–тридцати процентов от залога.",
+   "info": {
+    "big": "20–30%",
+    "bigSize": 160,
+    "label": "кредит от суммы залога"
+   },
+   "say": "[calm, advising] Поэтому берут не больше двадцати–тридцати процентов от залога."
+  },
+  {
+   "who": "S",
+   "shot": "duo",
+   "pose": "shrug",
+   "text": "А где про такое узнать?",
+   "clear": true,
+   "say": "[eager] А где про такое узнать?"
+  },
+  {
+   "who": "A",
+   "shot": "solo",
+   "pose": "explain",
+   "text": "Такие схемы разбираю в своём Telegram. Ссылка в профиле.",
+   "info": {
+    "icon": "tg",
+    "label": "Telegram — ссылка в профиле"
+   },
+   "say": "[friendly, inviting] Такие схемы разбираю в своём Telegram. Ссылка в профиле."
+  }
  ]
 }

@@ -72,7 +72,7 @@ def main(ep_name):
         if conv.returncode != 0:
             head = open(f, "rb").read(160)
             print(f"::warning title=Whisper::{os.path.basename(f)} не читается как аудио ({conv.stderr.strip()[:150]}); начало файла: {head!r}")
-            res.append({"dur": None, "speechStart": 0, "speechEnd": None, "words": None})
+            res.append({"dur": None, "speechStart": 0, "speechEnd": None, "words": None, "heard": ""})
             continue
         try:
             import numpy as np  # аудио передаём массивом: так Whisper не зависит от версии PyAV
@@ -88,7 +88,7 @@ def main(ep_name):
         res.append({"dur": round(duration(f), 3),
                     "speechStart": round(heard[0]["s"], 3) if heard else 0,
                     "speechEnd": round(heard[-1]["e"], 3) if heard else None,
-                    "words": words})
+                    "words": words, "heard": " ".join(h["w"] for h in heard)})
         print(f"{ln['text']}\n   Whisper: {' '.join(h['w'] for h in heard)}\n   слов размечено: {'все' if words else 'нет (равномерно)'}")
     json.dump(res, open(os.path.join(ROOT, "build", ep_name, "align.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     ok = sum(1 for r in res if r["words"])
