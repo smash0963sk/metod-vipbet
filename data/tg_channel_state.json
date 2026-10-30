@@ -1,5 +1,17 @@
 {
  "posted": {
+  "express:2026-10-30": {
+   "msg": 69,
+   "legs": [
+    "2026-10-30-villarreal-espanyol",
+    "2026-10-30-elversberg-mainz",
+    "2026-10-30-lada-avangard"
+   ],
+   "kind": "express",
+   "total": 3.41,
+   "at": "2026-10-30T17:48:13+03:00",
+   "slot": "express"
+  },
   "lock:2026-10-30": {
    "msg": 68,
    "pid": "2026-10-30-villarreal-espanyol",
