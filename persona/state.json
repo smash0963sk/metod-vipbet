@@ -1,5 +1,13 @@
 {
  "posted": {
+  "th_sport:2026-10-30": {
+   "at": "2026-10-30T13:26:05+03:00",
+   "slot": "th_sport",
+   "ids": [
+    "telegram"
+   ],
+   "sport": "2026-10-30-severstal-spartak"
+  },
   "th_morning:2026-10-30": {
    "at": "2026-10-30T09:58:09+03:00",
    "slot": "th_morning",
