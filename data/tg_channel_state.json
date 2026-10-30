@@ -1,5 +1,12 @@
 {
  "posted": {
+  "evening:2026-10-30": {
+   "msg": 71,
+   "pid": "2026-10-30-elversberg-mainz",
+   "kind": "single",
+   "at": "2026-10-30T19:40:25+03:00",
+   "slot": "evening"
+  },
   "weekend:2026-10-30": {
    "msg": 70,
    "at": "2026-10-30T18:42:21+03:00",
