@@ -53,6 +53,15 @@ const ICONS = {
              ${[-0.16, 0, 0.16].map(x => `<line x1="${s * x}" y1="${-s * 0.12}" x2="${s * x}" y2="${s * 0.34}" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`).join("")}`,
   plus: s => `<path d="M${-s * 0.5} ${-s * 0.34} Q${-s * 0.5} ${-s * 0.46} ${-s * 0.36} ${-s * 0.46} H${s * 0.36} Q${s * 0.5} ${-s * 0.46} ${s * 0.5} ${-s * 0.34} V${s * 0.14} Q${s * 0.5} ${s * 0.26} ${s * 0.36} ${s * 0.26} H${-s * 0.06} L${-s * 0.26} ${s * 0.46} L${-s * 0.22} ${s * 0.26} H${-s * 0.36} Q${-s * 0.5} ${s * 0.26} ${-s * 0.5} ${s * 0.14} Z" fill="${ORANGE}" stroke="${INK}" stroke-width="8" stroke-linejoin="round"/>
              <path d="M0 ${-s * 0.28} V${s * 0.08} M${-s * 0.18} ${-s * 0.1} H${s * 0.18}" stroke="#FFFFFF" stroke-width="${s * 0.1}" stroke-linecap="round"/>`,
+  coffee: s => `<path d="M${-s * 0.3} ${-s * 0.3} H${s * 0.3} L${s * 0.24} ${s * 0.46} H${-s * 0.24} Z" fill="#FFFFFF" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
+             <rect x="${-s * 0.36}" y="${-s * 0.42}" width="${s * 0.72}" height="${s * 0.14}" rx="8" fill="#2E2E33" stroke="${INK}" stroke-width="6"/>
+             <path d="M${-s * 0.28} ${s * 0.0} H${s * 0.28} L${s * 0.26} ${s * 0.22} H${-s * 0.26} Z" fill="#1F7A54"/>
+             <circle cy="${s * 0.11}" r="${s * 0.08}" fill="#FFFFFF"/>`,
+  burger: s => `<path d="M${-s * 0.46} ${-s * 0.04} Q${-s * 0.46} ${-s * 0.46} 0 ${-s * 0.46} Q${s * 0.46} ${-s * 0.46} ${s * 0.46} ${-s * 0.04} Z" fill="#E9A23B" stroke="${INK}" stroke-width="7"/>
+             <rect x="${-s * 0.5}" y="${-s * 0.04}" width="${s}" height="${s * 0.1}" rx="6" fill="#5BBF5A" stroke="${INK}" stroke-width="6"/>
+             <rect x="${-s * 0.48}" y="${s * 0.06}" width="${s * 0.96}" height="${s * 0.14}" rx="8" fill="#7A3E22" stroke="${INK}" stroke-width="6"/>
+             <path d="M${-s * 0.46} ${s * 0.2} H${s * 0.46} Q${s * 0.46} ${s * 0.42} 0 ${s * 0.42} Q${-s * 0.46} ${s * 0.42} ${-s * 0.46} ${s * 0.2} Z" fill="#E9A23B" stroke="${INK}" stroke-width="7"/>
+             ${[-0.2, 0, 0.2].map(x => `<ellipse cx="${s * x}" cy="${-s * 0.3}" rx="7" ry="4" fill="#FFF3D6"/>`).join("")}`,
   bank: s => `<path d="M${-s * 0.5} ${-s * 0.18} L0 ${-s * 0.46} L${s * 0.5} ${-s * 0.18} Z" fill="#E9B949" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
              ${[-0.34, -0.12, 0.1, 0.32].map(x => `<rect x="${s * x - 12}" y="${-s * 0.14}" width="24" height="${s * 0.46}" fill="#FFFFFF" stroke="${INK}" stroke-width="6"/>`).join("")}
              <rect x="${-s * 0.52}" y="${s * 0.32}" width="${s * 1.04}" height="${s * 0.12}" fill="#E9B949" stroke="${INK}" stroke-width="7"/>`,
