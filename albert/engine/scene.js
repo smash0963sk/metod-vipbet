@@ -40,15 +40,46 @@ const ICONS = {
              <path d="M${-s * 0.26} ${-s * 0.01} L${s * 0.24} ${-s * 0.2} L${s * 0.14} ${s * 0.24} L${s * 0.02} ${s * 0.1} L${-s * 0.06} ${s * 0.2} L${-s * 0.08} ${s * 0.06} Z" fill="#FFFFFF" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/>`,
   usdt: s => `<circle r="${s / 2}" fill="#26A17B" stroke="${INK}" stroke-width="7"/><circle r="${s / 2 - 16}" fill="none" stroke="#7FD8BB" stroke-width="5"/>
              <text y="${s * 0.2}" text-anchor="middle" font-family="IDB" font-size="${s * 0.6}" fill="#FFFFFF" stroke="${INK}" stroke-width="4" paint-order="stroke">₮</text>`,
+  pizza: s => `<path d="M0 ${-s * 0.48} L${s * 0.44} ${s * 0.4} Q0 ${s * 0.56} ${-s * 0.44} ${s * 0.4} Z" fill="#F6C451" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
+             <path d="M${-s * 0.44} ${s * 0.4} Q0 ${s * 0.56} ${s * 0.44} ${s * 0.4} L${s * 0.38} ${s * 0.3} Q0 ${s * 0.44} ${-s * 0.38} ${s * 0.3} Z" fill="#D9893A" stroke="${INK}" stroke-width="6"/>
+             ${[[-0.08, -0.12], [0.12, 0.08], [-0.16, 0.18], [0.04, 0.26]].map(([x, y]) => `<circle cx="${s * x}" cy="${s * y}" r="${s * 0.07}" fill="#D9453B" stroke="${INK}" stroke-width="4"/>`).join("")}`,
+  hdd: s => `<rect x="${-s * 0.36}" y="${-s * 0.46}" width="${s * 0.72}" height="${s * 0.92}" rx="22" fill="#B9BEC8" stroke="${INK}" stroke-width="7"/>
+             <circle cy="${-s * 0.08}" r="${s * 0.24}" fill="#E4E7EC" stroke="${INK}" stroke-width="6"/><circle cy="${-s * 0.08}" r="${s * 0.05}" fill="${INK}"/>
+             <path d="M0 ${-s * 0.08} L${s * 0.2} ${s * 0.22}" stroke="${INK}" stroke-width="8" stroke-linecap="round"/>
+             <rect x="${-s * 0.24}" y="${s * 0.3}" width="${s * 0.48}" height="${s * 0.06}" rx="4" fill="${INK}"/>`,
+  trash: s => `<rect x="${-s * 0.34}" y="${-s * 0.26}" width="${s * 0.68}" height="${s * 0.72}" rx="16" fill="#6C7A89" stroke="${INK}" stroke-width="7"/>
+             <rect x="${-s * 0.42}" y="${-s * 0.4}" width="${s * 0.84}" height="${s * 0.14}" rx="10" fill="#8A97A6" stroke="${INK}" stroke-width="7"/>
+             <rect x="${-s * 0.1}" y="${-s * 0.5}" width="${s * 0.2}" height="${s * 0.1}" rx="6" fill="#8A97A6" stroke="${INK}" stroke-width="6"/>
+             ${[-0.16, 0, 0.16].map(x => `<line x1="${s * x}" y1="${-s * 0.12}" x2="${s * x}" y2="${s * 0.34}" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`).join("")}`,
+  plus: s => `<path d="M${-s * 0.5} ${-s * 0.34} Q${-s * 0.5} ${-s * 0.46} ${-s * 0.36} ${-s * 0.46} H${s * 0.36} Q${s * 0.5} ${-s * 0.46} ${s * 0.5} ${-s * 0.34} V${s * 0.14} Q${s * 0.5} ${s * 0.26} ${s * 0.36} ${s * 0.26} H${-s * 0.06} L${-s * 0.26} ${s * 0.46} L${-s * 0.22} ${s * 0.26} H${-s * 0.36} Q${-s * 0.5} ${s * 0.26} ${-s * 0.5} ${s * 0.14} Z" fill="${ORANGE}" stroke="${INK}" stroke-width="8" stroke-linejoin="round"/>
+             <path d="M0 ${-s * 0.28} V${s * 0.08} M${-s * 0.18} ${-s * 0.1} H${s * 0.18}" stroke="#FFFFFF" stroke-width="${s * 0.1}" stroke-linecap="round"/>`,
   bank: s => `<path d="M${-s * 0.5} ${-s * 0.18} L0 ${-s * 0.46} L${s * 0.5} ${-s * 0.18} Z" fill="#E9B949" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
              ${[-0.34, -0.12, 0.1, 0.32].map(x => `<rect x="${s * x - 12}" y="${-s * 0.14}" width="24" height="${s * 0.46}" fill="#FFFFFF" stroke="${INK}" stroke-width="6"/>`).join("")}
              <rect x="${-s * 0.52}" y="${s * 0.32}" width="${s * 1.04}" height="${s * 0.12}" fill="#E9B949" stroke="${INK}" stroke-width="7"/>`,
 };
 
+ICONS.refused = s => ICONS.doc(s).replace(">НАЛОГ<", ">ОТКАЗ<");
+
 function icon(name, cx, cy, s, k) {
   const f = ICONS[name];
   if (!f) return "";
   return `<g transform="translate(${cx},${cy}) scale(${k})">${f(s)}</g>`;
+}
+
+// заголовок-крючок: размер шрифта и разбивка на 1–3 строки по ширине кадра
+function pb_font(text, base) {
+  const n = text.length;
+  return n <= 16 ? base + 12 : n <= 26 ? base : n <= 40 ? base - 12 : base - 22;
+}
+function splitHook(text, size) {
+  const max = Math.floor((1080 - 200) / (size * 0.62));
+  const words = text.split(/\s+/), out = [];
+  let cur = "";
+  for (const w of words) {
+    if ((cur + " " + w).trim().length > max && cur) { out.push(cur); cur = w; } else cur = (cur + " " + w).trim();
+  }
+  if (cur) out.push(cur);
+  return out.slice(0, 3);
 }
 
 // ---------- тайминг ----------
@@ -104,10 +135,23 @@ function buildFrame(ep, tl, t) {
   // инфографика (держится, пока в следующих репликах нет новой)
   let infoIdx = -1;
   for (let i = idx; i >= 0; i--) { if (tl[i].info) { infoIdx = i; break; } if (tl[i].clear) break; }
+  // заголовок-крючок первых секунд
+  const hookLn = tl.find(l => l.hook);
+  const hookOn = hookLn && t <= hookLn.end + 0.4;
+  if (hookOn) {
+    const k = back((t - Math.max(0, hookLn.start - 0.3)) / 0.3);
+    const fh = pb_font(hookLn.hook, 84);
+    const lines = splitHook(hookLn.hook, fh);
+    const lh = fh * 1.12, bh = lines.length * lh + 50, by = 150;
+    parts.push(`<g transform="translate(${W / 2},${by + bh / 2}) scale(${k}) translate(${-W / 2},${-(by + bh / 2)})">
+      <rect x="60" y="${by}" width="${W - 120}" height="${bh}" rx="34" fill="${INK}"/>
+      ${lines.map((ln2, j) => `<text x="${W / 2}" y="${by + 25 + lh * (j + 0.8)}" text-anchor="middle" font-family="IDB" font-size="${fh}" fill="${j === lines.length - 1 ? ORANGE : "#FFFFFF"}">${esc(ln2)}</text>`).join("")}
+    </g>`);
+  }
   if (infoIdx >= 0 && shot !== "close") {
     const inf = tl[infoIdx].info;
     const k = back((t - tl[infoIdx].start) / 0.35);
-    const top = 330;
+    const top = hookOn ? 560 : 330;
     if (inf.flow) {
       const n = inf.flow.length, gapX = Math.min(300, 880 / Math.max(1, n - 1) * 0.92), sz = n >= 4 ? 175 : 210;
       inf.flow.forEach((nm, j) => {
@@ -115,11 +159,14 @@ function buildFrame(ep, tl, t) {
         parts.push(icon(nm, W / 2 + (j - (n - 1) / 2) * gapX, top, nm === "arrow" ? sz * 0.8 : sz, kk));
       });
     } else if (inf.icon) {
-      parts.push(icon(inf.icon, W / 2, top - (inf.big ? 20 : 0), inf.size || 230, k));
+      parts.push(icon(inf.icon, W / 2, top - (inf.big && !hookOn ? 20 : 0), hookOn ? Math.min(inf.size || 230, 190) : (inf.size || 230), k));
+    }
+    if (hookOn) {  // под заголовком — только иконка, без подписей (чтобы не налезало на субтитры)
+      parts.length = parts.length;  // иконка уже добавлена выше
     }
     const ty = inf.icon || inf.flow ? top + 200 : top + 90;
-    if (inf.big) parts.push(`<text x="${W / 2}" y="${ty}" text-anchor="middle" font-family="IDB" font-size="${inf.bigSize || 120}" fill="${inf.color || GOLD}" opacity="${ease((t - tl[infoIdx].start - 0.1) / 0.25)}">${esc(inf.big)}</text>`);
-    if (inf.label) parts.push(`<text x="${W / 2}" y="${ty + (inf.big ? 64 : 0)}" text-anchor="middle" font-family="IDE" font-size="46" fill="${INK}" opacity="${ease((t - tl[infoIdx].start - 0.2) / 0.25)}">${esc(inf.label)}</text>`);
+    if (inf.big && !hookOn) parts.push(`<text x="${W / 2}" y="${ty}" text-anchor="middle" font-family="IDB" font-size="${inf.bigSize || 120}" fill="${inf.color || GOLD}" opacity="${ease((t - tl[infoIdx].start - 0.1) / 0.25)}">${esc(inf.big)}</text>`);
+    if (inf.label && !hookOn) parts.push(`<text x="${W / 2}" y="${ty + (inf.big ? 64 : 0)}" text-anchor="middle" font-family="IDE" font-size="46" fill="${INK}" opacity="${ease((t - tl[infoIdx].start - 0.2) / 0.25)}">${esc(inf.label)}</text>`);
   }
 
   // персонажи
