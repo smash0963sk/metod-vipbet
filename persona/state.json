@@ -1,5 +1,13 @@
 {
  "posted": {
+  "th_photo:2026-10-30": {
+   "at": "2026-10-30T17:04:23+03:00",
+   "slot": "th_photo",
+   "ids": [
+    "telegram"
+   ],
+   "sport": null
+  },
   "th_sport:2026-10-30": {
    "at": "2026-10-30T13:26:05+03:00",
    "slot": "th_sport",
@@ -66,7 +74,8 @@
   }
  },
  "used_photos": [
-  "d001"
+  "d001",
+  "d002"
  ],
  "used_thoughts": [
   "t001",
@@ -99,7 +108,15 @@
   "pixabay:7395031",
   "pixabay:4838031",
   "pixabay:3713473",
-  "pixabay:4461645"
+  "pixabay:4461645",
+  "pixabay:8891625",
+  "pixabay:3308745",
+  "pixabay:398845",
+  "pixabay:5018583",
+  "pixabay:6940925",
+  "pixabay:8575524",
+  "pixabay:8585214",
+  "pixabay:6878057"
  ],
  "day": {
   "2026-10-29": {
@@ -118,6 +135,27 @@
    "th": "Париж в октябре — лучшая версия Парижа. Согласны?",
    "music": "The Weeknd — The Zone · Sonder — One Night Only",
    "place": "Париж",
+   "meta": {
+    "source": "stock",
+    "shots": 8
+   }
+  },
+  "2026-10-30": {
+   "item": "d002",
+   "images": [
+    "persona/media/2026-10-30-d002-1.jpg",
+    "persona/media/2026-10-30-d002-2.jpg",
+    "persona/media/2026-10-30-d002-3.jpg",
+    "persona/media/2026-10-30-d002-4.jpg",
+    "persona/media/2026-10-30-d002-5.jpg",
+    "persona/media/2026-10-30-d002-6.jpg",
+    "persona/media/2026-10-30-d002-7.jpg",
+    "persona/media/2026-10-30-d002-8.jpg"
+   ],
+   "ig": "Dubai mode 🌴\n\n#dubai #lifestyle #travel",
+   "th": "В Дубае я каждый раз понимаю: всё зависит от того, насколько далеко ты готов зайти.",
+   "music": "Travis Scott — Sicko Mode · The Weeknd — Pray For Me",
+   "place": "Дубай",
    "meta": {
     "source": "stock",
     "shots": 8
