@@ -1,5 +1,10 @@
 {
  "posted": {
+  "news:2026-10-30": {
+   "msg": 67,
+   "at": "2026-10-30T13:41:01+03:00",
+   "slot": "news"
+  },
   "poll:2026-10-30": {
    "msg": 66,
    "pid": "2026-10-30-severstal-spartak",
@@ -80,10 +85,15 @@
  "channel_title": "ЭКСПРЕССНАЯ 🔐",
  "pinned": 51,
  "news_ids": [
+  "2026-10-29-football-milan-bologna-seria-a",
+  "2026-10-29-hockey-cska-traktor",
   "2026-10-29-football-liverpool-chelsea-league-cup",
   "2026-10-29-hockey-washington-philadelphia-michkov",
   "2026-10-29-football-spartak-rubin-kubok",
-  "2026-10-29-football-milan-bologna-seria-a",
-  "2026-10-29-hockey-cska-traktor"
+  "2026-10-30-football-everton-newcastle-league-cup",
+  "2026-10-30-football-fiorentina-atalanta",
+  "2026-10-30-hockey-kochetkov-carolina-record",
+  "2026-10-30-football-zenit-baltika-kubok",
+  "2026-10-30-hockey-washington-nashville-ovechkin"
  ]
 }
