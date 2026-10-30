@@ -73,7 +73,7 @@ function pb_font(text, base) {
 }
 function splitHook(text, size) {
   const max = Math.floor((1080 - 200) / (size * 0.62));
-  const words = text.split(/\s+/), out = [];
+  const words = text.replace(/(\d) (?=\d{3})/g, "$1\u00a0").split(/ +/), out = [];  // «850 000» не разрывать
   let cur = "";
   for (const w of words) {
     if ((cur + " " + w).trim().length > max && cur) { out.push(cur); cur = w; } else cur = (cur + " " + w).trim();
