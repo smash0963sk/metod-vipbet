@@ -1,0 +1,72 @@
+# Бот рилсов: публикует видео Альберта и Алекса в Instagram по расписанию из reels/accounts.json.
+# Каждый час проверяет, наступило ли время публикации (по Москве). Ручной запуск: Actions → «Рилсы — Instagram» → Run workflow.
+# Секреты: IG_ALBERT_TOKEN, IG_ALEX_TOKEN (токены Instagram API), по желанию IG_ALBERT_USER_ID, IG_ALEX_USER_ID.
+# Пока токена нет — видео и подпись приходят в личный Telegram (TG_BOT_TOKEN) для ручной публикации.
+name: Рилсы — Instagram
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "auto — по расписанию, now — опубликовать сейчас, status — показать очередь"
+        type: choice
+        options: [now, status, auto]
+        default: now
+      account:
+        description: "Аккаунт"
+        type: choice
+        options: [all, albert, alex]
+        default: all
+      video:
+        description: "Конкретное видео (например r05), пусто — следующее в очереди"
+        default: ""
+      dry_run:
+        description: "Только показать подписи, ничего не публиковать"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reels
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Публикация
+        env:
+          IG_ALBERT_TOKEN: ${{ secrets.IG_ALBERT_TOKEN }}
+          IG_ALBERT_USER_ID: ${{ secrets.IG_ALBERT_USER_ID }}
+          IG_ALEX_TOKEN: ${{ secrets.IG_ALEX_TOKEN }}
+          IG_ALEX_USER_ID: ${{ secrets.IG_ALEX_USER_ID }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: |
+          MODE="${{ inputs.mode || 'auto' }}"
+          ARGS="--account ${{ inputs.account || 'all' }}"
+          [ -n "${{ inputs.video }}" ] && ARGS="$ARGS --video ${{ inputs.video }}"
+          [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry"
+          python scripts/reels_bot.py $MODE $ARGS
+
+      - name: Сохранить состояние
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reels/state.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Рилсы: состояние"
+          for i in 1 2 3 4 5 6; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep $((RANDOM % 15 + 5)); done
+          exit 1

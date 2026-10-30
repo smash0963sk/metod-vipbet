@@ -49,3 +49,21 @@ jobs:
           fi
           gh secret set INSTAGRAM_ACCESS_TOKEN --body "$NEW" -R "${{ github.repository }}"
           echo "::notice::Токен Instagram продлён ещё на 60 дней"
+
+      - name: Продлить токены рилс-аккаунтов (Альберт, Алекс)
+        if: always()
+        env:
+          IG_ALBERT_TOKEN: ${{ secrets.IG_ALBERT_TOKEN }}
+          IG_ALEX_TOKEN: ${{ secrets.IG_ALEX_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          for NAME in IG_ALBERT_TOKEN IG_ALEX_TOKEN; do
+            TOKEN="${!NAME}"
+            [ -z "$TOKEN" ] && { echo "Нет секрета $NAME — пропускаю"; continue; }
+            RESP=$(curl -s "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$TOKEN")
+            NEW=$(echo "$RESP" | python3 -c "import sys,json; print(json.load(sys.stdin).get('access_token',''))" 2>/dev/null)
+            if [ -z "$NEW" ]; then echo "::error::Не удалось продлить $NAME: ${RESP//$TOKEN/***}"; continue; fi
+            echo "::add-mask::$NEW"
+            if [ -z "$GH_TOKEN" ]; then echo "::warning::$NAME продлён, но нет GH_PAT — обновите секрет вручную до истечения 60 дней."; continue; fi
+            gh secret set "$NAME" --body "$NEW" -R "${{ github.repository }}" && echo "::notice::$NAME продлён ещё на 60 дней"
+          done
