@@ -1,5 +1,12 @@
 {
  "posted": {
+  "poll:2026-10-30": {
+   "msg": 66,
+   "pid": "2026-10-30-severstal-spartak",
+   "kind": "poll",
+   "at": "2026-10-30T12:43:07+03:00",
+   "slot": "poll"
+  },
   "bet:2026-10-30": {
    "msg": 65,
    "pid": "2026-10-30-severstal-spartak",
