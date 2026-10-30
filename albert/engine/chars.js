@@ -108,4 +108,48 @@ function stas(o = {}) {
   ${brows}${blink}${mouth}`;
 }
 
-if (typeof module !== "undefined") module.exports = { albert, stas };
+
+function alex(o = {}) {
+  // Алекс — спортивный рассказчик: кепка козырьком назад, тёмно-синяя форма с лаймовой отделкой и номером 10
+  const skin = "#EFC09A", hair = "#6B4A2E", shirt = "#1F3A68", trim = "#B2DD10", pants = "#2A2D34", cap = "#B2DD10";
+  const [L, R] = POSES[o.pose || "idle"];
+  const mouth = o.talk > 0.05
+    ? `<ellipse cx="210" cy="318" rx="${13 + o.talk * 4}" ry="${4 + o.talk * 10}" fill="#6B2626" stroke="${INK}" stroke-width="5"/>`
+    : `<path d="M182 310 Q210 338 238 310" fill="#FFFFFF" stroke="${INK}" stroke-width="6" stroke-linejoin="round"/>`;
+  const eyes = o.blink
+    ? `<path d="M164 256 L192 256 M228 256 L256 256" stroke="${INK}" stroke-width="7" stroke-linecap="round"/>`
+    : `<circle cx="178" cy="256" r="12" fill="${INK}"/><circle cx="242" cy="256" r="12" fill="${INK}"/><circle cx="182" cy="251" r="4" fill="#FFFFFF"/><circle cx="246" cy="251" r="4" fill="#FFFFFF"/>`;
+  const armR = limb(282, 430, R[0], R[1], 82, 150, shirt, skin);
+  return `
+  <ellipse cx="210" cy="985" rx="160" ry="22" fill="rgba(0,0,0,.10)"/>
+  <rect x="148" y="600" width="58" height="340" rx="22" fill="${pants}" stroke="${INK}" stroke-width="${SW}"/>
+  <rect x="214" y="600" width="58" height="340" rx="22" fill="${pants}" stroke="${INK}" stroke-width="${SW}"/>
+  <path d="M152 720 L160 930 M268 720 L260 930" stroke="${trim}" stroke-width="6"/>
+  <path d="M118 968 Q118 930 150 928 L204 928 Q214 952 210 968 Z" fill="${trim}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
+  <path d="M302 968 Q302 930 270 928 L216 928 Q206 952 210 968 Z" fill="${trim}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
+  <path d="M124 958 L206 958 M296 958 L214 958" stroke="#FFFFFF" stroke-width="8"/>
+  ${limb(138, 430, L[0], L[1], 82, 150, shirt, skin)}
+  ${FRONT.has(o.pose) ? "" : armR}
+  <path d="M128 430 Q130 398 170 392 L250 392 Q290 398 292 430 L296 616 Q210 632 124 616 Z" fill="${shirt}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
+  <path d="M178 394 L210 430 L242 394" fill="none" stroke="${trim}" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M130 470 L136 610 M290 470 L284 610" stroke="${trim}" stroke-width="7"/>
+  <text x="210" y="555" text-anchor="middle" font-family="IDB" font-size="96" fill="#FFFFFF" stroke="${INK}" stroke-width="4" paint-order="stroke">10</text>
+  ${FRONT.has(o.pose) ? armR : ""}
+  <rect x="188" y="320" width="44" height="80" rx="14" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
+  <circle cx="117" cy="262" r="18" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
+  <circle cx="303" cy="262" r="18" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
+  <ellipse cx="210" cy="252" rx="94" ry="100" fill="${skin}" stroke="${INK}" stroke-width="${SW}"/>
+  <path d="M130 300 Q150 352 210 356 Q270 352 290 300" fill="none" stroke="${hair}" stroke-width="5" stroke-dasharray="2 9" stroke-linecap="round" opacity=".7"/>
+  <!-- кепка козырьком назад -->
+  <path d="M112 232 Q110 150 210 140 Q310 150 308 232 Q260 206 210 206 Q160 206 112 232 Z" fill="${cap}" stroke="${INK}" stroke-width="${SW}" stroke-linejoin="round"/>
+  <path d="M290 210 Q330 214 352 232 Q330 238 300 232 Z" fill="${cap}" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/>
+  <circle cx="210" cy="146" r="9" fill="${shirt}" stroke="${INK}" stroke-width="4"/>
+  <path d="M112 232 Q160 206 210 206 Q260 206 308 232" fill="none" stroke="${shirt}" stroke-width="10"/>
+  <path d="M118 236 Q114 262 122 280 M302 236 Q306 262 298 280" stroke="${hair}" stroke-width="10" stroke-linecap="round"/>
+  <path d="M158 226 Q178 216 196 224 M224 224 Q242 216 262 226" stroke="${INK}" stroke-width="7" fill="none" stroke-linecap="round"/>
+  ${eyes}
+  <path d="M206 266 Q200 286 212 290" fill="none" stroke="${INK}" stroke-width="5" stroke-linecap="round"/>
+  ${mouth}`;
+}
+
+if (typeof module !== "undefined") module.exports = { albert, stas, alex };

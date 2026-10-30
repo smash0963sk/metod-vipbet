@@ -1,5 +1,5 @@
 // Сцена: персонажи + слово-субтитр над говорящим + инфографика сверху. buildFrame(ep, timeline, t) → SVG 1080×1920
-const { albert, stas } = require("./chars.js");
+const { albert, stas, alex } = require("./chars.js");
 const INK = "#1E1E24", ORANGE = "#F7931A", GOLD = "#C98A10", GREEN = "#2DB36B", RED = "#E2463B", BLUE = "#2AABEE";
 
 const ease = x => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
@@ -62,6 +62,19 @@ const ICONS = {
              <rect x="${-s * 0.48}" y="${s * 0.06}" width="${s * 0.96}" height="${s * 0.14}" rx="8" fill="#7A3E22" stroke="${INK}" stroke-width="6"/>
              <path d="M${-s * 0.46} ${s * 0.2} H${s * 0.46} Q${s * 0.46} ${s * 0.42} 0 ${s * 0.42} Q${-s * 0.46} ${s * 0.42} ${-s * 0.46} ${s * 0.2} Z" fill="#E9A23B" stroke="${INK}" stroke-width="7"/>
              ${[-0.2, 0, 0.2].map(x => `<ellipse cx="${s * x}" cy="${-s * 0.3}" rx="7" ry="4" fill="#FFF3D6"/>`).join("")}`,
+  ball: s => `<circle r="${s / 2}" fill="#FFFFFF" stroke="${INK}" stroke-width="7"/>
+             <path d="M0 ${-s * 0.16} L${s * 0.15} ${-s * 0.05} L${s * 0.09} ${s * 0.13} L${-s * 0.09} ${s * 0.13} L${-s * 0.15} ${-s * 0.05} Z" fill="${INK}"/>
+             ${[[0, -0.16, 0, -0.5], [0.15, -0.05, 0.47, -0.15], [0.09, 0.13, 0.29, 0.4], [-0.09, 0.13, -0.29, 0.4], [-0.15, -0.05, -0.47, -0.15]].map(([a, b, c, d]) => `<line x1="${s * a}" y1="${s * b}" x2="${s * c}" y2="${s * d}" stroke="${INK}" stroke-width="5"/>`).join("")}`,
+  puck: s => `<g transform="rotate(-30)"><rect x="${-s * 0.06}" y="${-s * 0.55}" width="${s * 0.12}" height="${s * 0.8}" rx="8" fill="#C8955A" stroke="${INK}" stroke-width="6"/>
+             <path d="M${-s * 0.06} ${s * 0.22} L${-s * 0.06} ${s * 0.34} Q${-s * 0.06} ${s * 0.42} ${s * 0.04} ${s * 0.42} L${s * 0.42} ${s * 0.42} L${s * 0.42} ${s * 0.3} L${s * 0.06} ${s * 0.3} L${s * 0.06} ${s * 0.22} Z" fill="#C8955A" stroke="${INK}" stroke-width="6" stroke-linejoin="round"/></g>
+             <ellipse cx="${-s * 0.2}" cy="${s * 0.34}" rx="${s * 0.2}" ry="${s * 0.08}" fill="#2B2B30" stroke="${INK}" stroke-width="5"/>
+             <rect x="${-s * 0.4}" y="${s * 0.26}" width="${s * 0.4}" height="${s * 0.08}" fill="#2B2B30"/>
+             <ellipse cx="${-s * 0.2}" cy="${s * 0.26}" rx="${s * 0.2}" ry="${s * 0.08}" fill="#45454D" stroke="${INK}" stroke-width="5"/>`,
+  trophy: s => `<path d="M${-s * 0.3} ${-s * 0.42} H${s * 0.3} V${-s * 0.12} Q${s * 0.3} ${s * 0.16} 0 ${s * 0.18} Q${-s * 0.3} ${s * 0.16} ${-s * 0.3} ${-s * 0.12} Z" fill="#E9B949" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
+             <path d="M${-s * 0.3} ${-s * 0.32} Q${-s * 0.5} ${-s * 0.32} ${-s * 0.46} ${-s * 0.14} Q${-s * 0.42} ${s * 0.0} ${-s * 0.26} ${s * 0.02} M${s * 0.3} ${-s * 0.32} Q${s * 0.5} ${-s * 0.32} ${s * 0.46} ${-s * 0.14} Q${s * 0.42} ${s * 0.0} ${s * 0.26} ${s * 0.02}" fill="none" stroke="${INK}" stroke-width="7"/>
+             <rect x="${-s * 0.07}" y="${s * 0.18}" width="${s * 0.14}" height="${s * 0.14}" fill="#E9B949" stroke="${INK}" stroke-width="6"/>
+             <rect x="${-s * 0.24}" y="${s * 0.32}" width="${s * 0.48}" height="${s * 0.14}" rx="6" fill="#7A5A2E" stroke="${INK}" stroke-width="6"/>`,
+  card: s => `<rect x="${-s * 0.24}" y="${-s * 0.36}" width="${s * 0.48}" height="${s * 0.68}" rx="14" fill="${RED}" stroke="${INK}" stroke-width="7" transform="rotate(12)"/>`,
   bank: s => `<path d="M${-s * 0.5} ${-s * 0.18} L0 ${-s * 0.46} L${s * 0.5} ${-s * 0.18} Z" fill="#E9B949" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>
              ${[-0.34, -0.12, 0.1, 0.32].map(x => `<rect x="${s * x - 12}" y="${-s * 0.14}" width="24" height="${s * 0.46}" fill="#FFFFFF" stroke="${INK}" stroke-width="6"/>`).join("")}
              <rect x="${-s * 0.52}" y="${s * 0.32}" width="${s * 1.04}" height="${s * 0.12}" fill="#E9B949" stroke="${INK}" stroke-width="7"/>`,
@@ -118,7 +131,7 @@ function timeline(ep, align) {
 }
 
 function charSvg(who, o) {
-  return who === "A" ? albert(o) : stas(o);
+  return who === "A" ? albert(o) : who === "X" ? alex(o) : stas(o);
 }
 
 function buildFrame(ep, tl, t) {
@@ -182,7 +195,7 @@ function buildFrame(ep, tl, t) {
   const place = (who, x, feetY, sc, extra = "") => {
     const bob = who === ln.who && speaking ? Math.sin(t * 7) * 4 : Math.sin(t * 2 + (who === "A" ? 1 : 0)) * 2;
     const pose = who === ln.who ? (ln.pose || "idle") : (ln.listen || "idle");
-    const o = { pose, talk: talkFor(who), blink: who === "S" && blink };
+    const o = { pose, talk: talkFor(who), blink: (who === "S" || who === "X") && blink };
     return `<g transform="translate(${x - 210 * sc},${feetY - 985 * sc + bob}) scale(${sc})" ${extra}>${charSvg(who, o)}</g>`;
   };
   let capX = W / 2, capY = 860;

@@ -12,7 +12,7 @@ API = "https://api.fish.audio"
 KEY = os.environ.get("FISH_API_KEY")
 MODEL = os.environ.get("FISH_MODEL", "s2.1-pro")
 VOICES_FILE = os.path.join(ROOT, "voices.json")
-SPEED = {"A": 1.0, "S": 1.06}
+SPEED = {"A": 1.0, "S": 1.06, "X": 1.04}
 
 
 def req(method, path, body=None, headers=None, raw=False):
@@ -48,7 +48,7 @@ def pick_voices():
         v = json.load(open(VOICES_FILE, encoding="utf-8"))
     except FileNotFoundError:
         v = {}
-    if not (v.get("A") and v.get("S")):
+    if not (v.get("A") and v.get("S")):  # X — Алекс (рассказчик про спорт)
         raise RuntimeError("Не выбраны голоса: укажите id в albert/voices.json (запустите с list_voices, чтобы увидеть варианты)")
     return v
 
