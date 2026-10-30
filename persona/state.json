@@ -1,5 +1,13 @@
 {
  "posted": {
+  "th_evening:2026-10-30": {
+   "at": "2026-10-30T20:47:24+03:00",
+   "slot": "th_evening",
+   "ids": [
+    "telegram"
+   ],
+   "sport": null
+  },
   "ig_post:2026-10-30": {
    "at": "2026-10-30T19:17:54+03:00",
    "slot": "ig_post",
@@ -88,7 +96,8 @@
  "used_thoughts": [
   "t001",
   "t002",
-  "t003"
+  "t003",
+  "t004"
  ],
  "pexels_ids": [
   "pixabay:7063830",
