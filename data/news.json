@@ -1,6 +1,87 @@
 {
-  "updated": "2026-10-29T08:24:44+03:00",
+  "updated": "2026-10-30T08:18:20+03:00",
   "news": [
+    {
+      "id": "2026-10-30-football-zenit-baltika-kubok",
+      "date": "2026-10-29",
+      "sport": "Футбол",
+      "title": "Зенит обыграл Балтику и досрочно вышел в плей-офф Кубка",
+      "text": "Петербуржцы выиграли в Калининграде 3:2 благодаря дублю Фелипе Аугусто и голу 18-летнего Даниила Кондакова. Это пятая победа Зенита подряд в группе, у команды 14 очков.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/rus_cup/news/zenit-baltika-schet-i-rezultat-matcha-puti-rpl-kubka-rossii-29-oktyabrya-2026-2468858/"
+    },
+    {
+      "id": "2026-10-30-football-everton-newcastle-league-cup",
+      "date": "2026-10-30",
+      "sport": "Футбол",
+      "title": "Эвертон выбил Ньюкасл и сыграет с Флитвудом в 1/4 Кубка лиги",
+      "text": "Мерсисайдцы выиграли 3:1, голы забили Гарнер, Хэкни и Барри, у гостей отличился Бёрн. В четвертьфинале Эвертон ждёт клуб четвёртого дивизиона Флитвуд, выбивший Арсенал.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/england/news/everton-nyukasl-schet-i-rezultat-matcha-4-raunda-kubka-angliyskoy-ligi-29-oktyabrya-2026-2468866/"
+    },
+    {
+      "id": "2026-10-30-football-fiorentina-atalanta",
+      "date": "2026-10-30",
+      "sport": "Футбол",
+      "title": "Фиорентина и Аталанта разошлись миром — 2:2",
+      "text": "У гостей забили Де Кетеларе и Залевски, у хозяев — Жоау Мариу и Нжие. Фиорентина с пятью очками остаётся в зоне вылета, у Аталанты 11 очков.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/italy/news/fiorentina-atalanta-schet-2-2-rezultat-matcha-chempionata-italii-serii-a-29-oktyabrya-2026-goda-2468869/"
+    },
+    {
+      "id": "2026-10-30-hockey-kochetkov-carolina-record",
+      "date": "2026-10-30",
+      "sport": "Хоккей",
+      "title": "Кочетков установил клубный рекорд Каролины",
+      "text": "Пётр Кочетков отразил 24 броска в матче с Коламбусом (3:2) и выиграл девятый матч подряд с начала сезона. Прежний рекорд клуба — восемь побед — принадлежал Фредерику Андерсену.",
+      "source": "NHL.com",
+      "url": "https://www.nhl.com/news/columbus-blue-jackets-carolina-hurricanes-game-recap-october-29-2026"
+    },
+    {
+      "id": "2026-10-30-hockey-washington-nashville-ovechkin",
+      "date": "2026-10-29",
+      "sport": "Хоккей",
+      "title": "Вашингтон выиграл в Нэшвилле, Овечкин остался без очков",
+      "text": "Кэпиталз победили 4:3 и выиграли третий матч подряд, победную шайбу забросил Алекс Тук. Овечкин нанёс три броска за 10:56 в своём последнем матче регулярки на «Бриджстоун Арене».",
+      "source": "NHL.com",
+      "url": "https://www.nhl.com/news/washington-capitals-nashville-predators-game-recap-october-29-2026"
+    },
+    {
+      "id": "2026-10-30-hockey-severstal-spartak-bullity",
+      "date": "2026-10-29",
+      "sport": "Хоккей",
+      "title": "Северсталь обыграла Спартак по буллитам",
+      "text": "Череповчане выиграли 3:2, победный буллит реализовал Илья Иванцов. Северсталь прервала серию из трёх матчей без побед, у команд по 26 очков. 30 октября они сыграют снова.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/khl/news/severstal-spartak-rezultat-matcha-khl-29-oktyabrya-2026-2468793/"
+    },
+    {
+      "id": "2026-10-30-tennis-struff-djokovic-basel",
+      "date": "2026-10-29",
+      "sport": "Теннис",
+      "title": "Штруфф впервые обыграл Джоковича",
+      "text": "Немец победил в Базеле в трёх сетах, подав 27 эйсов и отыграв все шесть брейк-пойнтов. Шансы Джоковича попасть на Итоговый турнир резко снизились.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/tennis/atp/news/yan-lennard-shtruff-novak-dzhokovich-schet-i-rezultat-matcha-vtorogo-kruga-turnira-v-bazele-29-oktyabrya-2026-2468863/"
+    },
+    {
+      "id": "2026-10-30-tennis-zverev-vienna-number-one",
+      "date": "2026-10-29",
+      "sport": "Теннис",
+      "title": "Зверев гарантировал себе первую строчку рейтинга ATP",
+      "text": "Александр Зверев обыграл Таллона Грикспура 6:4, 7:5 во втором круге в Вене и станет первой ракеткой мира 2 ноября. В четвертьфинале его ждёт Артур Фери.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/tennis/atp/news/aleksandr-zverev-tallon-grikspur-schet-i-rezultat-matcha-2-kruga-turnira-v-vene-29-oktyabrya-2026-2468835/"
+    },
+    {
+      "id": "2026-10-30-tennis-alcaraz-basilashvili-vienna",
+      "date": "2026-10-29",
+      "sport": "Теннис",
+      "title": "Алькарас вышел в четвертьфинал Вены",
+      "text": "Испанец обыграл Николоза Басилашвили 6:1, 7:6 (13:11), отыграв в концовке второго сета несколько сетболов. В 1/4 финала его соперник — Томми Пол.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/tennis/atp/news/nikoloz-basilashvili-karlos-alkaras-rezultat-matcha-vtorogo-kruga-turnira-v-vene-29-oktyabrya-2026-2468777/"
+    },
     {
       "id": "2026-10-29-football-spartak-rubin-kubok",
       "date": "2026-10-28",
