@@ -1,5 +1,13 @@
 {
  "posted": {
+  "th_photo:2026-10-31": {
+   "at": "2026-10-31T16:49:03+03:00",
+   "slot": "th_photo",
+   "ids": [
+    "telegram"
+   ],
+   "sport": null
+  },
   "th_sport:2026-10-31": {
    "at": "2026-10-31T13:14:44+03:00",
    "slot": "th_sport",
@@ -107,7 +115,8 @@
  },
  "used_photos": [
   "d001",
-  "d002"
+  "d002",
+  "d003"
  ],
  "used_thoughts": [
   "t001",
@@ -150,7 +159,15 @@
   "pixabay:6940925",
   "pixabay:8575524",
   "pixabay:8585214",
-  "pixabay:6878057"
+  "pixabay:6878057",
+  "pixabay:315932",
+  "pixabay:188878",
+  "pixabay:7997799",
+  "pixabay:8235289",
+  "pixabay:4495510",
+  "pixabay:9550534",
+  "pixabay:829859",
+  "pixabay:3890725"
  ],
  "day": {
   "2026-10-29": {
@@ -190,6 +207,27 @@
    "th": "В Дубае я каждый раз понимаю: всё зависит от того, насколько далеко ты готов зайти.",
    "music": "Travis Scott — Sicko Mode · The Weeknd — Pray For Me",
    "place": "Дубай",
+   "meta": {
+    "source": "stock",
+    "shots": 8
+   }
+  },
+  "2026-10-31": {
+   "item": "d003",
+   "images": [
+    "persona/media/2026-10-31-d003-1.jpg",
+    "persona/media/2026-10-31-d003-2.jpg",
+    "persona/media/2026-10-31-d003-3.jpg",
+    "persona/media/2026-10-31-d003-4.jpg",
+    "persona/media/2026-10-31-d003-5.jpg",
+    "persona/media/2026-10-31-d003-6.jpg",
+    "persona/media/2026-10-31-d003-7.jpg",
+    "persona/media/2026-10-31-d003-8.jpg"
+   ],
+   "ig": "Monaco.\n\n#monaco #riviera #lifestyle",
+   "th": "Монако — город, где даже тишина звучит дорого.",
+   "music": "Frank Ocean — Pink + White",
+   "place": "Монако",
    "meta": {
     "source": "stock",
     "shots": 8
