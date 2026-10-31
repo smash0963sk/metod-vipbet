@@ -1,0 +1,50 @@
+# Ночная реклама в канале «ЭКСПРЕССНАЯ»: пришлите боту канала ссылку в личку — ночью он выложит
+# 3 основных поста (23:00, 01:00, 03:00 МСК) и по 2 напоминания к каждому, а в 08:30 удалит рекламу.
+#   каждые 15 минут днём  — читает ваши сообщения боту, присылает превью, утром удаляет рекламу;
+#   22:45 МСК             — ночная смена до 04:30: публикует по плану и отвечает на сообщения сразу.
+# Секреты: TG_CHANNEL_BOT_TOKEN (бот — администратор канала), по желанию TG_OWNER_ID (ваш Telegram id).
+name: Ночная реклама
+
+on:
+  schedule:
+    - cron: "*/15 2-18 * * *"    # 05:00–21:59 МСК
+    - cron: "0,15,30 19 * * *"   # 22:00–22:30 МСК
+    - cron: "45 19 * * *"        # 22:45 МСК — ночная смена
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "inbox — прочитать сообщения; night — ночная смена"
+        type: choice
+        options: [inbox, night]
+        default: inbox
+
+permissions:
+  contents: write
+
+concurrency:
+  group: night-ads
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 358
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet pillow
+
+      - name: Ночная реклама
+        env:
+          TG_CHANNEL_BOT_TOKEN: ${{ secrets.TG_CHANNEL_BOT_TOKEN }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHANNEL_ID: ${{ secrets.TG_CHANNEL_ID }}
+          TG_OWNER_ID: ${{ secrets.TG_OWNER_ID }}
+        run: |
+          MODE="${{ inputs.mode }}"
+          if [ -z "$MODE" ]; then MODE=inbox; [ "${{ github.event.schedule }}" = "45 19 * * *" ] && MODE=night; fi
+          python scripts/night_ads.py "$MODE"
