@@ -1,5 +1,10 @@
 {
  "posted": {
+  "morning:2026-10-31": {
+   "msg": 77,
+   "at": "2026-10-31T09:38:51+03:00",
+   "slot": "morning"
+  },
   "evening:2026-10-30": {
    "msg": 71,
    "pid": "2026-10-30-elversberg-mainz",
