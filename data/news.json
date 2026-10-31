@@ -1,14 +1,86 @@
 {
-  "updated": "2026-10-30T08:18:20+03:00",
+  "updated": "2026-10-31T09:30:00+03:00",
   "news": [
     {
-      "id": "2026-10-30-football-zenit-baltika-kubok",
-      "date": "2026-10-29",
+      "id": "2026-10-31-football-villarreal-espanyol",
+      "date": "2026-10-31",
       "sport": "Футбол",
-      "title": "Зенит обыграл Балтику и досрочно вышел в плей-офф Кубка",
-      "text": "Петербуржцы выиграли в Калининграде 3:2 благодаря дублю Фелипе Аугусто и голу 18-летнего Даниила Кондакова. Это пятая победа Зенита подряд в группе, у команды 14 очков.",
+      "title": "«Эспаньол» увёз победу из Вильярреала",
+      "text": "В 11-м туре Ла Лиги «Эспаньол» обыграл «Вильярреал» в гостях 1:0. Единственный мяч на 60-й минуте забил защитник Леандро Кабрера после передачи Брайана Сарагосы.",
       "source": "Спорт-Экспресс",
-      "url": "https://www.sport-express.net/football/rus_cup/news/zenit-baltika-schet-i-rezultat-matcha-puti-rpl-kubka-rossii-29-oktyabrya-2026-2468858/"
+      "url": "https://www.sport-express.net/football/spain/news/vilyarrreal-espanol-schet-0-1-rezultat-matcha-chempionata-ispanii-30-oktyabrya-2026-goda-2469222/"
+    },
+    {
+      "id": "2026-10-31-football-elversberg-mainz",
+      "date": "2026-10-31",
+      "sport": "Футбол",
+      "title": "«Эльферсберг» разгромил «Майнц» в Бундеслиге",
+      "text": "Новичок Бундеслиги «Эльферсберг» дома обыграл «Майнц» 4:1: забили Кэмпбелл, Краттенмахер, Оньека и Кайдель, у гостей отличился Холлербах. С 13 очками «Эльферсберг» поднялся на пятое место.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/germany/news/elfersberg-maync-schet-4-1-rezultat-matcha-chempionata-germanii-30-oktyabrya-2026-goda-2469217/"
+    },
+    {
+      "id": "2026-10-31-hockey-gritsyuk-devils-vegas",
+      "date": "2026-10-31",
+      "sport": "Хоккей",
+      "title": "Дубль Грицюка помог «Нью-Джерси» обыграть «Вегас»",
+      "text": "«Нью-Джерси» выиграл в Лас-Вегасе 5:2, Арсений Грицюк забросил две шайбы и стал первой звездой. У россиянина 12 очков (8+4) в 14 матчах сезона.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/nhl/news/vegas-nyu-dzhersi-arseniy-gricyuk-zabrosil-8-yu-shaybu-v-sezone-nhl-2469233/"
+    },
+    {
+      "id": "2026-10-31-hockey-calgary-seattle-suniev-gridin",
+      "date": "2026-10-31",
+      "sport": "Хоккей",
+      "title": "Суниев и Гридин забили в разгроме «Сиэтла»",
+      "text": "«Калгари» обыграл «Сиэтл» 6:2, оба российских форварда «Флэймз» отличились. Для Айдара Суниева это четвёртая шайба в сезоне, для Матвея Гридина — пятая.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/nhl/news/kalgari-sietl-aydar-suniev-zabrosil-4-yu-shaybu-v-sezone-nhl-2469246/"
+    },
+    {
+      "id": "2026-10-30-football-le-havre-psg-hakimi",
+      "date": "2026-10-30",
+      "sport": "Футбол",
+      "title": "Хет-трик Хакими принёс ПСЖ разгром «Гавра»",
+      "text": "ПСЖ пропустил первым, но выиграл в гостях у «Гавра» 5:1 в 9-м туре Лиги 1: Ашраф Хакими оформил хет-трик, ещё по голу забили Мика Годтс и Сенни Маюлю. Матвей Сафонов отыграл весь матч и сделал четыре сейва.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/france/reviews/gavr-pszh-30-oktyabrya-2026-schet-1-5-i-obzor-matcha-9-go-tura-ligi-1-2469191/"
+    },
+    {
+      "id": "2026-10-30-hockey-ak-bars-amur",
+      "date": "2026-10-30",
+      "sport": "Хоккей",
+      "title": "«Ак Барс» обыграл «Амур» в Казани",
+      "text": "«Ак Барс» выиграл у «Амура» 3:1. Шайбы казанцев забросили Якупов, Зернов и Денисенко.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/khl/news/ak-bars-amur-schet-i-rezultat-matcha-khl-30-oktyabrya-2026-2469176/"
+    },
+    {
+      "id": "2026-10-30-tennis-medvedev-mannarino-vienna",
+      "date": "2026-10-30",
+      "sport": "Теннис",
+      "title": "Медведев без проблем вышел в полуфинал Вены",
+      "text": "Даниил Медведев в четвертьфинале ATP 500 в Вене обыграл Адриана Маннарино 6:2, 6:3 и продлил победную серию до семи матчей. В полуфинале его соперником станет Карлос Алькарас.",
+      "source": "Спорт24",
+      "url": "https://sport24.ru/tennis/news-893879-medvedev-vyshel-v-polufinal-turnira-v-vene-i-mozhet-sygrat-s-alkarasom"
+    },
+    {
+      "id": "2026-10-30-tennis-zverev-fery-vienna",
+      "date": "2026-10-30",
+      "sport": "Теннис",
+      "title": "Зверев отдал Фери всего два гейма",
+      "text": "Александр Зверев разгромил Артура Фери 6:0, 6:2 и вышел в полуфинал турнира в Вене. За выход в финал он поспорит с победителем пары Берреттини — де Минаур.",
+      "source": "Спорт24",
+      "url": "https://sport24.ru/tennis/news-893921-zverev-povesil-baranku-feri-i-proshel-v-polufinal-turnira-v-vene"
+    },
+    {
+      "id": "2026-10-30-tennis-paris-masters-draw",
+      "date": "2026-10-30",
+      "sport": "Теннис",
+      "title": "Жеребьёвка Парижа: Рублёв попал в четверть к Звереву и Джоковичу",
+      "text": "Основная сетка «Мастерса» в Париже пройдёт со 2 по 8 ноября. Медведев стартует со второго круга, Хачанов в первом матче сыграет с Шаповаловым, а Рублёв — с Этчеверри.",
+      "source": "Спорт24",
+      "url": "https://sport24.ru/tennis/news-893937-masters-parizh-2026-turnirnaya-setka-kalendar-raspisaniye-s-kem-igrayet-medvedev-rublev-khachanov"
     },
     {
       "id": "2026-10-30-football-everton-newcastle-league-cup",
@@ -36,6 +108,15 @@
       "text": "Пётр Кочетков отразил 24 броска в матче с Коламбусом (3:2) и выиграл девятый матч подряд с начала сезона. Прежний рекорд клуба — восемь побед — принадлежал Фредерику Андерсену.",
       "source": "NHL.com",
       "url": "https://www.nhl.com/news/columbus-blue-jackets-carolina-hurricanes-game-recap-october-29-2026"
+    },
+    {
+      "id": "2026-10-30-football-zenit-baltika-kubok",
+      "date": "2026-10-29",
+      "sport": "Футбол",
+      "title": "Зенит обыграл Балтику и досрочно вышел в плей-офф Кубка",
+      "text": "Петербуржцы выиграли в Калининграде 3:2 благодаря дублю Фелипе Аугусто и голу 18-летнего Даниила Кондакова. Это пятая победа Зенита подряд в группе, у команды 14 очков.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/football/rus_cup/news/zenit-baltika-schet-i-rezultat-matcha-puti-rpl-kubka-rossii-29-oktyabrya-2026-2468858/"
     },
     {
       "id": "2026-10-30-hockey-washington-nashville-ovechkin",
@@ -83,15 +164,6 @@
       "url": "https://www.sport-express.net/tennis/atp/news/nikoloz-basilashvili-karlos-alkaras-rezultat-matcha-vtorogo-kruga-turnira-v-vene-29-oktyabrya-2026-2468777/"
     },
     {
-      "id": "2026-10-29-football-spartak-rubin-kubok",
-      "date": "2026-10-28",
-      "sport": "Футбол",
-      "title": "Гол Дмитриева принёс «Спартаку» победу над «Рубином» и досрочный выход в плей-офф Кубка",
-      "text": "В 5-м туре группового этапа Пути РПЛ «Спартак» дома обыграл «Рубин» 1:0, Игорь Дмитриев забил уже в начале матча. С 13 очками красно-белые возглавили группу и досрочно оформили путёвку в плей-офф.",
-      "source": "Спорт-Экспресс",
-      "url": "https://www.sport-express.ru/football/rus_cup/news/spartak-rubin-schet-i-rezultat-matcha-5-tura-gruppovogo-etapa-puti-rpl-kubka-rossii-28-oktyabrya-2026-2468456/"
-    },
-    {
       "id": "2026-10-29-football-liverpool-chelsea-league-cup",
       "date": "2026-10-29",
       "sport": "Футбол",
@@ -99,6 +171,24 @@
       "text": "На «Энфилде» основное время закончилось 1:1: оба гола забили с пенальти Морган Роджерс и Коди Гакпо. В серии 11-метровых «Ливерпуль» оказался точнее — 6:5, «Манчестер Сити» тоже прошёл «Брайтон» по пенальти.",
       "source": "Бомбардир",
       "url": "https://bombardir.ru/news/833037-kubok-ligi-liverpul-v-serii-penalti-proshel-chelsi-manchester-siti-brayton"
+    },
+    {
+      "id": "2026-10-29-hockey-washington-philadelphia-michkov",
+      "date": "2026-10-29",
+      "sport": "Хоккей",
+      "title": "Мичков забил девятый гол в сезоне, но «Флайерз» уступили «Вашингтону»",
+      "text": "«Кэпиталз» обыграли «Филадельфию» 5:2, Матвей Мичков довёл счёт в сезоне до 11 очков (9+2) в 15 матчах. Александр Овечкин очков не набрал.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/nhl/news/vashington-filadelfiya-schet-5-2-rezultat-matcha-regulyarnogo-chempionata-nba-29-oktyabrya-2026-goda-2468520/"
+    },
+    {
+      "id": "2026-10-29-football-spartak-rubin-kubok",
+      "date": "2026-10-28",
+      "sport": "Футбол",
+      "title": "Гол Дмитриева принёс «Спартаку» победу над «Рубином» и досрочный выход в плей-офф Кубка",
+      "text": "В 5-м туре группового этапа Пути РПЛ «Спартак» дома обыграл «Рубин» 1:0, Игорь Дмитриев забил уже в начале матча. С 13 очками красно-белые возглавили группу и досрочно оформили путёвку в плей-офф.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.ru/football/rus_cup/news/spartak-rubin-schet-i-rezultat-matcha-5-tura-gruppovogo-etapa-puti-rpl-kubka-rossii-28-oktyabrya-2026-2468456/"
     },
     {
       "id": "2026-10-29-football-milan-bologna-seria-a",
@@ -128,15 +218,6 @@
       "url": "https://www.sport-express.net/hockey/khl/news/ak-bars-avangard-schet-i-rezultat-matcha-khl-28-oktyabrya-2026-2468437/"
     },
     {
-      "id": "2026-10-29-hockey-washington-philadelphia-michkov",
-      "date": "2026-10-29",
-      "sport": "Хоккей",
-      "title": "Мичков забил девятый гол в сезоне, но «Флайерз» уступили «Вашингтону»",
-      "text": "«Кэпиталз» обыграли «Филадельфию» 5:2, Матвей Мичков довёл счёт в сезоне до 11 очков (9+2) в 15 матчах. Александр Овечкин очков не набрал.",
-      "source": "Спорт-Экспресс",
-      "url": "https://www.sport-express.net/hockey/nhl/news/vashington-filadelfiya-schet-5-2-rezultat-matcha-regulyarnogo-chempionata-nba-29-oktyabrya-2026-goda-2468520/"
-    },
-    {
       "id": "2026-10-29-tennis-medvedev-vienna-50-wins",
       "date": "2026-10-28",
       "sport": "Теннис",
@@ -164,6 +245,24 @@
       "url": "https://www.sport-express.net/tennis/wta/news/diana-shnayder-aleksandra-sosnovich-schet-i-rezultat-matcha-2-kruga-v-tokio-28-oktyabrya-2026-2468265/"
     },
     {
+      "id": "2026-10-28-nhl-dallas-new-jersey",
+      "date": "2026-10-28",
+      "sport": "Хоккей",
+      "title": "Нью-Джерси разгромил Даллас, у Грицюка передача",
+      "text": "Дьяволы победили 5:1, дубли оформили Нико Хишир и Джек Хьюз. Арсений Грицюк отдал голевую передачу и набрал десятое очко в 12 матчах, Нью-Джерси выиграл четвёртый матч подряд.",
+      "source": "Спорт-Экспресс",
+      "url": "https://www.sport-express.net/hockey/nhl/news/dallas-nyu-dzhersi-schet-1-5-rezultat-matcha-regulyarnogo-chempionata-nhl-28-oktyabrya-2026-goda-2468143/"
+    },
+    {
+      "id": "2026-10-28-nhl-stlouis-montreal",
+      "date": "2026-10-28",
+      "sport": "Хоккей",
+      "title": "Монреаль всухую обыграл Сент-Луис, Бучневич без очков",
+      "text": "Канадцы победили 2:0 и выиграли третий матч подряд. Павел Бучневич и Алексей Торопченко результативными действиями не отметились.",
+      "source": "Allhockey.ru",
+      "url": "https://allhockey.ru/news/show/613580-Monreal_oderzhal_suhuju_pobedu_nad_Sent_Luisom_rossiyane_bez_ochkov"
+    },
+    {
       "id": "2026-10-27-efl-cup-fleetwood-arsenal",
       "date": "2026-10-27",
       "sport": "Футбол",
@@ -189,24 +288,6 @@
       "text": "СКА сравнял счёт в последнюю минуту, но нижегородцы забросили победную шайбу после ошибки вратаря Артемия Плешкова. Егор Виноградов набрал 2+1, для СКА это третье поражение при Андрее Разине.",
       "source": "Спорт-Экспресс",
       "url": "https://www.sport-express.net/hockey/khl/news/ska-torpedo-schet-i-rezultat-matcha-khl-27-oktyabrya-2026-2468036/"
-    },
-    {
-      "id": "2026-10-28-nhl-dallas-new-jersey",
-      "date": "2026-10-28",
-      "sport": "Хоккей",
-      "title": "Нью-Джерси разгромил Даллас, у Грицюка передача",
-      "text": "Дьяволы победили 5:1, дубли оформили Нико Хишир и Джек Хьюз. Арсений Грицюк отдал голевую передачу и набрал десятое очко в 12 матчах, Нью-Джерси выиграл четвёртый матч подряд.",
-      "source": "Спорт-Экспресс",
-      "url": "https://www.sport-express.net/hockey/nhl/news/dallas-nyu-dzhersi-schet-1-5-rezultat-matcha-regulyarnogo-chempionata-nhl-28-oktyabrya-2026-goda-2468143/"
-    },
-    {
-      "id": "2026-10-28-nhl-stlouis-montreal",
-      "date": "2026-10-28",
-      "sport": "Хоккей",
-      "title": "Монреаль всухую обыграл Сент-Луис, Бучневич без очков",
-      "text": "Канадцы победили 2:0 и выиграли третий матч подряд. Павел Бучневич и Алексей Торопченко результативными действиями не отметились.",
-      "source": "Allhockey.ru",
-      "url": "https://allhockey.ru/news/show/613580-Monreal_oderzhal_suhuju_pobedu_nad_Sent_Luisom_rossiyane_bez_ochkov"
     },
     {
       "id": "2026-10-27-atp-paris-auger-aliassime",
@@ -279,24 +360,6 @@
       "text": "Армейцы взяли верх в матче 12-го тура РПЛ на своём поле. В среду Спартак принимает Рубин в Кубке России.",
       "source": "News.ru",
       "url": "https://news.ru/sport/glavnoe-derbi-moskvy-cska-spartak-kogda-match-kto-favorit-prognozy"
-    },
-    {
-      "id": "2026-10-27-efl-cup-liverpool-chelsea",
-      "date": "2026-10-27",
-      "sport": "Футбол",
-      "title": "Челси сыграет с Ливерпулем в Кубке лиги без Палмера",
-      "text": "Матч 1/8 финала пройдёт 28 октября на Энфилде. Палмер пропускает игру из-за дисквалификации, у Ливерпуля вне игры Экитике и Фримпонг.",
-      "source": "Ставка ТВ",
-      "url": "https://stavka.tv/matches/soccer/28-10-2026-liverpool-chelsea"
-    },
-    {
-      "id": "2026-10-27-spl-hearts-rangers",
-      "date": "2026-10-27",
-      "sport": "Футбол",
-      "title": "Рейнджерс выиграли семь матчей подряд перед выездом к Хартс",
-      "text": "Команда отстаёт от лидера Селтика на четыре очка. Хартс, у которых в лазарете восемь игроков основы, могут сократить отставание от Рейнджерс до одного очка.",
-      "source": "Ставка ТВ",
-      "url": "https://stavka.tv/matches/soccer/28-10-2026-heart-of-midlothian-rangers"
     }
   ]
 }
