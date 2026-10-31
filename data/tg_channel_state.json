@@ -1,5 +1,17 @@
 {
  "posted": {
+  "express:2026-10-31": {
+   "msg": 82,
+   "legs": [
+    "2026-10-31-man-city-brighton",
+    "2026-10-31-nashville-tampa",
+    "2026-10-31-bayern-dortmund"
+   ],
+   "kind": "express",
+   "total": 5.64,
+   "at": "2026-10-31T17:28:50+03:00",
+   "slot": "express"
+  },
   "lock:2026-10-31": {
    "msg": 81,
    "pid": "2026-10-31-chelsea-manutd",
