@@ -1,5 +1,13 @@
 {
  "posted": {
+  "th_sport:2026-10-31": {
+   "at": "2026-10-31T13:14:44+03:00",
+   "slot": "th_sport",
+   "ids": [
+    "telegram"
+   ],
+   "sport": "2026-10-31-bayern-dortmund"
+  },
   "th_morning:2026-10-31": {
    "at": "2026-10-31T09:53:20+03:00",
    "slot": "th_morning",
