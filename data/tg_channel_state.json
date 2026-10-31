@@ -1,5 +1,12 @@
 {
  "posted": {
+  "evening:2026-10-31": {
+   "msg": 83,
+   "pid": "2026-10-31-nashville-tampa",
+   "kind": "single",
+   "at": "2026-10-31T19:28:33+03:00",
+   "slot": "evening"
+  },
   "express:2026-10-31": {
    "msg": 82,
    "legs": [
