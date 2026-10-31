@@ -1,5 +1,10 @@
 {
  "posted": {
+  "news:2026-10-31": {
+   "msg": 80,
+   "at": "2026-10-31T13:28:04+03:00",
+   "slot": "news"
+  },
   "poll:2026-10-31": {
    "msg": 79,
    "pid": "2026-10-31-bayern-dortmund",
@@ -140,15 +145,20 @@
  "channel_title": "ЭКСПРЕССНАЯ 🔐",
  "pinned": 51,
  "news_ids": [
-  "2026-10-29-football-milan-bologna-seria-a",
-  "2026-10-29-hockey-cska-traktor",
   "2026-10-29-football-liverpool-chelsea-league-cup",
+  "2026-10-30-hockey-washington-nashville-ovechkin",
   "2026-10-29-hockey-washington-philadelphia-michkov",
+  "2026-10-30-football-fiorentina-atalanta",
+  "2026-10-30-football-zenit-baltika-kubok",
+  "2026-10-30-hockey-kochetkov-carolina-record",
+  "2026-10-29-football-milan-bologna-seria-a",
   "2026-10-29-football-spartak-rubin-kubok",
   "2026-10-30-football-everton-newcastle-league-cup",
-  "2026-10-30-football-fiorentina-atalanta",
-  "2026-10-30-hockey-kochetkov-carolina-record",
-  "2026-10-30-football-zenit-baltika-kubok",
-  "2026-10-30-hockey-washington-nashville-ovechkin"
+  "2026-10-29-hockey-cska-traktor",
+  "2026-10-31-football-villarreal-espanyol",
+  "2026-10-31-football-elversberg-mainz",
+  "2026-10-31-hockey-gritsyuk-devils-vegas",
+  "2026-10-31-hockey-calgary-seattle-suniev-gridin",
+  "2026-10-30-football-le-havre-psg-hakimi"
  ]
 }
