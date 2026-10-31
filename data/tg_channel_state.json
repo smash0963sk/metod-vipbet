@@ -1,5 +1,12 @@
 {
  "posted": {
+  "poll:2026-10-31": {
+   "msg": 79,
+   "pid": "2026-10-31-bayern-dortmund",
+   "kind": "poll",
+   "at": "2026-10-31T12:30:49+03:00",
+   "slot": "poll"
+  },
   "bet:2026-10-31": {
    "msg": 78,
    "pid": "2026-10-31-bayern-dortmund",
