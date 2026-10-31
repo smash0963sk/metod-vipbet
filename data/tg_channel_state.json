@@ -5,7 +5,8 @@
    "pid": "2026-10-30-elversberg-mainz",
    "kind": "single",
    "at": "2026-10-30T19:40:25+03:00",
-   "slot": "evening"
+   "slot": "evening",
+   "replied": true
   },
   "weekend:2026-10-30": {
    "msg": 70,
@@ -22,14 +23,16 @@
    "kind": "express",
    "total": 3.41,
    "at": "2026-10-30T17:48:13+03:00",
-   "slot": "express"
+   "slot": "express",
+   "replied": true
   },
   "lock:2026-10-30": {
    "msg": 68,
    "pid": "2026-10-30-villarreal-espanyol",
    "kind": "single",
    "at": "2026-10-30T14:30:10+03:00",
-   "slot": "lock"
+   "slot": "lock",
+   "replied": true
   },
   "news:2026-10-30": {
    "msg": 67,
@@ -41,14 +44,16 @@
    "pid": "2026-10-30-severstal-spartak",
    "kind": "poll",
    "at": "2026-10-30T12:43:07+03:00",
-   "slot": "poll"
+   "slot": "poll",
+   "replied": true
   },
   "bet:2026-10-30": {
    "msg": 65,
    "pid": "2026-10-30-severstal-spartak",
    "kind": "single",
    "at": "2026-10-30T11:45:38+03:00",
-   "slot": "bet"
+   "slot": "bet",
+   "replied": true
   },
   "morning:2026-10-30": {
    "msg": 64,
